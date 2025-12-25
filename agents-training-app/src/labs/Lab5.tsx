@@ -1,5 +1,4 @@
 import { BookOpen, Database } from 'lucide-react';
-import { CompleteLabButton } from '../components/CompleteLabButton';
 import { celebrateCompletion } from '../utils/confetti';
 
 const TOTAL_LABS = 8;
@@ -456,6 +455,7 @@ ANSWER:`;
           about RAG (Retrieval Augmented Generation) with vector search for handling large knowledge bases.
         </p>
       </div>
+      <CompleteLabButton labId={5} />
     </div>
   );
 }

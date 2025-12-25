@@ -1,5 +1,4 @@
 import { BookOpen, Users } from 'lucide-react';
-import { CompleteLabButton } from '../components/CompleteLabButton';
 import { celebrateCompletion } from '../utils/confetti';
 
 const TOTAL_LABS = 8;
@@ -260,6 +259,7 @@ console.log(article.content);`;
           Next, you'll learn about orchestrator agents that intelligently route requests!
         </p>
       </div>
+      <CompleteLabButton labId={7} />
     </div>
   );
 }

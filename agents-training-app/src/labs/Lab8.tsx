@@ -1,5 +1,4 @@
 import { BookOpen, Network } from 'lucide-react';
-import { CompleteLabButton } from '../components/CompleteLabButton';
 import { celebrateCompletion } from '../utils/confetti';
 
 const TOTAL_LABS = 8;
@@ -312,6 +311,7 @@ console.log(response.content);`;
           You're ready to build production AI agent systems! 🚀
         </p>
       </div>
+      <CompleteLabButton labId={8} />
     </div>
   );
 }

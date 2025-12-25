@@ -1,5 +1,4 @@
 import { BookOpen, Brain } from 'lucide-react';
-import { CompleteLabButton } from '../components/CompleteLabButton';
 import { celebrateCompletion } from '../utils/confetti';
 
 const TOTAL_LABS = 8;
@@ -379,6 +378,7 @@ console.log('✓ Agent remembered context across all turns!');`;
           AI systems. Next, you'll learn how to give your agent access to external knowledge bases.
         </p>
       </div>
+      <CompleteLabButton labId={4} />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { BookOpen, Search, Database, Layers, Sparkles } from 'lucide-react';
-import { CompleteLabButton } from '../components/CompleteLabButton';
 import { celebrateCompletion } from '../utils/confetti';
 
 const TOTAL_LABS = 8;
@@ -702,6 +701,7 @@ ANSWER:`;
           This powers ChatGPT plugins, documentation bots, and enterprise AI systems. Next: multi-agent collaboration!
         </p>
       </div>
+      <CompleteLabButton labId={6} />
     </div>
   );
 }
