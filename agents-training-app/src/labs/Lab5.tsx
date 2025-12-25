@@ -1,13 +1,13 @@
 import { BookOpen, Database } from 'lucide-react';
-import { celebrateCompletion } from '../utils/confetti';
-
-const TOTAL_LABS = 8;
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
 import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
+import { celebrateCompletion } from '../utils/confetti';
 import { PromptTemplate } from '@langchain/core/prompts';
 import type { ExecutionResult } from '../types';
+
+const TOTAL_LABS = 8;
 
 export function Lab5() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
