@@ -1,0 +1,361 @@
+import { BookOpen, Sparkles } from 'lucide-react';
+import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { useStore } from '../store/useStore';
+import { createLLM } from '../utils/llmFactory';
+import { SystemMessage, HumanMessage } from '@langchain/core/messages';
+import type { ExecutionResult } from '../types';
+
+export function Lab3() {
+  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+
+  const getBaseConfig = () => {
+    if (provider === 'groq') {
+      return `
+  configuration: {
+    baseURL: 'https://api.groq.com/openai/v1',
+  },`;
+    }
+    if (provider === 'cohere') {
+      return `
+  configuration: {
+    baseURL: 'https://api.cohere.com/v1',
+  },`;
+    }
+    return '';
+  };
+
+  const step1Code = `// Step 1: Import required message types
+import { ChatOpenAI } from '@langchain/openai';
+import { SystemMessage, HumanMessage } from '@langchain/core/messages';
+
+console.log('✓ Message types imported successfully!');`;
+
+  const step2Code = `// Step 2: Create a system prompt to define agent personality
+const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies. Always be encouraging and patient.\`);
+
+console.log('✓ System prompt created!');
+console.log('Role:', 'AI Tutor');`;
+
+  const step3Code = `// Step 3: Create the user's question
+const userPrompt = new HumanMessage("What is machine learning?");
+
+console.log('✓ User prompt ready!');
+console.log('Question:', userPrompt.content);`;
+
+  const step4Code = `// Step 4: Combine system and user messages
+const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.\`);
+const userPrompt = new HumanMessage("What is machine learning?");
+
+const messages = [systemPrompt, userPrompt];
+
+console.log('✓ Messages array created!');
+console.log('Total messages:', messages.length);`;
+
+  const step5Code = `// Step 5: Send to LLM and get response
+const llm = new ChatOpenAI({
+  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  modelName: '${selectedModel}',${getBaseConfig()}
+});
+
+const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.\`);
+const userPrompt = new HumanMessage("What is machine learning?");
+const messages = [systemPrompt, userPrompt];
+
+const response = await llm.invoke(messages);
+
+console.log('Agent Response:', response.content);`;
+
+  const step6Code = `// Complete Example: Try a different personality!
+const llm = new ChatOpenAI({
+  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  modelName: '${selectedModel}',${getBaseConfig()}
+});
+
+// Try this pirate personality!
+const systemPrompt = new SystemMessage(\`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"\`);
+const userPrompt = new HumanMessage("How do I learn programming?");
+
+const messages = [systemPrompt, userPrompt];
+const response = await llm.invoke(messages);
+
+console.log('Pirate Agent Response:', response.content);`;
+
+  const executeStep1 = async (): Promise<ExecutionResult> => {
+    try {
+      return {
+        output: '✓ Message types imported successfully!',
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep2 = async (): Promise<ExecutionResult> => {
+    try {
+      return {
+        output: '✓ System prompt created!\nRole: AI Tutor',
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep3 = async (): Promise<ExecutionResult> => {
+    try {
+      const userPrompt = new HumanMessage("What is machine learning?");
+      return {
+        output: `✓ User prompt ready!\nQuestion: ${userPrompt.content}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep4 = async (): Promise<ExecutionResult> => {
+    try {
+      const systemPrompt = new SystemMessage('You are an expert AI tutor.');
+      const userPrompt = new HumanMessage("What is machine learning?");
+      const messages = [systemPrompt, userPrompt];
+
+      return {
+        output: `✓ Messages array created!\nTotal messages: ${messages.length}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep5 = async (): Promise<ExecutionResult> => {
+    try {
+      if (!apiKey) {
+        throw new Error('Please configure your API key in Settings');
+      }
+
+      const llm = createLLM(apiKey, provider, selectedModel);
+
+      const systemPrompt = new SystemMessage(`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.`);
+      const userPrompt = new HumanMessage("What is machine learning?");
+      const messages = [systemPrompt, userPrompt];
+
+      const response = await llm.invoke(messages);
+
+      return {
+        output: `Agent Response: ${response.content}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep6 = async (): Promise<ExecutionResult> => {
+    try {
+      if (!apiKey) {
+        throw new Error('Please configure your API key in Settings');
+      }
+
+      const llm = createLLM(apiKey, provider, selectedModel);
+
+      const systemPrompt = new SystemMessage(`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"`);
+      const userPrompt = new HumanMessage("How do I learn programming?");
+
+      const messages = [systemPrompt, userPrompt];
+      const response = await llm.invoke(messages);
+      markLabComplete(3);
+
+      return {
+        output: `Pirate Agent Response: ${response.content}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg">
+            <Sparkles className="w-8 h-8 text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+              Lab 3: Custom System Prompts
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400 mt-1">
+              Shape your agent's personality and behavior
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-blue-900 dark:text-blue-100">
+            <p className="font-semibold mb-2">What you'll learn:</p>
+            <ul className="space-y-1 list-disc list-inside">
+              <li>How to use SystemMessage to define agent personality</li>
+              <li>Combining system prompts with user messages</li>
+              <li>Creating different agent behaviors (tutor, pirate, expert)</li>
+              <li>Understanding how system prompts guide responses</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            1
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Import Message Types
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-1-imports"
+          initialCode={step1Code}
+          description="Import SystemMessage and HumanMessage from LangChain"
+          onExecute={executeStep1}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            2
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Create System Prompt
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-2-system-prompt"
+          initialCode={step2Code}
+          description="Define the agent's role, personality, and expertise"
+          onExecute={executeStep2}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            3
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Create User Message
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-3-user-prompt"
+          initialCode={step3Code}
+          description="Create the user's question or request"
+          onExecute={executeStep3}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            4
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Combine Messages
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-4-combine"
+          initialCode={step4Code}
+          description="Put system and user messages into an array"
+          onExecute={executeStep4}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            5
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Get Agent Response
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-5-response"
+          initialCode={step5Code}
+          description="Send messages to the LLM and see how system prompt shapes the response"
+          onExecute={executeStep5}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg animate-pulse-glow">
+            6
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Try a Different Personality
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="complete-pirate-agent"
+          initialCode={step6Code}
+          description="Experiment with a pirate personality - see how system prompts change behavior!"
+          onExecute={executeStep6}
+        />
+      </div>
+
+      <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-xl p-6 border border-yellow-200 dark:border-yellow-800">
+        <h3 className="font-semibold text-yellow-900 dark:text-yellow-100 mb-3">
+          💡 Pro Tips for System Prompts
+        </h3>
+        <ul className="space-y-2 text-yellow-800 dark:text-yellow-200 text-sm">
+          <li>✓ Be specific about the role and expertise level</li>
+          <li>✓ Include output format requirements (JSON, bullet points, etc.)</li>
+          <li>✓ Add constraints (word limits, language style, tone)</li>
+          <li>✓ Test different system prompts to find what works best</li>
+          <li>✓ Keep system prompts concise but informative</li>
+        </ul>
+      </div>
+
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
+        <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+          🎉 Great Work!
+        </h3>
+        <p className="text-green-800 dark:text-green-200 text-sm">
+          You've learned how to shape your agent's personality! System prompts are powerful tools
+          for controlling agent behavior. Next, you'll learn how to add memory to make conversations
+          more natural.
+        </p>
+      </div>
+    </div>
+  );
+}

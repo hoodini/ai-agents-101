@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss init -p)",
+      "Bash(npm exec:*)",
+      "Bash(node_modules/.bin/tailwindcss:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: AI Agents 101 Interactive Training Platform\n\n🎓 Complete browser-based training platform for learning AI agents\n\nCreated by Yuval Avidani \\(@hoodini\\) - AI Builder, Speaker & Educator\nFounder of YUV.AI \\(https://yuv.ai\\)\n\nFeatures:\n- 8 progressive labs covering AI agent fundamentals\n- Interactive code cells with Monaco Editor\n- Real LLM integration \\(Groq, Cohere, OpenAI\\)\n- 100% browser-based execution\n- Progress tracking with localStorage\n- Responsive design with Tailwind CSS\n- Built with React 18 + TypeScript + Vite\n- LangChain.js for agent framework\n\nLabs included:\n1. Understanding AI Agent Components \\(LLM, Tools, Memory\\)\n2. Simple Prompt/Response Agent\n3. Custom System Prompts\n4. Conversation Memory\n5. Knowledge Base Integration\n6. RAG with Wikipedia \\(embeddings & vector search\\)\n7. Multi-Agent Collaboration\n8. Orchestrator Agent with Routing\n\nTech Stack:\n- React 18 + TypeScript + Vite\n- Tailwind CSS\n- LangChain.js\n- Monaco Editor\n- Zustand state management\n- Lucide React icons\n\nAll rights reserved © 2025 Yuval Avidani\nYUV.AI - Making AI practical, personal, and powerful\n\n🤖 Generated with Claude Code \\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(npm run build:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix TypeScript errors and build configuration\n\n- Fixed type imports to use `type` keyword for verbatimModuleSyntax\n- Updated Lab4 to use message arrays instead of deprecated BufferMemory\n- Fixed unused parameter warnings in Labs 2-8\n- Added missing Database icon import in Lab6\n- Reverted to stable Tailwind CSS v3 for compatibility\n- Restored PostCSS configuration\n- Fixed JSX div/section tag mismatch in Lab7\n\nBuild now completes successfully with production-ready bundle.\n\n🤖 Generated with Claude Code \\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(npm run dev:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Skill(frontend-design)",
+      "Skill(frontend-design:*)",
+      "Bash(cat:*)",
+      "Bash(environment variable\" error that occurred when validating Groq/Cohere keys\n- Validation now uses native Groq and Cohere SDKs instead of OpenAI compatibility layer\n\nAll API key validation and LLM operations now work correctly with Groq and Cohere\nwithout any OpenAI references or dependencies.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(grep:*)",
+      "Bash(npm search:*)"
+    ]
+  }
+}

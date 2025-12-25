@@ -1,0 +1,184 @@
+import { useState } from 'react';
+import { CheckCircle2 } from 'lucide-react';
+import { CodeCell } from '../components/CodeCell';
+import { useStore } from '../store/useStore';
+import type { ExecutionResult } from '../types';
+import { ChatOpenAI } from '@langchain/openai';
+
+export function Lab2() {
+  const { apiKey, provider, markLabComplete } = useStore();
+  const [output, setOutput] = useState<string>('');
+
+  const handleExecute = async (code: string): Promise<ExecutionResult> => {
+    if (!apiKey) {
+      return {
+        output: '',
+        error: 'Please configure your API key first',
+        timestamp: Date.now(),
+      };
+    }
+
+    try {
+      setOutput('Running agent...');
+
+      // Create the LLM based on provider
+      const llm = new ChatOpenAI({
+        openAIApiKey: apiKey,
+        modelName: provider === 'groq' ? 'llama-3.1-8b-instant' : 'gpt-3.5-turbo',
+        configuration: provider === 'groq' ? {
+          baseURL: 'https://api.groq.com/openai/v1',
+        } : undefined,
+      });
+
+      // Extract the user prompt from the code
+      const promptMatch = code.match(/const\s+userPrompt\s*=\s*["'`](.+?)["'`]/);
+      const userPrompt = promptMatch ? promptMatch[1] : 'Hello, who are you?';
+
+      const response = await llm.invoke(userPrompt);
+
+      const result = `Prompt: ${userPrompt}\n\nAgent Response:\n${response.content}`;
+      setOutput(result);
+
+      return {
+        output: result,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error occurred';
+      setOutput(`Error: ${errorMsg}`);
+      return {
+        output: '',
+        error: errorMsg,
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const sampleCode = `// Simple AI Agent - Prompt and Response
+// This is the most basic form of an AI agent
+
+import { ChatOpenAI } from '@langchain/openai';
+
+// Initialize the LLM (Language Model)
+const llm = new ChatOpenAI({
+  openAIApiKey: 'your-api-key',
+  modelName: 'llama-3.1-8b-instant',
+});
+
+// User's prompt
+const userPrompt = "Explain what an AI agent is in one sentence";
+
+// Send prompt and get response
+const response = await llm.invoke(userPrompt);
+
+console.log('Agent Response:', response.content);`;
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+          Lab 2: Simple Prompt and Response Agent
+        </h1>
+        <p className="text-lg text-slate-600 dark:text-slate-400">
+          Create your first AI agent that can process prompts and generate responses
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        <section className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
+            How It Works
+          </h2>
+          <div className="space-y-3 text-slate-700 dark:text-slate-300">
+            <p>
+              This is the simplest form of an AI agent. It takes a text prompt from the user and uses
+              the LLM to generate a response.
+            </p>
+            <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg">
+              <p className="text-sm font-mono">
+                <strong>Flow:</strong>
+                <br />
+                1. Initialize the LLM with your API key
+                <br />
+                2. Send a text prompt to the LLM
+                <br />
+                3. LLM processes the prompt and generates a response
+                <br />
+                4. Display the response to the user
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
+            Try It Yourself
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-4">
+            Run the code below to see how a basic agent works. Try changing the{' '}
+            <code className="px-2 py-1 bg-slate-100 dark:bg-slate-900 rounded">userPrompt</code> to
+            ask different questions.
+          </p>
+
+          <CodeCell
+            id="lab2-simple-agent"
+            initialCode={sampleCode}
+            language="typescript"
+            editable={true}
+            onExecute={handleExecute}
+            description="Edit the userPrompt variable and click 'Run Code' to see the agent respond"
+          />
+        </section>
+
+        {output && (
+          <section className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-6 shadow-sm border border-green-200 dark:border-green-800">
+            <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-3">
+              Execution Result
+            </h3>
+            <pre className="text-sm text-green-800 dark:text-green-200 whitespace-pre-wrap font-mono">
+              {output}
+            </pre>
+          </section>
+        )}
+
+        <section className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
+          <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
+            Key Concepts
+          </h3>
+          <ul className="space-y-2 text-blue-800 dark:text-blue-200">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
+              <span>
+                <strong>ChatOpenAI:</strong> LangChain's wrapper for OpenAI-compatible APIs (works
+                with Groq, OpenAI, and others)
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
+              <span>
+                <strong>invoke():</strong> Sends a single message to the LLM and waits for a response
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
+              <span>
+                <strong>No memory:</strong> Each request is independent - the agent doesn't remember
+                previous interactions
+              </span>
+            </li>
+          </ul>
+        </section>
+
+        <div className="flex justify-end">
+          <button
+            onClick={() => markLabComplete(2)}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors shadow-lg"
+          >
+            <CheckCircle2 className="w-5 h-5" />
+            Mark Lab Complete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

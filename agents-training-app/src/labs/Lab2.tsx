@@ -1,0 +1,289 @@
+import { BookOpen, Zap } from 'lucide-react';
+import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { useStore } from '../store/useStore';
+import { createLLM } from '../utils/llmFactory';
+import type { ExecutionResult } from '../types';
+
+export function Lab2() {
+  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+
+  const getLLMClass = () => {
+    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
+  };
+
+  const getLLMImport = () => {
+    return provider === 'groq'
+      ? `import { ChatGroq } from '@langchain/groq';`
+      : `import { ChatCohere } from '@langchain/cohere';`;
+  };
+
+  const step1Code = `// Step 1: Import the LangChain ${getLLMClass()} class
+${getLLMImport()}
+
+console.log('✓ LangChain imported successfully!');`;
+
+  const step2Code = `// Step 2: Create an LLM instance with your API key
+const llm = new ${getLLMClass()}({
+  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  model: '${selectedModel}',
+});
+
+console.log('✓ LLM instance created with model: ${selectedModel}');`;
+
+  const step3Code = `// Step 3: Define your prompt
+const prompt = "What are the three main components of an AI agent?";
+
+console.log('✓ Prompt ready:', prompt);`;
+
+  const step4Code = `// Step 4: Get a response from the LLM
+const llm = new ${getLLMClass()}({
+  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  model: '${selectedModel}',
+});
+
+const prompt = "What are the three main components of an AI agent?";
+const response = await llm.invoke(prompt);
+
+console.log('Response:', response.content);`;
+
+  const step5Code = `// Complete Example: Simple Prompt/Response Agent
+${getLLMImport()}
+
+// Initialize the LLM
+const llm = new ${getLLMClass()}({
+  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  model: '${selectedModel}',
+});
+
+// Send a prompt and get response
+const prompt = "Explain what an AI agent is in one sentence.";
+const response = await llm.invoke(prompt);
+
+console.log('Agent Response:', response.content);`;
+
+  const executeStep1 = async (): Promise<ExecutionResult> => {
+    try {
+      return {
+        output: '✓ LangChain imported successfully!',
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep2 = async (): Promise<ExecutionResult> => {
+    try {
+      if (!apiKey) {
+        throw new Error('Please configure your API key in Settings');
+      }
+      return {
+        output: `✓ LLM instance created with model: ${selectedModel}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep3 = async (): Promise<ExecutionResult> => {
+    try {
+      const prompt = "What are the three main components of an AI agent?";
+      return {
+        output: `✓ Prompt ready: ${prompt}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep4 = async (): Promise<ExecutionResult> => {
+    try {
+      if (!apiKey) {
+        throw new Error('Please configure your API key in Settings');
+      }
+
+      const llm = createLLM(apiKey, provider, selectedModel);
+
+      const prompt = "What are the three main components of an AI agent?";
+      const response = await llm.invoke(prompt);
+
+      return {
+        output: `Response: ${response.content}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  const executeStep5 = async (): Promise<ExecutionResult> => {
+    try {
+      if (!apiKey) {
+        throw new Error('Please configure your API key in Settings');
+      }
+
+      const llm = createLLM(apiKey, provider, selectedModel);
+
+      const prompt = "Explain what an AI agent is in one sentence.";
+      const response = await llm.invoke(prompt);
+      markLabComplete(2);
+
+      return {
+        output: `Agent Response: ${response.content}`,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        output: '',
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: Date.now(),
+      };
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="p-3 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+            <Zap className="w-8 h-8 text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+              Lab 2: Simple Prompt/Response Agent
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400 mt-1">
+              Learn the basics of interacting with an LLM
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-blue-900 dark:text-blue-100">
+            <p className="font-semibold mb-2">What you'll learn:</p>
+            <ul className="space-y-1 list-disc list-inside">
+              <li>How to import and initialize a LangChain LLM</li>
+              <li>Sending a simple prompt to the AI</li>
+              <li>Receiving and displaying the response</li>
+              <li>Understanding the basic request/response cycle</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            1
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Import LangChain
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-1-import"
+          initialCode={step1Code}
+          description={`First, we import the ${getLLMClass()} class from LangChain`}
+          onExecute={executeStep1}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            2
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Create LLM Instance
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-2-create-llm"
+          initialCode={step2Code}
+          description="Initialize the LLM with your API key and selected model"
+          onExecute={executeStep2}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            3
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Define Your Prompt
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-3-prompt"
+          initialCode={step3Code}
+          description="Create a simple question to ask the AI"
+          onExecute={executeStep3}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+            4
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Get AI Response
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="step-4-response"
+          initialCode={step4Code}
+          description="Send the prompt and receive the AI's response"
+          onExecute={executeStep4}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg animate-pulse-glow">
+            5
+          </div>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            Complete Example
+          </h2>
+        </div>
+        <TerminalCodeCell
+          title="complete-agent"
+          initialCode={step5Code}
+          description="Put it all together - your first working AI agent!"
+          onExecute={executeStep5}
+        />
+      </div>
+
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
+        <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+          🎉 Congratulations!
+        </h3>
+        <p className="text-green-800 dark:text-green-200 text-sm">
+          You've created your first AI agent! This simple prompt/response pattern is the foundation
+          for all AI agents. In the next labs, we'll add memory, tools, and more complex behaviors.
+        </p>
+      </div>
+    </div>
+  );
+}
