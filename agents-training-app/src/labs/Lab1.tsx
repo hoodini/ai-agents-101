@@ -1,8 +1,6 @@
-import { CheckCircle2 } from 'lucide-react';
-import { useStore } from '../store/useStore';
+import { CompleteLabButton } from '../components/CompleteLabButton';
 
 export function Lab1() {
-  const { markLabComplete } = useStore();
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -144,16 +142,7 @@ export function Lab1() {
           </div>
         </section>
 
-        <div className="flex justify-end">
-          <button
-            onClick={() => markLabComplete(1)}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 text-white rounded-xl font-bold text-lg transition-all hover-lift shadow-2xl uppercase tracking-wide"
-            style={{ boxShadow: '0 0 30px rgba(34, 197, 94, 0.4)' }}
-          >
-            <CheckCircle2 className="w-6 h-6" />
-            Mark Lab Complete
-          </button>
-        </div>
+        <CompleteLabButton labId={1} />
       </div>
     </div>
   );

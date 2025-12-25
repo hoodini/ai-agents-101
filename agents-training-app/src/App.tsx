@@ -72,20 +72,32 @@ function App() {
 
       {/* Header - Matching Homepage */}
       <header className="relative z-20 border-b border-cyan-500/20 backdrop-blur-md bg-black/20 sticky top-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 glass hover:glass-strong rounded-lg transition-all hover-lift lg:hidden border border-white/10"
-            >
-              {isSidebarOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
-            </button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row items-start lg:items-center lg:justify-between gap-4">
+          {/* Top row - Mobile */}
+          <div className="w-full lg:w-auto flex items-center justify-between">
             <button
               onClick={() => setShowWelcome(true)}
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              title="Return to Homepage"
             >
               <img src="logo.png" alt="YUV.AI Logo" className="h-8 sm:h-10 md:h-12 w-auto" />
             </button>
+
+            <div className="flex items-center gap-3 lg:hidden">
+              {/* Language Toggle - Mobile */}
+              <div className="w-[120px]">
+                <LanguageToggle />
+              </div>
+
+              {/* Mobile Menu Toggle */}
+              <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="p-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10"
+                title="Toggle Menu"
+              >
+                {isSidebarOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+              </button>
+            </div>
           </div>
 
           <nav className="hidden md:flex items-center gap-8 text-base font-medium">
@@ -141,7 +153,8 @@ function App() {
             <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'contact')}</a>
           </nav>
 
-          <div className="flex items-center gap-3 md:gap-4">
+          {/* Desktop Controls - Hidden on mobile */}
+          <div className="hidden lg:flex items-center gap-3 md:gap-4">
             {/* Language Toggle - Fixed width to prevent shifting */}
             <div className="w-[140px]">
               <LanguageToggle />
@@ -152,7 +165,7 @@ function App() {
               href="https://github.com/hoodini/agents-training"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
+              className="flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
               title="View Repository"
             >
               <Github className="w-4 h-4" />
@@ -161,7 +174,7 @@ function App() {
 
             <ModelSelector />
 
-            <div className="hidden md:flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <span className="text-sm md:text-base text-white/60">{t(language, 'progress')}:</span>
               <div className="w-24 md:w-32 h-2 glass rounded-full overflow-hidden border border-white/20">
                 <div

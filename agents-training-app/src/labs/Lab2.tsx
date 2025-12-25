@@ -1,11 +1,15 @@
 import { BookOpen, Zap } from 'lucide-react';
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
+import { celebrateCompletion } from '../utils/confetti';
 import type { ExecutionResult } from '../types';
 
+const TOTAL_LABS = 8;
+
 export function Lab2() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
   const getLLMClass = () => {
     return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
@@ -144,7 +148,8 @@ console.log('Agent Response:', response.content);`;
 
       const prompt = "Explain what an AI agent is in one sentence.";
       const response = await llm.invoke(prompt);
-      markLabComplete(2);
+      celebrateCompletion();
+      markLabCompleteAndAdvance(2, TOTAL_LABS);
 
       return {
         output: `Agent Response: ${response.content}`,
@@ -284,6 +289,8 @@ console.log('Agent Response:', response.content);`;
           for all AI agents. In the next labs, we'll add memory, tools, and more complex behaviors.
         </p>
       </div>
+
+      <CompleteLabButton labId={2} />
     </div>
   );
 }

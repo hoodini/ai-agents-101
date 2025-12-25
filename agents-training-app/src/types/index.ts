@@ -29,10 +29,13 @@ export interface AppState {
   currentLab: number;
   labProgress: Record<number, boolean>;
   language: 'en' | 'he';
+  theme: 'dark' | 'light';
   setApiKey: (key: string, provider: 'groq' | 'cohere') => void;
   setSelectedModel: (model: string) => void;
   setAvailableModels: (models: string[]) => void;
   setCurrentLab: (labId: number) => void;
   markLabComplete: (labId: number) => void;
+  markLabCompleteAndAdvance: (labId: number, totalLabs: number) => void;
   setLanguage: (lang: 'en' | 'he') => void;
+  setTheme: (theme: 'dark' | 'light') => void;
 }

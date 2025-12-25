@@ -2,13 +2,15 @@ import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users,
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 import { LanguageToggle } from './LanguageToggle';
+import { ThemeToggle } from './ThemeToggle';
 
 interface HomepageProps {
   onGetStarted: () => void;
   onSkip: () => void;
+  onLabSelect?: (labId: number) => void;
 }
 
-export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
+export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
   const { language } = useStore();
 
   const hexagonModules = [

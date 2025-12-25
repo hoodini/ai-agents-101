@@ -28,8 +28,14 @@ export function LabNavigation({ labs }: LabNavigationProps) {
       <div className="relative p-6">
         <div className="mb-6 pb-6 border-b border-cyan-500/30">
           <div className="flex items-center gap-2 mb-2">
-            <div className="p-1.5 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg" style={{ boxShadow: '0 0 15px rgba(0, 212, 255, 0.5)' }}>
-              <Sparkles className="w-5 h-5 text-white" />
+            <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-cyan-500 to-purple-600 p-0.5" style={{ boxShadow: '0 0 15px rgba(0, 212, 255, 0.5)' }}>
+              <div className="w-full h-full rounded-full overflow-hidden bg-black/20">
+                <img
+                  src="yuvai.png"
+                  alt="AI Avatar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
             <h2 className="text-xl font-bold heading-font neon-cyan tracking-wider">
               AI AGENTS 101
