@@ -28,12 +28,16 @@ export function LabNavigation({ labs }: LabNavigationProps) {
       <div className="relative p-6">
         <div className="mb-6 pb-6 border-b border-cyan-500/30">
           <div className="flex items-center gap-2 mb-2">
-            <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-0.5" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 0 30px rgba(168, 85, 247, 0.4)' }}>
-              <div className="w-full h-full rounded-full overflow-hidden bg-transparent">
+            <div className="relative w-10 h-10">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-0.5" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 0 30px rgba(168, 85, 247, 0.4)' }}>
+                <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                </div>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
                 <img
-                  src="round-avatar.jpg"
+                  src="round-avatar.png"
                   alt="AI Avatar"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain scale-110"
                 />
               </div>
             </div>
