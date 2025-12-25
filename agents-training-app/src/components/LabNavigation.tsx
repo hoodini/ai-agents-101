@@ -28,9 +28,9 @@ export function LabNavigation({ labs }: LabNavigationProps) {
       <div className="relative p-6">
         <div className="mb-6 pb-6 border-b border-cyan-500/30">
           <div className="flex items-center gap-2 mb-2">
-            <div className="relative w-10 h-10">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-0.5" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.6), 0 0 30px rgba(168, 85, 247, 0.4)' }}>
-                <div className="w-full h-full rounded-full overflow-hidden bg-white">
+            <div className="relative w-12 h-12">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-0.5" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.7), 0 0 35px rgba(168, 85, 247, 0.5)' }}>
+                <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-cyan-400/15 via-purple-500/15 to-pink-500/15" style={{ boxShadow: 'inset 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 15px rgba(168, 85, 247, 0.3)' }}>
                 </div>
               </div>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -38,6 +38,7 @@ export function LabNavigation({ labs }: LabNavigationProps) {
                   src="round-avatar.png"
                   alt="AI Avatar"
                   className="w-full h-full object-contain scale-110"
+                  style={{ filter: 'drop-shadow(0 2px 10px rgba(0, 212, 255, 0.4))' }}
                 />
               </div>
             </div>
