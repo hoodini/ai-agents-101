@@ -85,6 +85,8 @@
   #root {
     position: relative;
     z-index: 2;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 }
 
