@@ -3,6 +3,7 @@ import { celebrateCompletion } from '../utils/confetti';
 
 const TOTAL_LABS = 8;
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
 import { PromptTemplate } from '@langchain/core/prompts';
