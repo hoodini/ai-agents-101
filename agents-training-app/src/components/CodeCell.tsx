@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { Play, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import type { ExecutionResult } from '../types';
+import { useStore } from '../store/useStore';
 
 interface CodeCellProps {
   id?: string;
@@ -19,6 +20,7 @@ export function CodeCell({
   description,
   onExecute,
 }: CodeCellProps) {
+  const { theme } = useStore();
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<ExecutionResult | null>(null);
@@ -44,10 +46,10 @@ export function CodeCell({
   };
 
   return (
-    <div className="border-2 border-cyan-500/30 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900/90 to-blue-900/30 backdrop-blur-xl shadow-2xl">
+    <div className="border-2 border-cyan-500/30 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900/90 to-blue-900/30 backdrop-blur-xl shadow-2xl dark:from-slate-900/90 dark:to-blue-900/30 light:from-white/95 light:to-blue-50/95 dark:border-cyan-500/30 light:border-cyan-600/40">
       {description && (
-        <div className="px-4 py-3 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-b border-cyan-500/30 backdrop-blur-sm">
-          <p className="text-sm text-cyan-100 font-medium">{description}</p>
+        <div className="px-4 py-3 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-b border-cyan-500/30 backdrop-blur-sm dark:from-cyan-500/10 dark:to-purple-500/10 light:from-cyan-100/70 light:to-purple-100/70 dark:border-cyan-500/30 light:border-cyan-600/30">
+          <p className="text-sm text-cyan-100 font-medium dark:text-cyan-100 light:text-cyan-900">{description}</p>
         </div>
       )}
 
@@ -57,7 +59,7 @@ export function CodeCell({
           language={language}
           value={code}
           onChange={(value) => editable && setCode(value || '')}
-          theme="vs-dark"
+          theme={theme === 'light' ? 'light' : 'vs-dark'}
           options={{
             minimap: { enabled: false },
             fontSize: 14,
@@ -70,7 +72,7 @@ export function CodeCell({
         />
       </div>
 
-      <div className="px-4 py-3 bg-gradient-to-r from-slate-900/80 to-purple-900/20 border-t border-cyan-500/30 flex items-center justify-between backdrop-blur-sm">
+      <div className="px-4 py-3 bg-gradient-to-r from-slate-900/80 to-purple-900/20 border-t border-cyan-500/30 flex items-center justify-between backdrop-blur-sm dark:from-slate-900/80 dark:to-purple-900/20 light:from-slate-50/90 light:to-purple-50/30 dark:border-cyan-500/30 light:border-cyan-600/30">
         <button
           onClick={handleRun}
           disabled={isRunning || !onExecute}
@@ -92,26 +94,26 @@ export function CodeCell({
         {result && (
           <div className="flex items-center gap-2">
             {result.error ? (
-              <XCircle className="w-6 h-6 text-red-400" style={{ filter: 'drop-shadow(0 0 8px rgba(248, 113, 113, 0.8))' }} />
+              <XCircle className="w-6 h-6 text-red-400 dark:text-red-400 light:text-red-600" style={{ filter: 'drop-shadow(0 0 8px rgba(248, 113, 113, 0.8))' }} />
             ) : (
-              <CheckCircle className="w-6 h-6 text-green-400" style={{ filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
+              <CheckCircle className="w-6 h-6 text-green-400 dark:text-green-400 light:text-green-600" style={{ filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
             )}
           </div>
         )}
       </div>
 
       {result && (
-        <div className="px-4 py-3 border-t border-cyan-500/30 bg-gradient-to-r from-slate-900/60 to-slate-800/60">
+        <div className="px-4 py-3 border-t border-cyan-500/30 bg-gradient-to-r from-slate-900/60 to-slate-800/60 dark:from-slate-900/60 dark:to-slate-800/60 light:from-slate-50/80 light:to-slate-100/80 dark:border-cyan-500/30 light:border-cyan-600/30">
           <div className="font-mono text-sm">
-            <div className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide">
+            <div className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide dark:text-cyan-400 light:text-cyan-700">
               OUTPUT:
             </div>
             {result.error ? (
-              <pre className="text-red-300 whitespace-pre-wrap p-3 rounded-lg bg-red-900/20 border border-red-500/30">
+              <pre className="text-red-300 whitespace-pre-wrap p-3 rounded-lg bg-red-900/20 border border-red-500/30 dark:text-red-300 dark:bg-red-900/20 dark:border-red-500/30 light:text-red-700 light:bg-red-50 light:border-red-300">
                 {result.error}
               </pre>
             ) : (
-              <pre className="text-green-200 whitespace-pre-wrap p-3 rounded-lg bg-green-900/20 border border-green-500/30">
+              <pre className="text-green-200 whitespace-pre-wrap p-3 rounded-lg bg-green-900/20 border border-green-500/30 dark:text-green-200 dark:bg-green-900/20 dark:border-green-500/30 light:text-green-800 light:bg-green-50 light:border-green-300">
                 {result.output}
               </pre>
             )}

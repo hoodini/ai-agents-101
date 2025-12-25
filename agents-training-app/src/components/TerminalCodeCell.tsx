@@ -66,7 +66,7 @@ export function TerminalCodeCell({
   };
 
   return (
-    <div className="group relative animate-fade-in">
+    <div className="group relative animate-fade-in" dir="ltr">
       {/* Luxury Terminal Window */}
       <div className="relative rounded-2xl overflow-hidden glass-strong shadow-neural border-2 border-white/10 transition-all duration-300 hover:border-white/20 hover-lift">
         {/* Premium Terminal Header */}

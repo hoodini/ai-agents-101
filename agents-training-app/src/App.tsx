@@ -81,8 +81,8 @@ function App() {
         ))}
       </div>
 
-      {/* Header - Matching Homepage */}
-      <header className="relative z-20 border-b border-cyan-500/20 backdrop-blur-md bg-black/20 sticky top-0">
+      {/* Header - Sticky with Apple Glass Effect */}
+      <header className="sticky top-0 z-50 glass-navbar border-b border-cyan-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row items-start lg:items-center lg:justify-between gap-4">
           {/* Top row - Mobile */}
           <div className="w-full lg:w-auto flex items-center justify-between">
