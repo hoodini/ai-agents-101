@@ -83,6 +83,21 @@ export const translations = {
       saveAndContinue: 'SAVE & CONTINUE',
       cancel: 'Cancel',
     },
+
+    // CodeCell
+    codeCell: {
+      runCode: 'Run Code',
+      running: 'Running...',
+      output: 'OUTPUT:',
+    },
+
+    // CompleteLabButton
+    completeLabButton: {
+      completeLab: 'Complete Lab & Continue',
+      completeLabShort: 'Complete',
+      labCompleted: 'Lab Completed!',
+      labCompletedShort: 'Completed!',
+    },
   },
   he: {
     // Navbar
@@ -167,6 +182,21 @@ export const translations = {
       validating: 'מאמת...',
       saveAndContinue: 'שמור והמשך',
       cancel: 'ביטול',
+    },
+
+    // CodeCell
+    codeCell: {
+      runCode: 'הרץ קוד',
+      running: 'מריץ...',
+      output: ':פלט',
+    },
+
+    // CompleteLabButton
+    completeLabButton: {
+      completeLab: 'השלם מעבדה והמשך',
+      completeLabShort: 'השלם',
+      labCompleted: '!המעבדה הושלמה',
+      labCompletedShort: '!הושלמה',
     },
   },
 };

@@ -95,8 +95,8 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
         />
       ))}
 
-      {/* Header */}
-      <header className="relative z-20 border-b border-cyan-500/20 backdrop-blur-md bg-black/20">
+      {/* Header - Sticky with Apple Glass Effect */}
+      <header className="sticky top-0 z-50 glass-navbar border-b border-cyan-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="logo.png" alt="YUV.AI Logo" className="h-8 sm:h-10 md:h-12 w-auto" />

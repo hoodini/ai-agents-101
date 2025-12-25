@@ -3,6 +3,7 @@ import Editor from '@monaco-editor/react';
 import { Play, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import type { ExecutionResult } from '../types';
 import { useStore } from '../store/useStore';
+import { t } from '../utils/translations';
 
 interface CodeCellProps {
   id?: string;
@@ -20,7 +21,7 @@ export function CodeCell({
   description,
   onExecute,
 }: CodeCellProps) {
-  const { theme } = useStore();
+  const { theme, language: lang } = useStore();
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<ExecutionResult | null>(null);
@@ -81,12 +82,12 @@ export function CodeCell({
           {isRunning ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Running...
+              {t(lang, 'codeCell.running')}
             </>
           ) : (
             <>
               <Play className="w-4 h-4" />
-              Run Code
+              {t(lang, 'codeCell.runCode')}
             </>
           )}
         </button>
@@ -105,8 +106,8 @@ export function CodeCell({
       {result && (
         <div className="px-4 py-3 border-t border-cyan-500/30 bg-gradient-to-r from-slate-900/60 to-slate-800/60 dark:from-slate-900/60 dark:to-slate-800/60 light:from-slate-50/80 light:to-slate-100/80 dark:border-cyan-500/30 light:border-cyan-600/30">
           <div className="font-mono text-sm">
-            <div className="text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide dark:text-cyan-400 light:text-cyan-700">
-              OUTPUT:
+            <div className={`text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide dark:text-cyan-400 light:text-cyan-700 ${lang === 'he' ? 'text-right' : 'text-left'}`}>
+              {t(lang, 'codeCell.output')}
             </div>
             {result.error ? (
               <pre className="text-red-300 whitespace-pre-wrap p-3 rounded-lg bg-red-900/20 border border-red-500/30 dark:text-red-300 dark:bg-red-900/20 dark:border-red-500/30 light:text-red-700 light:bg-red-50 light:border-red-300">
