@@ -28,7 +28,8 @@
       "Bash(gh repo create:*)",
       "Bash(git remote:*)",
       "Bash(npm run deploy:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(python -m json.tool:*)"
     ]
   }
 }
