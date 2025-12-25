@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Settings, Menu, X, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube } from 'lucide-react';
+import { Settings, Menu, X, ChevronDown } from 'lucide-react';
 import { LabNavigation } from './components/LabNavigation';
 import { ApiKeyModal } from './components/ApiKeyModal';
 import { ModelSelector } from './components/ModelSelector';
@@ -63,7 +63,7 @@ function App() {
 
       {/* Header - Matching Homepage */}
       <header className="relative z-20 border-b border-cyan-500/20 backdrop-blur-md bg-black/20 sticky top-0">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -75,68 +75,75 @@ function App() {
               onClick={() => setShowWelcome(true)}
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
-              <img src="logo.png" alt="YUV.AI Logo" className="h-10 w-auto" />
+              <img src="logo.png" alt="YUV.AI Logo" className="h-8 sm:h-10 w-auto" />
             </button>
           </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+          <nav className="hidden md:flex items-center gap-8 text-base font-medium">
             <button
               onClick={() => setShowWelcome(true)}
               className="text-white hover:text-cyan-400 transition-colors"
             >
               Home
             </button>
-            <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-              Features <ChevronDown className="w-4 h-4" />
-            </button>
-            <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-              Agents <ChevronDown className="w-4 h-4" />
-            </button>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                Contact <ChevronDown className="w-4 h-4" />
+                Agents <ChevronDown className="w-4 h-4" />
               </button>
-              <div className="absolute right-0 mt-2 w-48 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <a href="https://yuv.ai" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-cyan-400 hover:bg-cyan-500/10 transition-colors">
-                  <LinkIcon className="w-4 h-4" />
-                  <span>Website</span>
-                </a>
-                <a href="https://github.com/hoodini" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-cyan-400 hover:bg-cyan-500/10 transition-colors">
-                  <Github className="w-4 h-4" />
-                  <span>GitHub</span>
-                </a>
-                <a href="https://linkedin.com/in/yuval-avidani-87081474" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-cyan-400 hover:bg-cyan-500/10 transition-colors">
-                  <Linkedin className="w-4 h-4" />
-                  <span>LinkedIn</span>
-                </a>
-                <a href="https://x.com/yuvalav" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-cyan-400 hover:bg-cyan-500/10 transition-colors">
-                  <Twitter className="w-4 h-4" />
-                  <span>Twitter</span>
-                </a>
-                <a href="https://instagram.com/yuval_770" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-cyan-400 hover:bg-cyan-500/10 transition-colors">
-                  <Instagram className="w-4 h-4" />
-                  <span>Instagram</span>
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-4 py-2 text-cyan-400 hover:bg-cyan-500/10 transition-colors">
-                  <Youtube className="w-4 h-4" />
-                  <span>YouTube</span>
-                </a>
+              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
+                  <div className="font-semibold text-white mb-1">8 Progressive Labs</div>
+                  <div className="text-xs text-white/60">From basic components to orchestrator agents</div>
+                </div>
+                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
+                  <div className="font-semibold text-white mb-1">Interactive Learning</div>
+                  <div className="text-xs text-white/60">Hands-on code cells with real LLM integration</div>
+                </div>
+                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
+                  <div className="font-semibold text-white mb-1">Multi-Agent Systems</div>
+                  <div className="text-xs text-white/60">Learn collaboration and orchestration patterns</div>
+                </div>
               </div>
             </div>
+            <div className="relative group">
+              <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
+                Features <ChevronDown className="w-4 h-4" />
+              </button>
+              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
+                  <div className="font-semibold text-white mb-1">100% Browser-Based</div>
+                  <div className="text-xs text-white/60">No backend needed - runs entirely in your browser</div>
+                </div>
+                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
+                  <div className="font-semibold text-white mb-1">Monaco Editor</div>
+                  <div className="text-xs text-white/60">Professional code editing experience</div>
+                </div>
+                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
+                  <div className="font-semibold text-white mb-1">Progress Tracking</div>
+                  <div className="text-xs text-white/60">Save your progress with localStorage</div>
+                </div>
+                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
+                  <div className="font-semibold text-white mb-1">LangChain.js</div>
+                  <div className="text-xs text-white/60">Industry-standard agent framework</div>
+                </div>
+              </div>
+            </div>
+            <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">Blog</a>
+            <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">Contact</a>
           </nav>
 
           <div className="flex items-center gap-4">
             <ModelSelector />
 
-            <div className="hidden sm:flex items-center gap-3">
-              <span className="text-sm text-white/60">Progress:</span>
-              <div className="w-32 h-2 glass rounded-full overflow-hidden border border-white/20">
+            <div className="hidden md:flex items-center gap-3">
+              <span className="text-sm md:text-base text-white/60">Progress:</span>
+              <div className="w-24 md:w-32 h-2 glass rounded-full overflow-hidden border border-white/20">
                 <div
                   className="h-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 transition-all duration-300 shadow-neural"
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <span className="text-sm font-bold text-gradient-neural">
+              <span className="text-sm md:text-base font-bold text-gradient-neural">
                 {completedCount}/{LABS.length}
               </span>
             </div>
@@ -172,7 +179,7 @@ function App() {
         )}
 
         {/* Lab Content */}
-        <main className="relative flex-1 overflow-y-auto p-6 lg:p-8 z-10">
+        <main className="relative flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 z-10">
           <CurrentLabComponent />
         </main>
       </div>
