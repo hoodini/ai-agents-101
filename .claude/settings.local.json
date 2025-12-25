@@ -20,7 +20,14 @@
       "Bash(cat:*)",
       "Bash(environment variable\" error that occurred when validating Groq/Cohere keys\n- Validation now uses native Groq and Cohere SDKs instead of OpenAI compatibility layer\n\nAll API key validation and LLM operations now work correctly with Groq and Cohere\nwithout any OpenAI references or dependencies.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(grep:*)",
-      "Bash(npm search:*)"
+      "Bash(npm search:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote:*)",
+      "Bash(npm run deploy:*)"
     ]
   }
 }
