@@ -1,4 +1,4 @@
-import { CheckCircle, Circle, Sparkles } from 'lucide-react';
+import { CheckCircle, Circle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
 interface LabNavigationProps {

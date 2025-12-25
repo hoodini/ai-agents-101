@@ -152,9 +152,10 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
           {/* Language Toggle & GitHub Links - Desktop */}
           <div className="hidden md:flex items-center gap-3">
             {/* Language Toggle - Fixed width to prevent shifting */}
-            <div className="w-[140px]">
-              <LanguageToggle />
-            </div>
+            <LanguageToggle />
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
 
             {/* GitHub Repository Link */}
             <a
@@ -268,6 +269,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
                     animationDelay: `${index * 0.1}s`,
                     color: colorMap[module.color]
                   }}
+                  onClick={() => onLabSelect && onLabSelect(module.id)}
                 >
                   <div className={`hexagon-content ${module.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
                     {/* Number Badge */}
@@ -317,6 +319,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
                     animationDelay: `${(index + 3) * 0.1}s`,
                     color: colorMap[module.color]
                   }}
+                  onClick={() => onLabSelect && onLabSelect(module.id)}
                 >
                   <div className={`hexagon-content ${module.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
                     {/* Number Badge */}
@@ -366,6 +369,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
                     animationDelay: `${(index + 4) * 0.1}s`,
                     color: colorMap[module.color]
                   }}
+                  onClick={() => onLabSelect && onLabSelect(module.id)}
                 >
                   <div className={`hexagon-content ${module.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
                     {/* Number Badge */}
@@ -411,7 +415,8 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
             return (
               <div
                 key={module.id}
-                className={`${module.bgClass} rounded-2xl p-6 border-2 transition-all duration-300 hover:scale-105 relative`}
+                className={`${module.bgClass} rounded-2xl p-6 border-2 transition-all duration-300 hover:scale-105 relative cursor-pointer`}
+                onClick={() => onLabSelect && onLabSelect(module.id)}
               >
                 {/* Number Badge */}
                 <div className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center font-black text-white text-xl border-2 border-white/40"

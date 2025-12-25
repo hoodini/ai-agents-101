@@ -1,12 +1,16 @@
 import { BookOpen, Sparkles } from 'lucide-react';
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
+import { celebrateCompletion } from '../utils/confetti';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
+const TOTAL_LABS = 8;
+
 export function Lab3() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
   const getBaseConfig = () => {
     if (provider === 'groq') {

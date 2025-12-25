@@ -5,6 +5,7 @@ import { LabNavigation } from './components/LabNavigation';
 import { ApiKeyModal } from './components/ApiKeyModal';
 import { ModelSelector } from './components/ModelSelector';
 import { LanguageToggle } from './components/LanguageToggle';
+import { ThemeToggle } from './components/ThemeToggle';
 import { Homepage } from './components/Homepage';
 import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab6, Lab7, Lab8 } from './labs';
 import { useStore } from './store/useStore';
@@ -22,7 +23,7 @@ const LABS = [
 ];
 
 function App() {
-  const { currentLab, apiKey, labProgress, language } = useStore();
+  const { currentLab, apiKey, labProgress, language, theme, setCurrentLab } = useStore();
   const [isApiModalOpen, setIsApiModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showWelcome, setShowWelcome] = useState(!apiKey);
@@ -32,6 +33,12 @@ function App() {
     document.documentElement.dir = language === 'he' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
   }, [language]);
+
+  // Apply theme
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
 
   const CurrentLabComponent = LABS.find((lab) => lab.id === currentLab)?.component || Lab1;
 
@@ -47,6 +54,10 @@ function App() {
             setShowWelcome(false);
           }}
           onSkip={() => setShowWelcome(false)}
+          onLabSelect={(labId) => {
+            setCurrentLab(labId);
+            setShowWelcome(false);
+          }}
         />
         <ApiKeyModal isOpen={isApiModalOpen} onClose={() => setIsApiModalOpen(false)} />
       </>
