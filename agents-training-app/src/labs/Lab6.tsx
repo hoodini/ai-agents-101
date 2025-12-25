@@ -1,4 +1,8 @@
 import { BookOpen, Search, Database, Layers, Sparkles } from 'lucide-react';
+import { CompleteLabButton } from '../components/CompleteLabButton';
+import { celebrateCompletion } from '../utils/confetti';
+
+const TOTAL_LABS = 8;
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
@@ -9,7 +13,7 @@ import { PromptTemplate } from '@langchain/core/prompts';
 import type { ExecutionResult } from '../types';
 
 export function Lab6() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
   const getBaseConfig = () => {
     if (provider === 'groq') {
@@ -509,7 +513,8 @@ ANSWER:`;
       output += answer.content;
       output += '\n\n✓ Complete RAG pipeline: Retrieve → Rerank → Generate!';
 
-      markLabComplete(6);
+      celebrateCompletion();
+      markLabCompleteAndAdvance(6, TOTAL_LABS);
 
       return {
         output,

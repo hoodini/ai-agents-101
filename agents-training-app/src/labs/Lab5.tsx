@@ -1,4 +1,8 @@
 import { BookOpen, Database } from 'lucide-react';
+import { CompleteLabButton } from '../components/CompleteLabButton';
+import { celebrateCompletion } from '../utils/confetti';
+
+const TOTAL_LABS = 8;
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
@@ -6,7 +10,7 @@ import { PromptTemplate } from '@langchain/core/prompts';
 import type { ExecutionResult } from '../types';
 
 export function Lab5() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
   const getBaseConfig = () => {
     if (provider === 'groq') {
@@ -298,7 +302,8 @@ ANSWER:`;
         output += `Q: ${question}\nA: ${response.content}\n\n`;
       }
 
-      markLabComplete(5);
+      celebrateCompletion();
+      markLabCompleteAndAdvance(5, TOTAL_LABS);
 
       return {
         output,

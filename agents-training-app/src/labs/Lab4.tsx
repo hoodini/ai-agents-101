@@ -1,4 +1,8 @@
 import { BookOpen, Brain } from 'lucide-react';
+import { CompleteLabButton } from '../components/CompleteLabButton';
+import { celebrateCompletion } from '../utils/confetti';
+
+const TOTAL_LABS = 8;
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
@@ -6,7 +10,7 @@ import { HumanMessage, AIMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
 export function Lab4() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
   const getBaseConfig = () => {
     if (provider === 'groq') {
@@ -221,7 +225,8 @@ console.log('✓ Agent remembered context across all turns!');`;
       messages.push(new HumanMessage("What do I teach?"));
       const response3 = await llm.invoke(messages);
 
-      markLabComplete(4);
+      celebrateCompletion();
+      markLabCompleteAndAdvance(4, TOTAL_LABS);
 
       return {
         output: `Turn 1:\nUser: My name is Yuval and I teach AI agents\nAgent: ${response1.content}\n\nTurn 2:\nUser: What's my name?\nAgent: ${response2.content}\n\nTurn 3:\nUser: What do I teach?\nAgent: ${response3.content}\n\n✓ Agent remembered context across all turns!`,

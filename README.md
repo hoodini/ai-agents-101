@@ -219,11 +219,13 @@ From basic concepts to advanced multi-agent orchestration:
 - **OpenAI** - GPT-3.5/GPT-4 compatibility
 
 ### 🎨 **Modern UI/UX**
-- Futuristic cyberpunk-inspired design
+- Futuristic cyberpunk-inspired design with light/dark theme toggle
 - Smooth animations and transitions
 - Responsive layout (mobile, tablet, desktop)
 - Progress tracking with visual indicators
-- Hexagonal module grid layout
+- Clickable hexagonal module grid for quick lab access
+- Multilingual support (English & Hebrew with RTL support)
+- Fixed-position navbar controls for consistent UX
 
 ### 🔐 **Privacy-First**
 - API keys stored only in browser's localStorage
@@ -792,10 +794,12 @@ agents-training-app/
 │   ├── components/                 # React components
 │   │   ├── ApiKeyModal.tsx        # API key configuration modal
 │   │   ├── CodeCell.tsx           # Interactive code editor
-│   │   ├── Homepage.tsx           # Landing page
+│   │   ├── Homepage.tsx           # Landing page with clickable labs
 │   │   ├── LabNavigation.tsx      # Lab sidebar navigation
+│   │   ├── LanguageToggle.tsx     # Language switcher (EN/HE)
 │   │   ├── ModelSelector.tsx      # LLM provider selector
 │   │   ├── TerminalCodeCell.tsx   # Terminal output display
+│   │   ├── ThemeToggle.tsx        # Dark/Light theme switcher
 │   │   └── visualizations/        # Lab visualizations
 │   │       ├── rag/               # RAG workflow diagrams
 │   │       │   ├── ChunkingVisualization.tsx

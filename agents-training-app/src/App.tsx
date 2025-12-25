@@ -94,11 +94,12 @@ function App() {
               <img src="logo.png" alt="YUV.AI Logo" className="h-8 sm:h-10 md:h-12 w-auto" />
             </button>
 
-            <div className="flex items-center gap-3 lg:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               {/* Language Toggle - Mobile */}
-              <div className="w-[120px]">
-                <LanguageToggle />
-              </div>
+              <LanguageToggle />
+
+              {/* Theme Toggle - Mobile */}
+              <ThemeToggle />
 
               {/* Mobile Menu Toggle */}
               <button
@@ -166,10 +167,11 @@ function App() {
 
           {/* Desktop Controls - Hidden on mobile */}
           <div className="hidden lg:flex items-center gap-3 md:gap-4">
-            {/* Language Toggle - Fixed width to prevent shifting */}
-            <div className="w-[140px]">
-              <LanguageToggle />
-            </div>
+            {/* Language Toggle */}
+            <LanguageToggle />
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
 
             {/* GitHub Repository Link */}
             <a

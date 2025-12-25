@@ -777,4 +777,61 @@
   .hero-glow {
     animation: rgb-glow 4s ease-in-out infinite;
   }
+
+  /* Light Theme Styles */
+  html.light {
+    --background: #f8f9fa;
+    --foreground: #1a1a1a;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  html.light body {
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    color: #1a1a1a;
+  }
+
+  html.light .glass {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  html.light .glass-strong {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  html.light .tech-grid {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  }
+
+  html.light .text-white {
+    color: #1a1a1a;
+  }
+
+  html.light .text-white\/80 {
+    color: rgba(26, 26, 26, 0.8);
+  }
+
+  html.light .text-white\/60 {
+    color: rgba(26, 26, 26, 0.6);
+  }
+
+  html.light .text-white\/40 {
+    color: rgba(26, 26, 26, 0.4);
+  }
+
+  html.light .border-cyan-500\/20 {
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+
+  html.light .bg-black\/20 {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  html.light .particle {
+    background: rgba(6, 182, 212, 0.3);
+  }
 }

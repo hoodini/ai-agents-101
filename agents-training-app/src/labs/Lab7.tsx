@@ -1,4 +1,8 @@
 import { BookOpen, Users } from 'lucide-react';
+import { CompleteLabButton } from '../components/CompleteLabButton';
+import { celebrateCompletion } from '../utils/confetti';
+
+const TOTAL_LABS = 8;
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
@@ -6,7 +10,7 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
 export function Lab7() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
   const getBaseConfig = () => {
     if (provider === 'groq') {
@@ -137,7 +141,8 @@ console.log(article.content);`;
       ];
       const article = await llm.invoke(writerMessages);
 
-      markLabComplete(7);
+      celebrateCompletion();
+      markLabCompleteAndAdvance(7, TOTAL_LABS);
 
       return {
         output: `Research Phase:\n${research.content}\n\nWriting Phase:\n${article.content}`,

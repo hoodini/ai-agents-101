@@ -189,7 +189,8 @@ console.log('Pirate Agent Response:', response.content);`;
 
       const messages = [systemPrompt, userPrompt];
       const response = await llm.invoke(messages);
-      markLabComplete(3);
+      celebrateCompletion();
+      markLabCompleteAndAdvance(3, TOTAL_LABS);
 
       return {
         output: `Pirate Agent Response: ${response.content}`,
@@ -360,6 +361,8 @@ console.log('Pirate Agent Response:', response.content);`;
           more natural.
         </p>
       </div>
+
+      <CompleteLabButton labId={3} />
     </div>
   );
 }
