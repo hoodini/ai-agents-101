@@ -242,33 +242,33 @@ console.log('✓ Agent remembered context across all turns!');`;
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
-      <div className="mb-8 rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in w-full">
+      <div className="hero-image-container mb-6 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
         <img
           src="/lab4-hero.jpg"
           alt="Lab 4: Conversation Memory"
-          className="w-full h-auto"
+          className="w-full h-auto object-cover"
         />
       </div>
 
-      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg">
-            <Brain className="w-8 h-8 text-white" />
+      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
+          <div className="p-2 sm:p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg flex-shrink-0">
+            <Brain className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100">
               Lab 4: Conversation Memory
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1">
               Make your agent remember previous messages
             </p>
           </div>
         </div>
 
-        <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-blue-900 dark:text-blue-100">
+        <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+          <div className="text-xs sm:text-sm text-blue-900 dark:text-blue-100">
             <p className="font-semibold mb-2">What you'll learn:</p>
             <ul className="space-y-1 list-disc list-inside">
               <li>How to store conversation history in message arrays</li>
@@ -280,12 +280,12 @@ console.log('✓ Agent remembered context across all turns!');`;
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             1
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Import Message Types
           </h2>
         </div>
@@ -297,12 +297,12 @@ console.log('✓ Agent remembered context across all turns!');`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             2
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Create Memory Array
           </h2>
         </div>
@@ -314,12 +314,12 @@ console.log('✓ Agent remembered context across all turns!');`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             3
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             First Turn - Store Message
           </h2>
         </div>
@@ -331,12 +331,12 @@ console.log('✓ Agent remembered context across all turns!');`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             4
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Second Turn - Agent Remembers!
           </h2>
         </div>
@@ -348,12 +348,12 @@ console.log('✓ Agent remembered context across all turns!');`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg animate-pulse-glow">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg animate-pulse-glow">
             5
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Complete Multi-Turn Conversation
           </h2>
         </div>
@@ -365,11 +365,11 @@ console.log('✓ Agent remembered context across all turns!');`;
         />
       </div>
 
-      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
-        <h3 className="font-semibold text-purple-900 dark:text-purple-100 mb-3">
+      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-purple-200 dark:border-purple-800">
+        <h3 className="text-sm sm:text-base font-semibold text-purple-900 dark:text-purple-100 mb-3">
           🧠 How Memory Works
         </h3>
-        <ul className="space-y-2 text-purple-800 dark:text-purple-200 text-sm">
+        <ul className="space-y-2 text-purple-800 dark:text-purple-200 text-xs sm:text-sm">
           <li>✓ Each message (user and AI) is stored in an array</li>
           <li>✓ The entire array is sent to the LLM with each new message</li>
           <li>✓ The LLM can reference previous messages to maintain context</li>
@@ -378,11 +378,11 @@ console.log('✓ Agent remembered context across all turns!');`;
         </ul>
       </div>
 
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
-        <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-green-200 dark:border-green-800">
+        <h3 className="text-sm sm:text-base font-semibold text-green-900 dark:text-green-100 mb-2">
           🎉 Excellent Progress!
         </h3>
-        <p className="text-green-800 dark:text-green-200 text-sm">
+        <p className="text-green-800 dark:text-green-200 text-xs sm:text-sm">
           You've learned how to give your agent memory! This is crucial for building conversational
           AI systems. Next, you'll learn how to give your agent access to external knowledge bases.
         </p>

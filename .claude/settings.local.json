@@ -35,7 +35,8 @@
       "Bash(git checkout:*)",
       "Bash(git fetch:*)",
       "Bash(dir /b /s \"c:\\\\Users\\\\User\\\\Documents\\\\projects\\\\agents-training\\\\agents-training-app\\\\src\\\\components\\\\*.tsx\")",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(ls:*)"
     ]
   }
 }

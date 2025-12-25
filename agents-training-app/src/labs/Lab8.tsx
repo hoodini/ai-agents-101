@@ -198,33 +198,33 @@ console.log(response.content);`;
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
-      <div className="mb-8 rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in w-full">
+      <div className="hero-image-container mb-6 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
         <img
           src="/lab8-hero.jpg"
           alt="Lab 8: Orchestrator Agent"
-          className="w-full h-auto"
+          className="w-full h-auto object-cover"
         />
       </div>
 
-      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl shadow-lg">
-            <Network className="w-8 h-8 text-white" />
+      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
+          <div className="p-2 sm:p-3 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl shadow-lg flex-shrink-0">
+            <Network className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100">
               Lab 8: Orchestrator Agent
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1">
               Intelligent routing to specialist agents
             </p>
           </div>
         </div>
 
-        <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-blue-900 dark:text-blue-100">
+        <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+          <div className="text-xs sm:text-sm text-blue-900 dark:text-blue-100">
             <p className="font-semibold mb-2">What you'll learn:</p>
             <ul className="space-y-1 list-disc list-inside">
               <li>Creating an orchestrator/router agent</li>
@@ -236,12 +236,12 @@ console.log(response.content);`;
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             1
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Orchestrator Concept
           </h2>
         </div>
@@ -253,12 +253,12 @@ console.log(response.content);`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             2
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Router Logic
           </h2>
         </div>
@@ -270,12 +270,12 @@ console.log(response.content);`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg animate-pulse-glow">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg animate-pulse-glow">
             3
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Complete Orchestrator
           </h2>
         </div>
@@ -287,11 +287,11 @@ console.log(response.content);`;
         />
       </div>
 
-      <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-amber-200 dark:border-amber-800">
-        <h3 className="font-semibold text-amber-900 dark:text-amber-100 mb-3">
+      <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-amber-200 dark:border-amber-800">
+        <h3 className="text-sm sm:text-base font-semibold text-amber-900 dark:text-amber-100 mb-3">
           🎯 Orchestrator Use Cases
         </h3>
-        <ul className="space-y-2 text-amber-800 dark:text-amber-200 text-sm">
+        <ul className="space-y-2 text-amber-800 dark:text-amber-200 text-xs sm:text-sm">
           <li>✓ <strong>Customer Support:</strong> Route to billing, technical, or sales specialists</li>
           <li>✓ <strong>Content Creation:</strong> Route to research, writing, or editing agents</li>
           <li>✓ <strong>Data Analysis:</strong> Route to SQL, visualization, or reporting agents</li>
@@ -299,14 +299,14 @@ console.log(response.content);`;
         </ul>
       </div>
 
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
-        <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-green-200 dark:border-green-800">
+        <h3 className="text-sm sm:text-base font-semibold text-green-900 dark:text-green-100 mb-2">
           🎉 Congratulations - You're an AI Agent Expert!
         </h3>
-        <p className="text-green-800 dark:text-green-200 text-sm mb-3">
+        <p className="text-green-800 dark:text-green-200 text-xs sm:text-sm mb-3">
           You've completed all 8 labs! You now understand:
         </p>
-        <ul className="space-y-1 text-green-800 dark:text-green-200 text-sm list-disc list-inside">
+        <ul className="space-y-1 text-green-800 dark:text-green-200 text-xs sm:text-sm list-disc list-inside">
           <li>AI Agent components (LLM, Tools, Memory)</li>
           <li>Prompt/Response patterns</li>
           <li>System prompts and personality</li>
@@ -316,7 +316,7 @@ console.log(response.content);`;
           <li>Multi-agent collaboration</li>
           <li>Orchestrator patterns</li>
         </ul>
-        <p className="text-green-800 dark:text-green-200 text-sm mt-3">
+        <p className="text-green-800 dark:text-green-200 text-xs sm:text-sm mt-3">
           You're ready to build production AI agent systems! 🚀
         </p>
       </div>

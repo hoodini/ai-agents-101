@@ -125,6 +125,94 @@ export const translations = {
       congratsTitle: 'Congratulations!',
       congratsText: "You've created your first AI agent! This simple prompt/response pattern is the foundation for all AI agents. In the next labs, we'll add memory, tools, and more complex behaviors.",
     },
+
+    // Bonus - Context Engineering
+    bonus: {
+      label: 'BONUS',
+      title: 'Prompt Engineering vs Context Engineering',
+      subtitle: 'Discover why the industry is shifting from simple prompts to comprehensive context management - and what this means for building production-ready AI systems.',
+      navTitle: 'Context Engineering',
+      navDesc: 'The evolution from prompts to context',
+      
+      // Quotes
+      tobiQuote: 'I really like the term "context engineering" over prompt engineering. It describes the core skill better: the art of providing all the context for the task to be plausibly solvable by the LLM.',
+      karpathyQuote: 'People associate prompts with short task descriptions you\'d give an LLM in your day-to-day use. When in every industrial-strength LLM app, context engineering is the delicate art and science of filling the context window with just the right information for the next step.',
+      karpathyTitle: 'Former AI Director at Tesla, Co-founder of OpenAI',
+      
+      // Prompt Engineering Section
+      promptEngTitle: 'What is Prompt Engineering?',
+      promptEngDesc: 'Prompt engineering is the practice of crafting effective text inputs (prompts) to get desired outputs from an LLM. It focuses primarily on HOW you ask a question - the wording, structure, and framing of your request.',
+      promptEngExample: 'Example: Better Prompting',
+      simplePrompt: 'Simple prompt',
+      betterPrompt: 'Engineered prompt',
+      
+      // Context Engineering Section
+      contextEngTitle: 'What is Context Engineering?',
+      contextEngDesc: 'Context engineering goes far beyond the prompt itself. It\'s about strategically assembling ALL the information the LLM needs to successfully complete a task. This includes not just the question, but the entire environment of knowledge surrounding it.',
+      contextComponents: 'Components of Context Engineering',
+      taskDesc: 'Task Descriptions',
+      taskDescDetail: 'Clear explanations of what needs to be done',
+      fewShot: 'Few-Shot Examples',
+      fewShotDetail: 'Demonstrations of desired input/output pairs',
+      ragData: 'RAG Data',
+      ragDataDetail: 'Retrieved documents and knowledge base content',
+      tools: 'Tool Definitions',
+      toolsDetail: 'Available functions and their documentation',
+      memory: 'State & Memory',
+      memoryDetail: 'Conversation history and user context',
+      stateHistory: 'Compacting',
+      stateHistoryDetail: 'Intelligently managing limited context window space',
+      
+      // Comparison
+      comparison: 'Side-by-Side Comparison',
+      promptEngShort: 'Prompt Engineering',
+      contextEngShort: 'Context Engineering',
+      pePoint1: 'Focuses on crafting the right question',
+      pePoint2: 'Static, single-turn interactions',
+      pePoint3: 'Limited to what fits in one message',
+      pePoint4: 'Like writing a good Google search query',
+      cePoint1: 'Focuses on providing complete context',
+      cePoint2: 'Dynamic, multi-turn with memory',
+      cePoint3: 'Orchestrates multiple information sources',
+      cePoint4: 'Like preparing a complete briefing document',
+      
+      // Case Study 1
+      caseStudy1Title: 'Case Study: Coding Assistant',
+      promptApproach: '❌ Prompt Approach',
+      contextApproach: '✅ Context Approach',
+      case1PromptResult: 'Generic answer, no understanding of your specific situation',
+      case1ContextResult: 'Precise fix with understanding of your exact codebase and issue',
+      
+      // Case Study 2
+      caseStudy2Title: 'Case Study: Contextual Retrieval (Anthropic)',
+      caseStudy2Desc: 'Anthropic discovered that traditional RAG loses critical context when chunks are retrieved in isolation. Their solution: Context Engineering.',
+      ragBefore: '❌ Traditional RAG chunk:',
+      ragProblem: '→ Missing: Which company? What time period?',
+      ragAfter: '✅ Context-engineered chunk:',
+      ragSolution: '→ Now contains full context for accurate retrieval!',
+      ragSource: 'Source: Anthropic\'s "Contextual Retrieval" - This approach reduced retrieval failures by 49%',
+      
+      // Case Study 3
+      caseStudy3Title: 'Case Study: Production AI Agents',
+      caseStudy3Desc: 'In real-world AI agents like Claude\'s coding capabilities or GitHub Copilot, the context window contains far more than just your message:',
+      contextWindowContains: 'What fills the context window:',
+      cwItem1: 'System prompts with behavioral guidelines',
+      cwItem2: 'Retrieved documentation and code examples',
+      cwItem3: 'Tool definitions with usage instructions',
+      cwItem4: 'Conversation history and working memory',
+      cwItem5: 'User preferences and project-specific rules',
+      result: 'Result:',
+      caseStudy3Result: 'The agent can understand your codebase, follow your conventions, use the right tools, and maintain context across multiple interactions.',
+      
+      // Key Takeaways
+      keyTakeaways: 'Key Takeaways',
+      takeaway1: 'Prompt Engineering is a subset of Context Engineering - it\'s about the "what you ask" part, while context engineering is about "everything the LLM sees"',
+      takeaway2: 'Production AI systems spend more effort on context engineering than prompt engineering - Anthropic\'s SWE-bench agent optimized tools more than prompts',
+      takeaway3: 'Context engineering includes: task descriptions, few-shot examples, RAG data, tools, memory, state history, and intelligent compacting',
+      takeaway4: 'The goal is to provide "all the context for the task to be plausibly solvable" - not just a clever prompt',
+      
+      finalSummary: '"The art of context engineering is not about finding the perfect words - it\'s about assembling the perfect information environment for your AI to succeed."',
+    },
   },
   he: {
     // Navbar
@@ -251,6 +339,94 @@ export const translations = {
       step5Desc: 'חבר הכל ביחד - סוכן ה-AI הראשון שלך!',
       congratsTitle: '!מזל טוב',
       congratsText: 'יצרת את סוכן ה-AI הראשון שלך! דפוס ההנחיה/תגובה הפשוט הזה הוא הבסיס לכל סוכני ה-AI. במעבדות הבאות, נוסיף זיכרון, כלים והתנהגויות מורכבות יותר.',
+    },
+
+    // Bonus - Context Engineering
+    bonus: {
+      label: 'בונוס',
+      title: 'הנדסת פרומפטים מול הנדסת הקשר',
+      subtitle: 'גלו מדוע התעשייה עוברת מפרומפטים פשוטים לניהול הקשר מקיף - ומה זה אומר לבניית מערכות AI מוכנות לייצור.',
+      navTitle: 'הנדסת הקשר',
+      navDesc: 'האבולוציה מפרומפטים להקשר',
+      
+      // Quotes
+      tobiQuote: 'אני באמת אוהב את המונח "הנדסת הקשר" על פני הנדסת פרומפטים. הוא מתאר טוב יותר את המיומנות הליבתית: האומנות של לספק את כל ההקשר כדי שהמשימה תהיה ניתנת לפתרון על ידי ה-LLM.',
+      karpathyQuote: 'אנשים מזהים פרומפטים עם תיאורי משימות קצרים שהייתם נותנים ל-LLM בשימוש היומיומי. כאשר בכל אפליקציית LLM תעשייתית, הנדסת הקשר היא האומנות והמדע העדינים של מילוי חלון ההקשר במידע הנכון בדיוק לשלב הבא.',
+      karpathyTitle: 'מנהל AI לשעבר בטסלה, שותף מייסד ב-OpenAI',
+      
+      // Prompt Engineering Section
+      promptEngTitle: 'מהי הנדסת פרומפטים?',
+      promptEngDesc: 'הנדסת פרומפטים היא תרגול של יצירת קלטי טקסט אפקטיביים (פרומפטים) כדי לקבל פלטים רצויים מ-LLM. היא מתמקדת בעיקר באיך אתה שואל שאלה - הניסוח, המבנה והמסגור של הבקשה שלך.',
+      promptEngExample: 'דוגמה: פרומפטים טובים יותר',
+      simplePrompt: 'פרומפט פשוט',
+      betterPrompt: 'פרומפט מהונדס',
+      
+      // Context Engineering Section
+      contextEngTitle: 'מהי הנדסת הקשר?',
+      contextEngDesc: 'הנדסת הקשר הולכת הרבה מעבר לפרומפט עצמו. מדובר בהרכבה אסטרטגית של כל המידע שה-LLM צריך כדי להשלים משימה בהצלחה. זה כולל לא רק את השאלה, אלא את כל סביבת הידע סביבה.',
+      contextComponents: 'מרכיבי הנדסת הקשר',
+      taskDesc: 'תיאורי משימות',
+      taskDescDetail: 'הסברים ברורים על מה צריך לעשות',
+      fewShot: 'דוגמאות Few-Shot',
+      fewShotDetail: 'הדגמות של זוגות קלט/פלט רצויים',
+      ragData: 'נתוני RAG',
+      ragDataDetail: 'מסמכים שאוחזרו ותוכן בסיס ידע',
+      tools: 'הגדרות כלים',
+      toolsDetail: 'פונקציות זמינות והתיעוד שלהן',
+      memory: 'מצב וזיכרון',
+      memoryDetail: 'היסטוריית שיחה והקשר משתמש',
+      stateHistory: 'דחיסה',
+      stateHistoryDetail: 'ניהול חכם של מקום מוגבל בחלון ההקשר',
+      
+      // Comparison
+      comparison: 'השוואה זו מול זו',
+      promptEngShort: 'הנדסת פרומפטים',
+      contextEngShort: 'הנדסת הקשר',
+      pePoint1: 'מתמקדת ביצירת השאלה הנכונה',
+      pePoint2: 'אינטראקציות סטטיות, חד-פעמיות',
+      pePoint3: 'מוגבלת למה שנכנס בהודעה אחת',
+      pePoint4: 'כמו לכתוב שאילתת חיפוש טובה בגוגל',
+      cePoint1: 'מתמקדת באספקת הקשר מלא',
+      cePoint2: 'דינמית, רב-פעמית עם זיכרון',
+      cePoint3: 'מתזמרת מקורות מידע מרובים',
+      cePoint4: 'כמו להכין מסמך תדריך מלא',
+      
+      // Case Study 1
+      caseStudy1Title: 'מקרה בוחן: עוזר קוד',
+      promptApproach: '❌ גישת פרומפט',
+      contextApproach: '✅ גישת הקשר',
+      case1PromptResult: 'תשובה גנרית, ללא הבנה של המצב הספציפי שלך',
+      case1ContextResult: 'תיקון מדויק עם הבנה של בסיס הקוד והבעיה המדויקים שלך',
+      
+      // Case Study 2
+      caseStudy2Title: 'מקרה בוחן: אחזור הקשרי (Anthropic)',
+      caseStudy2Desc: 'Anthropic גילו ש-RAG מסורתי מאבד הקשר קריטי כאשר חלקים מאוחזרים בבידוד. הפתרון שלהם: הנדסת הקשר.',
+      ragBefore: '❌ חלק RAG מסורתי:',
+      ragProblem: '→ חסר: איזו חברה? איזו תקופה?',
+      ragAfter: '✅ חלק מהונדס-הקשר:',
+      ragSolution: '→ עכשיו מכיל הקשר מלא לאחזור מדויק!',
+      ragSource: 'מקור: "אחזור הקשרי" של Anthropic - גישה זו הפחיתה כשלי אחזור ב-49%',
+      
+      // Case Study 3
+      caseStudy3Title: 'מקרה בוחן: סוכני AI בייצור',
+      caseStudy3Desc: 'בסוכני AI אמיתיים כמו יכולות הקידוד של Claude או GitHub Copilot, חלון ההקשר מכיל הרבה יותר מרק ההודעה שלך:',
+      contextWindowContains: 'מה ממלא את חלון ההקשר:',
+      cwItem1: 'פרומפטי מערכת עם הנחיות התנהגות',
+      cwItem2: 'תיעוד ודוגמאות קוד שאוחזרו',
+      cwItem3: 'הגדרות כלים עם הוראות שימוש',
+      cwItem4: 'היסטוריית שיחה וזיכרון עבודה',
+      cwItem5: 'העדפות משתמש וכללים ספציפיים לפרויקט',
+      result: 'תוצאה:',
+      caseStudy3Result: 'הסוכן יכול להבין את בסיס הקוד שלך, לעקוב אחר המוסכמות שלך, להשתמש בכלים הנכונים, ולשמור על הקשר לאורך אינטראקציות מרובות.',
+      
+      // Key Takeaways
+      keyTakeaways: 'נקודות מפתח',
+      takeaway1: 'הנדסת פרומפטים היא תת-קבוצה של הנדסת הקשר - היא עוסקת בחלק של "מה אתה שואל", בעוד הנדסת הקשר עוסקת ב"כל מה שה-LLM רואה"',
+      takeaway2: 'מערכות AI בייצור משקיעות יותר מאמץ בהנדסת הקשר מאשר בהנדסת פרומפטים - סוכן ה-SWE-bench של Anthropic אופטמז כלים יותר מפרומפטים',
+      takeaway3: 'הנדסת הקשר כוללת: תיאורי משימות, דוגמאות few-shot, נתוני RAG, כלים, זיכרון, היסטוריית מצב, ודחיסה חכמה',
+      takeaway4: 'המטרה היא לספק "את כל ההקשר כדי שהמשימה תהיה ניתנת לפתרון" - לא רק פרומפט חכם',
+      
+      finalSummary: '"אומנות הנדסת ההקשר היא לא למצוא את המילים המושלמות - אלא להרכיב את סביבת המידע המושלמת כדי שה-AI שלך יצליח."',
     },
   },
 };

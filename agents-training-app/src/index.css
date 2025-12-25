@@ -710,31 +710,60 @@
 
   /* Responsive adjustments for smaller screens */
   @media (max-width: 768px) {
+    /* Prevent horizontal scrolling on mobile */
+    body,
+    html,
+    #root {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    /* Fix viewport containment */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Lab content container - full width centered */
+    .max-w-4xl {
+      max-width: 100% !important;
+      width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
     .max-w-4xl h1 {
-      font-size: 2.5rem !important;
+      font-size: 1.75rem !important;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      line-height: 1.2;
     }
 
     .max-w-4xl h2 {
-      font-size: 1.875rem !important;
+      font-size: 1.375rem !important;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      line-height: 1.3;
     }
 
     .max-w-4xl p,
     .max-w-4xl .text-lg,
     .max-w-4xl .text-sm,
     .max-w-4xl li {
-      font-size: 1.125rem !important;
+      font-size: 1rem !important;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
 
     .max-w-4xl .text-xl {
-      font-size: 1.5rem !important;
+      font-size: 1.125rem !important;
       word-wrap: break-word;
       overflow-wrap: break-word;
+    }
+
+    .max-w-4xl .text-3xl {
+      font-size: 1.5rem !important;
     }
 
     /* Fix code overflow in mobile */
@@ -745,6 +774,7 @@
       word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: pre-wrap;
+      font-size: 0.8rem !important;
     }
 
     /* Ensure all text content wraps */
@@ -765,6 +795,155 @@
     .holo-border {
       max-width: 100%;
       overflow-x: hidden;
+    }
+
+    /* Hero images mobile responsive */
+    .hero-image-container {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100% !important;
+      border-radius: 0.75rem !important;
+    }
+
+    .hero-image-container img {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100% !important;
+      object-fit: cover !important;
+    }
+
+    /* Avatar mobile responsive */
+    .avatar-container {
+      width: 40px !important;
+      height: 40px !important;
+      min-width: 40px !important;
+    }
+
+    /* Main content mobile padding - no gaps to sides */
+    main {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    main > div {
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+    }
+
+    /* Cards and sections - full width on mobile */
+    .rounded-2xl,
+    .rounded-xl {
+      border-radius: 0.75rem !important;
+    }
+
+    /* Lab header cards */
+    .bg-gradient-to-br {
+      padding: 1rem !important;
+    }
+
+    /* Step indicators */
+    .flex-shrink-0.w-10 {
+      width: 2rem !important;
+      height: 2rem !important;
+      font-size: 0.875rem !important;
+    }
+
+    /* Dropdown menus mobile */
+    .group:hover > div {
+      position: fixed !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: calc(100vw - 2rem) !important;
+      max-width: 400px !important;
+    }
+
+    /* Fix flex items on mobile */
+    .flex.items-center.gap-4 {
+      gap: 0.5rem !important;
+      flex-wrap: wrap;
+    }
+
+    .flex.items-center.gap-3 {
+      gap: 0.5rem !important;
+    }
+
+    /* Lab section spacing */
+    .space-y-8 > * + * {
+      margin-top: 1.5rem !important;
+    }
+
+    .space-y-6 > * + * {
+      margin-top: 1rem !important;
+    }
+
+    /* Icon sizing on mobile */
+    .p-3 {
+      padding: 0.5rem !important;
+    }
+
+    .w-8.h-8 {
+      width: 1.5rem !important;
+      height: 1.5rem !important;
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    .max-w-4xl h1 {
+      font-size: 1.5rem !important;
+    }
+
+    .max-w-4xl h2 {
+      font-size: 1.25rem !important;
+    }
+
+    /* Even smaller padding on tiny screens */
+    main > div {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+    }
+
+    /* Avatar even smaller on tiny screens */
+    .avatar-container {
+      width: 32px !important;
+      height: 32px !important;
+      min-width: 32px !important;
+    }
+
+    /* Code blocks smaller font */
+    .max-w-4xl pre,
+    .max-w-4xl code {
+      font-size: 0.7rem !important;
+    }
+
+    /* Cards padding reduction */
+    .p-8 {
+      padding: 0.75rem !important;
+    }
+
+    .p-6 {
+      padding: 0.75rem !important;
+    }
+
+    .p-4 {
+      padding: 0.5rem !important;
+    }
+  }
+
+  /* Tablet screens */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .max-w-4xl {
+      max-width: 100% !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    .max-w-4xl h1 {
+      font-size: 2.25rem !important;
+    }
+
+    .max-w-4xl h2 {
+      font-size: 1.75rem !important;
     }
   }
 

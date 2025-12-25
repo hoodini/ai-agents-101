@@ -4,6 +4,66 @@ This document contains step-by-step instructions for AI assistants (LLMs) to aut
 
 ---
 
+## Mobile Responsive Architecture
+
+The application features comprehensive mobile responsiveness with the following design patterns:
+
+### Responsive Breakpoints (Tailwind CSS)
+- **sm**: 640px (small phones → larger phones)
+- **md**: 768px (tablets)
+- **lg**: 1024px (small laptops)
+- **xl**: 1280px (desktops)
+
+### Collapsible Navigation
+- **Desktop (≥768px)**: Full navbar with all controls visible
+- **Mobile (<768px)**: Hamburger menu that expands/collapses
+
+```typescript
+// Mobile menu state in App.tsx
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar starts closed on mobile
+```
+
+### Sidebar Behavior
+- **Desktop**: Sidebar always visible alongside content
+- **Mobile**: Sidebar hidden by default, toggleable via "Labs" button
+- **Sidebar Overlay**: Semi-transparent backdrop with blur effect
+- **Auto-close**: Sidebar closes when a lab is selected
+
+### Viewport Containment
+- All content uses `overflow-x-hidden` to prevent horizontal scrolling
+- Padding adjusts: `px-3 sm:px-4 md:px-6`
+- Maximum widths applied: `max-w-4xl`, `max-w-6xl` for content sections
+
+### Image Responsiveness
+- Avatar sizing: `w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56`
+- Hero images: `w-full max-w-[200px] sm:max-w-[280px] md:max-w-[340px]`
+- Proper aspect ratios maintained with `object-contain` or `object-cover`
+
+### Typography Scaling
+- Headings: `text-xl sm:text-2xl md:text-3xl lg:text-4xl`
+- Body text: `text-sm sm:text-base md:text-lg`
+- Small text: `text-xs sm:text-sm`
+
+### Component-Specific Responsive Features
+
+**Code Cells (CodeCell.tsx)**:
+- Full width on mobile with proper padding
+- Font size scales for readability
+- Toolbar wraps on small screens
+
+**Lab Components (Lab1-Lab8)**:
+- Grid layouts convert to single column on mobile
+- Cards stack vertically with adjusted spacing
+- Interactive elements have increased touch targets
+
+**Homepage (Homepage.tsx)**:
+- Hexagon grid shows on desktop, card grid on mobile
+- Welcome card stacks avatar above text on mobile
+- Module cards resize with responsive typography
+
+---
+
 ## Prerequisites Check
 
 Before beginning installation, verify the user's environment:
@@ -229,6 +289,20 @@ After installation, verify everything works:
 - Navigation menu is visible
 - "What You'll Learn" section shows 8 hexagonal modules
 - Yuval Avidani's bio card is displayed
+
+### Test 1b: Mobile Responsiveness
+
+**Check on mobile viewport (< 768px)**:
+1. Navbar collapses to hamburger menu
+2. Mobile menu expands/collapses smoothly
+3. Labs sidebar is hidden by default
+4. "Labs" button appears in navbar to toggle sidebar
+5. Sidebar overlay appears with backdrop blur when open
+6. Clicking a lab in sidebar closes the sidebar
+7. Content is centered with no horizontal gaps
+8. Avatar and hero images scale appropriately
+9. Text sizes adjust for readability
+10. All interactive elements are touch-friendly
 
 ### Test 2: API Key Modal
 

@@ -1,18 +1,30 @@
-import { CheckCircle, Circle } from 'lucide-react';
+import { CheckCircle, Circle, Sparkles } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 
 interface LabNavigationProps {
-  labs: { id: number; title: string }[];
+  labs: { id: number; title: string; isBonus?: boolean }[];
+  onLabClick?: () => void;
 }
 
-export function LabNavigation({ labs }: LabNavigationProps) {
+export function LabNavigation({ labs, onLabClick }: LabNavigationProps) {
   const { currentLab, labProgress, setCurrentLab, language } = useStore();
 
   const getLabKey = (labId: number): string => {
     const labKeys = ['agentComponents', 'simplePrompt', 'customPrompts', 'conversationMemory', 'knowledgeBase', 'ragWikipedia', 'multiAgentCollab', 'orchestrator'];
     return labKeys[labId - 1] || 'agentComponents';
   };
+
+  const handleLabClick = (labId: number) => {
+    setCurrentLab(labId);
+    if (onLabClick) {
+      onLabClick();
+    }
+  };
+
+  // Separate regular labs and bonus labs
+  const regularLabs = labs.filter(lab => !lab.isBonus);
+  const bonusLabs = labs.filter(lab => lab.isBonus);
 
   return (
     <nav className="relative h-full overflow-y-auto bg-gradient-to-b from-slate-900/95 via-blue-900/30 to-purple-900/30 backdrop-blur-xl border-r border-cyan-500/20">
@@ -34,7 +46,7 @@ export function LabNavigation({ labs }: LabNavigationProps) {
       <div className="relative p-6">
         <div className="mb-6 pb-6 border-b border-cyan-500/30">
           <div className="flex items-center gap-2 mb-2">
-            <div className="relative w-12 h-12">
+            <div className="avatar-container relative w-12 h-12 flex-shrink-0">
               {/* Thick Animated RGB Ring with Neon Glow */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-1 animate-rgb-rotate" style={{ boxShadow: '0 0 25px rgba(0, 212, 255, 0.8), 0 0 40px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.1)' }}>
                 <div className="w-full h-full rounded-full overflow-hidden bg-slate-900/30 backdrop-blur-sm">
@@ -50,7 +62,7 @@ export function LabNavigation({ labs }: LabNavigationProps) {
                 />
               </div>
             </div>
-            <h2 className="text-xl font-bold heading-font neon-cyan tracking-wider">
+            <h2 className="text-xl md:text-xl font-bold heading-font neon-cyan tracking-wider">
               AI AGENTS 101
             </h2>
           </div>
@@ -60,14 +72,14 @@ export function LabNavigation({ labs }: LabNavigationProps) {
         </div>
 
         <div className="space-y-2">
-          {labs.map((lab) => {
+          {regularLabs.map((lab) => {
             const isActive = currentLab === lab.id;
             const isCompleted = labProgress[lab.id];
 
             return (
               <button
                 key={lab.id}
-                onClick={() => setCurrentLab(lab.id)}
+                onClick={() => handleLabClick(lab.id)}
                 className={`w-full px-4 py-3 rounded-xl transition-all hover-lift relative overflow-hidden ${
                   language === 'he' ? 'text-right' : 'text-left'
                 } ${
@@ -105,6 +117,55 @@ export function LabNavigation({ labs }: LabNavigationProps) {
             );
           })}
         </div>
+
+        {/* Bonus Section */}
+        {bonusLabs.length > 0 && (
+          <div className="mt-6 pt-6 border-t border-purple-500/30">
+            <div className="mb-3 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span className="text-sm font-bold text-purple-400 tracking-wider">
+                {language === 'he' ? 'תוכן בונוס' : 'BONUS CONTENT'}
+              </span>
+            </div>
+            <div className="space-y-2">
+              {bonusLabs.map((lab) => {
+                const isActive = currentLab === lab.id;
+
+                return (
+                  <button
+                    key={lab.id}
+                    onClick={() => handleLabClick(lab.id)}
+                    className={`w-full px-4 py-3 rounded-xl transition-all hover-lift relative overflow-hidden ${
+                      language === 'he' ? 'text-right' : 'text-left'
+                    } ${
+                      isActive
+                        ? 'bg-gradient-to-r from-purple-500/30 to-cyan-500/20 border-2 border-purple-400 shadow-neural'
+                        : 'bg-gradient-to-r from-purple-900/20 to-cyan-900/20 border border-purple-500/30 hover:border-purple-400/60'
+                    }`}
+                    style={isActive ? { boxShadow: '0 0 20px rgba(168, 85, 247, 0.4)' } : {}}
+                  >
+                    <div className={`flex items-center gap-3 relative z-10 ${language === 'he' ? 'flex-row-reverse' : 'flex-row'}`}>
+                      <Sparkles
+                        className={`w-5 h-5 flex-shrink-0 ${
+                          isActive ? 'text-purple-300' : 'text-purple-400'
+                        }`}
+                        style={{ filter: 'drop-shadow(0 0 8px rgba(168, 85, 247, 0.8))' }}
+                      />
+                      <div className="flex-1">
+                        <div className={`text-sm font-bold ${isActive ? 'text-purple-300' : 'text-purple-400'}`}>
+                          {t(language, 'bonus.label')}
+                        </div>
+                        <div className={`text-xs ${isActive ? 'text-white font-medium' : 'text-white/60'}`}>
+                          {t(language, 'bonus.navTitle')}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

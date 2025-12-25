@@ -221,11 +221,13 @@ From basic concepts to advanced multi-agent orchestration:
 ### 🎨 **Modern UI/UX**
 - Futuristic cyberpunk-inspired design with light/dark theme toggle
 - Smooth animations and transitions
-- Responsive layout (mobile, tablet, desktop)
+- **100% Mobile Responsive** - Optimized for all screen sizes with collapsible navbar and sidebar
+- Custom hero images for each lab with responsive scaling
 - Progress tracking with visual indicators
 - Clickable hexagonal module grid for quick lab access
 - Multilingual support (English & Hebrew with RTL support)
 - Fixed-position navbar controls for consistent UX
+- Glass-morphism effects with Apple-style blur
 
 ### 🔐 **Privacy-First**
 - API keys stored only in browser's localStorage
@@ -378,16 +380,22 @@ graph LR
 
 ### Lab Progression
 
-| Lab | Complexity | Concepts Introduced | Time Estimate |
-|-----|-----------|-------------------|--------------|
-| 1 | ⭐ Beginner | LLM, Tools, Memory | 15 min |
-| 2 | ⭐ Beginner | Basic Chat, Prompts | 20 min |
-| 3 | ⭐⭐ Intermediate | System Prompts, Roles | 25 min |
-| 4 | ⭐⭐ Intermediate | Conversation History | 30 min |
-| 5 | ⭐⭐ Intermediate | Knowledge Bases, Context | 30 min |
-| 6 | ⭐⭐⭐ Advanced | RAG, Embeddings, Vector Search | 45 min |
-| 7 | ⭐⭐⭐ Advanced | Multi-Agent Systems | 40 min |
-| 8 | ⭐⭐⭐⭐ Expert | Orchestration, Routing | 50 min |
+Each lab features a unique custom-designed hero image to visually represent the concepts covered:
+
+<div align="center">
+
+| Lab | Hero Image | Complexity | Concepts | Time |
+|-----|------------|-----------|----------|------|
+| **Lab 1** | ![Lab 1](agents-training-app/public/lab1-hero.jpg) | ⭐ Beginner | LLM, Tools, Memory | 15 min |
+| **Lab 2** | ![Lab 2](agents-training-app/public/lab2-hero.jpg) | ⭐ Beginner | Basic Chat, Prompts | 20 min |
+| **Lab 3** | ![Lab 3](agents-training-app/public/lab3-hero.jpg) | ⭐⭐ Intermediate | System Prompts, Roles | 25 min |
+| **Lab 4** | ![Lab 4](agents-training-app/public/lab4-hero.jpg) | ⭐⭐ Intermediate | Conversation History | 30 min |
+| **Lab 5** | ![Lab 5](agents-training-app/public/lab5-hero.jpg) | ⭐⭐ Intermediate | Knowledge Bases | 30 min |
+| **Lab 6** | ![Lab 6](agents-training-app/public/lab6-hero.jpg) | ⭐⭐⭐ Advanced | RAG, Embeddings, Vector Search | 45 min |
+| **Lab 7** | ![Lab 7](agents-training-app/public/lab7-hero.jpg) | ⭐⭐⭐ Advanced | Multi-Agent Systems | 40 min |
+| **Lab 8** | ![Lab 8](agents-training-app/public/lab8-hero.jpg) | ⭐⭐⭐⭐ Expert | Orchestration, Routing | 50 min |
+
+</div>
 
 ---
 

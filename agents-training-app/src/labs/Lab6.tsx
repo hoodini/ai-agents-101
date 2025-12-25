@@ -530,33 +530,33 @@ ANSWER:`;
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
-      <div className="mb-8 rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in w-full">
+      <div className="hero-image-container mb-6 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
         <img
           src="/lab6-hero.jpg"
           alt="Lab 6: RAG Deep Dive"
-          className="w-full h-auto"
+          className="w-full h-auto object-cover"
         />
       </div>
 
-      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="p-3 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl shadow-lg">
-            <Search className="w-8 h-8 text-white" />
+      <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
+          <div className="p-2 sm:p-3 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl shadow-lg flex-shrink-0">
+            <Search className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100">
               Lab 6: RAG Deep Dive
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1">
               Master embeddings, vector search, and reranking
             </p>
           </div>
         </div>
 
-        <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-blue-900 dark:text-blue-100">
+        <div className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+          <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+          <div className="text-xs sm:text-sm text-blue-900 dark:text-blue-100">
             <p className="font-semibold mb-2">What you'll learn in depth:</p>
             <ul className="space-y-1 list-disc list-inside">
               <li>How document chunking works and why it matters</li>
@@ -569,12 +569,12 @@ ANSWER:`;
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             1
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Layers className="w-5 h-5" />
             Document Chunking
           </h2>
@@ -587,12 +587,12 @@ ANSWER:`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             2
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Sparkles className="w-5 h-5" />
             Vector Embeddings Revealed
           </h2>
@@ -605,12 +605,12 @@ ANSWER:`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             3
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Database className="w-5 h-5" />
             Build Vector Store
           </h2>
@@ -623,12 +623,12 @@ ANSWER:`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             4
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Search className="w-5 h-5" />
             Similarity Search
           </h2>
@@ -641,12 +641,12 @@ ANSWER:`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-pink-500 to-rose-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg">
             5
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Cohere Reranking
           </h2>
         </div>
@@ -658,12 +658,12 @@ ANSWER:`;
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg animate-pulse-glow">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-lg shadow-lg animate-pulse-glow">
             6
           </div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
             Complete RAG System
           </h2>
         </div>
@@ -675,11 +675,11 @@ ANSWER:`;
         />
       </div>
 
-      <div className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-violet-200 dark:border-violet-800">
-        <h3 className="font-semibold text-violet-900 dark:text-violet-100 mb-3">
+      <div className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-violet-200 dark:border-violet-800">
+        <h3 className="text-sm sm:text-base font-semibold text-violet-900 dark:text-violet-100 mb-3">
           🎓 What You Just Learned
         </h3>
-        <ul className="space-y-2 text-violet-800 dark:text-violet-200 text-sm">
+        <ul className="space-y-2 text-violet-800 dark:text-violet-200 text-xs sm:text-sm">
           <li>✓ <strong>Chunking:</strong> How to split documents into processable pieces</li>
           <li>✓ <strong>Embeddings:</strong> Saw actual vector representations (1024 dimensions!)</li>
           <li>✓ <strong>Vector Search:</strong> Understanding cosine similarity scores</li>
@@ -688,11 +688,11 @@ ANSWER:`;
         </ul>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-        <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">
+      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-blue-800">
+        <h3 className="text-sm sm:text-base font-semibold text-blue-900 dark:text-blue-100 mb-3">
           💡 Production RAG Tips
         </h3>
-        <ul className="space-y-2 text-blue-800 dark:text-blue-200 text-sm">
+        <ul className="space-y-2 text-blue-800 dark:text-blue-200 text-xs sm:text-sm">
           <li>• Use production vector databases: Pinecone, Weaviate, Chroma, or Qdrant</li>
           <li>• Optimal chunk size: 256-512 tokens with 50-100 token overlap</li>
           <li>• Always rerank your top results for best accuracy</li>
@@ -701,11 +701,11 @@ ANSWER:`;
         </ul>
       </div>
 
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
-        <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-green-200 dark:border-green-800">
+        <h3 className="text-sm sm:text-base font-semibold text-green-900 dark:text-green-100 mb-2">
           🎉 RAG Mastered!
         </h3>
-        <p className="text-green-800 dark:text-green-200 text-sm">
+        <p className="text-green-800 dark:text-green-200 text-xs sm:text-sm">
           You now understand RAG deeply - from raw text to semantic vectors to intelligent retrieval!
           This powers ChatGPT plugins, documentation bots, and enterprise AI systems. Next: multi-agent collaboration!
         </p>
