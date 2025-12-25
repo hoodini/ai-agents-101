@@ -503,6 +503,174 @@ netlify deploy --prod --dir=dist
 ✔ Deployed to production: https://your-site.netlify.app
 ```
 
+### Deploy to GitHub Pages
+
+GitHub Pages offers free hosting with SSL certificates. There are two deployment options:
+
+#### Option A: GitHub Pages Subdirectory (username.github.io/repo-name)
+
+**Steps**:
+```bash
+# 1. Install gh-pages
+cd agents-training-app
+npm install --save-dev gh-pages
+
+# 2. Update vite.config.ts
+# Set base to your repository name
+```
+
+Edit `vite.config.ts`:
+```typescript
+export default defineConfig({
+  base: '/your-repo-name/',  // Replace with actual repo name
+  plugins: [react()],
+})
+```
+
+```bash
+# 3. Add deploy scripts to package.json
+# These should already exist in the package.json
+```
+
+Verify `package.json` has:
+```json
+{
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  }
+}
+```
+
+```bash
+# 4. Deploy
+npm run deploy
+```
+
+**Expected Output**:
+```
+Published
+```
+
+**Your site**: `https://username.github.io/your-repo-name/`
+
+#### Option B: Custom Domain (Recommended)
+
+For a custom domain like `agents.yourdomain.com`:
+
+**Steps**:
+```bash
+# 1. Update vite.config.ts for root path
+```
+
+Edit `vite.config.ts`:
+```typescript
+export default defineConfig({
+  base: '/',  // Root path for custom domain
+  plugins: [react()],
+})
+```
+
+```bash
+# 2. Create CNAME file in public directory
+echo "agents.yourdomain.com" > public/CNAME
+```
+
+**Important**: Replace `agents.yourdomain.com` with your actual domain
+
+```bash
+# 3. Ensure deploy scripts exist in package.json
+# (Should already be present)
+
+# 4. Deploy to GitHub Pages
+npm run deploy
+```
+
+**Expected Output**:
+```
+Published
+```
+
+**5. Configure DNS**:
+
+Log into your DNS provider (Cloudflare, Route53, Namecheap, etc.) and add:
+
+```
+Type:    CNAME
+Name:    agents  (or your chosen subdomain)
+Target:  username.github.io  (your GitHub username)
+TTL:     Auto or 300
+Proxy:   DNS only (disable proxy initially)
+```
+
+**For Cloudflare**:
+1. Go to https://dash.cloudflare.com
+2. Select your domain
+3. Click **DNS** → **Add record**
+4. Fill in:
+   - Type: `CNAME`
+   - Name: `agents` (subdomain)
+   - Target: `username.github.io`
+   - Proxy status: **DNS only** (gray cloud)
+5. Click **Save**
+
+**6. Wait for SSL Certificate** (Automatic):
+- GitHub Pages provisions SSL via Let's Encrypt
+- Takes 10-60 minutes after DNS propagation
+- Check at: `https://github.com/username/repo-name/settings/pages`
+
+**7. Verify Deployment**:
+```bash
+# Check DNS propagation
+nslookup agents.yourdomain.com
+
+# Check GitHub Pages status
+gh api repos/username/repo-name/pages
+```
+
+Look for:
+```json
+{
+  "cname": "agents.yourdomain.com",
+  "https_certificate": {
+    "state": "approved"
+  },
+  "https_enforced": true
+}
+```
+
+**Your site**: `https://agents.yourdomain.com/`
+
+**Troubleshooting GitHub Pages**:
+
+**Issue**: SSL Certificate Error (`ERR_CERT_COMMON_NAME_INVALID`)
+**Solution**:
+- CNAME file is missing or incorrect
+- Verify file exists: `cat public/CNAME`
+- Redeploy: `npm run deploy`
+- Wait 10-60 minutes for SSL certificate provisioning
+
+**Issue**: 404 Not Found
+**Solution**:
+- Check base path in `vite.config.ts` matches deployment type
+- Custom domain: `base: '/'`
+- Subdirectory: `base: '/repo-name/'`
+
+**Issue**: Images Not Loading
+**Solution**:
+- Use relative paths: `src="logo.png"`
+- Not absolute paths: `src="/logo.png"`
+
+**Issue**: DNS Not Resolving
+**Solution**:
+```bash
+# Check DNS
+nslookup agents.yourdomain.com
+
+# Wait for propagation (5-30 minutes)
+# Check at: https://dnschecker.org/#CNAME/agents.yourdomain.com
+```
+
 ---
 
 ## Environment Variables (Optional)

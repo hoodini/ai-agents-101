@@ -644,6 +644,8 @@ Vercel offers the easiest deployment for Vite apps:
 
 ### Deploy to GitHub Pages
 
+#### Option 1: Using GitHub Pages Subdirectory (username.github.io/repo-name)
+
 1. **Install gh-pages**:
    ```bash
    npm install --save-dev gh-pages
@@ -653,7 +655,8 @@ Vercel offers the easiest deployment for Vite apps:
    ```json
    {
      "scripts": {
-       "deploy": "vite build && gh-pages -d dist"
+       "predeploy": "npm run build",
+       "deploy": "gh-pages -d dist"
      }
    }
    ```
@@ -661,7 +664,7 @@ Vercel offers the easiest deployment for Vite apps:
 3. **Update vite.config.ts** for base path:
    ```typescript
    export default defineConfig({
-     base: '/ai-agents-101/',
+     base: '/your-repo-name/',  // Replace with your repository name
      plugins: [react()],
    })
    ```
@@ -670,6 +673,76 @@ Vercel offers the easiest deployment for Vite apps:
    ```bash
    npm run deploy
    ```
+
+   Your site will be available at: `https://username.github.io/your-repo-name/`
+
+#### Option 2: Using Custom Domain (recommended)
+
+If you want to use a custom domain like `agents.yourdomain.com`:
+
+1. **Install gh-pages** (if not already installed):
+   ```bash
+   npm install --save-dev gh-pages
+   ```
+
+2. **Update vite.config.ts** for root path:
+   ```typescript
+   export default defineConfig({
+     base: '/',  // Root path for custom domain
+     plugins: [react()],
+   })
+   ```
+
+3. **Create CNAME file** in `public/` directory:
+   ```bash
+   echo "agents.yourdomain.com" > public/CNAME
+   ```
+
+   **Important**: Replace `agents.yourdomain.com` with your actual domain
+
+4. **Add deploy scripts to package.json**:
+   ```json
+   {
+     "scripts": {
+       "predeploy": "npm run build",
+       "deploy": "gh-pages -d dist"
+     }
+   }
+   ```
+
+5. **Deploy**:
+   ```bash
+   npm run deploy
+   ```
+
+6. **Configure DNS** (Cloudflare, Route53, etc.):
+
+   Add a CNAME record:
+   ```
+   Type:    CNAME
+   Name:    agents  (or your chosen subdomain)
+   Target:  username.github.io  (your GitHub username)
+   TTL:     Auto or 300
+   ```
+
+7. **Wait for SSL Certificate** (automatic):
+   - GitHub Pages will automatically provision an SSL certificate via Let's Encrypt
+   - This takes 10-60 minutes after DNS propagation
+   - Check status at: `https://github.com/username/repo-name/settings/pages`
+
+8. **Verify Deployment**:
+   ```bash
+   # Check GitHub Pages status
+   gh api repos/username/repo-name/pages
+   ```
+
+   Your site will be available at: `https://agents.yourdomain.com/`
+
+**Troubleshooting Custom Domain**:
+- **SSL Certificate Error**: Wait for GitHub to provision the certificate (can take up to 1 hour)
+- **404 Error**: Verify the CNAME file exists in the deployed `gh-pages` branch
+- **Images Not Loading**: Use relative paths (`logo.png`) instead of absolute paths (`/logo.png`)
+- **DNS Not Resolving**: Use `nslookup agents.yourdomain.com` to verify DNS propagation
 
 ### Deploy to AWS S3 + CloudFront
 
