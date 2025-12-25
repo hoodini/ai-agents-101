@@ -1,15 +1,16 @@
 import { BookOpen, Search, Database, Layers, Sparkles } from 'lucide-react';
-import { celebrateCompletion } from '../utils/confetti';
-
-const TOTAL_LABS = 8;
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
+import { celebrateCompletion } from '../utils/confetti';
 import { CohereEmbeddings, CohereRerank } from '@langchain/cohere';
 import { MemoryVectorStore } from '@langchain/classic/vectorstores/memory';
 import { Document } from '@langchain/core/documents';
 import { PromptTemplate } from '@langchain/core/prompts';
 import type { ExecutionResult } from '../types';
+
+const TOTAL_LABS = 8;
 
 export function Lab6() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();

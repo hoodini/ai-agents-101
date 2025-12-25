@@ -31,7 +31,8 @@
       "Bash(gh api:*)",
       "Bash(python -m json.tool:*)",
       "Bash(tasklist:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }

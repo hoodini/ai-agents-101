@@ -196,12 +196,14 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
         <div className="holo-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 bg-gradient-to-br from-purple-900/40 to-blue-900/40 backdrop-blur-xl">
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
             {/* Avatar - Fully responsive */}
-            <div className="relative flex-shrink-0 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
-              <img
-                src="yuvai.png"
-                alt="Yuval Avidani"
-                className="w-full h-full object-contain"
-              />
+            <div className="relative flex-shrink-0 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-1" style={{ boxShadow: '0 0 30px rgba(0, 212, 255, 0.6), 0 0 50px rgba(168, 85, 247, 0.5), 0 0 70px rgba(236, 72, 153, 0.3)' }}>
+              <div className="w-full h-full rounded-full overflow-hidden bg-transparent">
+                <img
+                  src="round-avatar.jpg"
+                  alt="Yuval Avidani"
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </div>
 
             {/* Welcome Text */}
