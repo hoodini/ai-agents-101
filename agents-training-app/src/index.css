@@ -201,6 +201,19 @@
     }
   }
 
+  @keyframes rgb-rotate {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
+    }
+  }
+
+  .animate-rgb-rotate {
+    animation: rgb-rotate 3s linear infinite;
+  }
+
   .animate-neural-pulse {
     animation: neural-pulse 3s ease-in-out infinite;
   }
@@ -783,55 +796,250 @@
     --background: #f8f9fa;
     --foreground: #1a1a1a;
     --card-bg: rgba(255, 255, 255, 0.9);
-    --border-color: rgba(0, 0, 0, 0.1);
+    --border-color: rgba(0, 0, 0, 0.15);
   }
 
   html.light body {
-    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f0f4f8 50%, #e1e8f0 100%);
     color: #1a1a1a;
   }
 
+  html.light body::after {
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.12) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+  }
+
   html.light .glass {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
   html.light .glass-strong {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   }
 
   html.light .tech-grid {
     background-image:
-      linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
   }
 
+  /* Text color overrides for light mode */
   html.light .text-white {
-    color: #1a1a1a;
+    color: #1a1a1a !important;
+  }
+
+  html.light .text-white\/90 {
+    color: rgba(26, 26, 26, 0.95) !important;
   }
 
   html.light .text-white\/80 {
-    color: rgba(26, 26, 26, 0.8);
+    color: rgba(26, 26, 26, 0.85) !important;
+  }
+
+  html.light .text-white\/70 {
+    color: rgba(26, 26, 26, 0.75) !important;
   }
 
   html.light .text-white\/60 {
-    color: rgba(26, 26, 26, 0.6);
+    color: rgba(26, 26, 26, 0.65) !important;
+  }
+
+  html.light .text-white\/50 {
+    color: rgba(26, 26, 26, 0.5) !important;
   }
 
   html.light .text-white\/40 {
-    color: rgba(26, 26, 26, 0.4);
+    color: rgba(26, 26, 26, 0.4) !important;
+  }
+
+  /* Border colors for light mode */
+  html.light .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.12) !important;
+  }
+
+  html.light .border-white\/20 {
+    border-color: rgba(0, 0, 0, 0.2) !important;
+  }
+
+  html.light .border-white\/40 {
+    border-color: rgba(0, 0, 0, 0.3) !important;
   }
 
   html.light .border-cyan-500\/20 {
-    border-color: rgba(6, 182, 212, 0.3);
+    border-color: rgba(6, 182, 212, 0.4) !important;
   }
 
+  html.light .border-cyan-500\/30 {
+    border-color: rgba(6, 182, 212, 0.5) !important;
+  }
+
+  html.light .border-cyan-400 {
+    border-color: rgba(6, 182, 212, 0.6) !important;
+  }
+
+  html.light .border-cyan-400\/40 {
+    border-color: rgba(6, 182, 212, 0.5) !important;
+  }
+
+  /* Background colors for light mode */
   html.light .bg-black\/20 {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95) !important;
   }
 
+  html.light .bg-black\/90 {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Gradient backgrounds for light mode */
+  html.light .bg-gradient-to-br.from-purple-900\/40 {
+    background: linear-gradient(to bottom right, rgba(147, 51, 234, 0.15), rgba(59, 130, 246, 0.15)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-blue-900\/30 {
+    background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.12), rgba(147, 51, 234, 0.12)) !important;
+  }
+
+  html.light .bg-gradient-to-b.from-slate-900\/95 {
+    background: linear-gradient(to bottom, rgba(248, 250, 252, 0.98), rgba(226, 232, 240, 0.95), rgba(203, 213, 225, 0.95)) !important;
+  }
+
+  /* Cyan/Purple backgrounds */
+  html.light .bg-gradient-to-r.from-cyan-500\/20,
+  html.light .bg-gradient-to-r.from-cyan-500\/20.to-purple-500\/20 {
+    background: linear-gradient(to right, rgba(6, 182, 212, 0.25), rgba(147, 51, 234, 0.25)) !important;
+  }
+
+  /* Hover backgrounds */
+  html.light .hover\:bg-cyan-500\/10:hover {
+    background-color: rgba(6, 182, 212, 0.15) !important;
+  }
+
+  html.light .hover\:bg-white\/10:hover {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  html.light .hover\:bg-white\/20:hover {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* Particle colors for light mode */
   html.light .particle {
-    background: rgba(6, 182, 212, 0.3);
+    background: rgba(6, 182, 212, 0.4);
+  }
+
+  /* Neon text effects for light mode - make them vibrant but readable */
+  html.light .neon-cyan {
+    color: #0891b2 !important;
+    text-shadow:
+      0 0 8px rgba(6, 182, 212, 0.6),
+      0 0 16px rgba(6, 182, 212, 0.4),
+      0 0 24px rgba(6, 182, 212, 0.2);
+  }
+
+  html.light .text-cyan-400 {
+    color: #0891b2 !important;
+  }
+
+  html.light .text-cyan-400\/90 {
+    color: rgba(8, 145, 178, 0.95) !important;
+  }
+
+  /* Hover text colors */
+  html.light .hover\:text-cyan-400:hover {
+    color: #0891b2 !important;
+  }
+
+  html.light .hover\:text-cyan-300:hover {
+    color: #0891b2 !important;
+  }
+
+  html.light .hover\:text-white:hover {
+    color: #1a1a1a !important;
+  }
+
+  /* Gradient text for light mode */
+  html.light .text-gradient-gold {
+    background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #b45309 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  html.light .text-gradient-neural {
+    background: linear-gradient(90deg, #0891b2 0%, #7c3aed 50%, #4f46e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Button gradients for light mode */
+  html.light .bg-gradient-to-r.from-blue-600 {
+    background: linear-gradient(to right, #2563eb, #0891b2) !important;
+  }
+
+  html.light .hover\:from-blue-500:hover {
+    background: linear-gradient(to right, #3b82f6, #06b6d4) !important;
+  }
+
+  /* Hexagon colors for light mode - keep them vibrant */
+  html.light .bg-gradient-to-br.from-cyan-500\/20 {
+    background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.25), rgba(8, 145, 178, 0.25)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-purple-500\/20 {
+    background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.25), rgba(147, 51, 234, 0.25)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-orange-500\/20 {
+    background: linear-gradient(to bottom right, rgba(249, 115, 22, 0.25), rgba(234, 88, 12, 0.25)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-pink-500\/20 {
+    background: linear-gradient(to bottom right, rgba(236, 72, 153, 0.25), rgba(219, 39, 119, 0.25)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-blue-500\/20 {
+    background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.25), rgba(37, 99, 235, 0.25)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-green-500\/20 {
+    background: linear-gradient(to bottom right, rgba(34, 197, 94, 0.25), rgba(22, 163, 74, 0.25)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-red-500\/20 {
+    background: linear-gradient(to bottom right, rgba(239, 68, 68, 0.25), rgba(220, 38, 38, 0.25)) !important;
+  }
+
+  html.light .bg-gradient-to-br.from-yellow-500\/20 {
+    background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.25), rgba(202, 138, 4, 0.25)) !important;
+  }
+
+  /* Icon colors in light mode */
+  html.light .text-yellow-400 {
+    color: #f59e0b !important;
+  }
+
+  html.light .text-blue-400 {
+    color: #3b82f6 !important;
+  }
+
+  html.light .text-green-400,
+  html.light .text-green-500 {
+    color: #16a34a !important;
+  }
+
+  /* Progress bar background */
+  html.light .shadow-neural {
+    box-shadow:
+      0 0 0 1px rgba(6, 182, 212, 0.2),
+      0 8px 32px rgba(6, 182, 212, 0.2),
+      0 16px 64px rgba(147, 51, 234, 0.15);
   }
 }

@@ -10,13 +10,13 @@ export function LanguageToggle() {
   };
 
   return (
-    <div className="flex items-center gap-1 glass rounded-lg p-1 border border-white/10 min-w-[140px]">
+    <div className="flex items-center gap-1 glass rounded-lg p-1 border border-white/10 min-w-[140px] dark:border-white/10 light:border-black/15">
       <button
         onClick={() => handleLanguageChange('en')}
         className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md transition-all flex-1 min-w-[64px] ${
           language === 'en'
-            ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
-            : 'text-white/60 hover:text-white hover:bg-white/10'
+            ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg font-semibold'
+            : 'text-white/60 hover:text-white hover:bg-white/10 dark:text-white/60 dark:hover:text-white light:text-black/70 light:hover:text-black light:hover:bg-black/10'
         }`}
         title="English"
       >
@@ -27,8 +27,8 @@ export function LanguageToggle() {
         onClick={() => handleLanguageChange('he')}
         className={`flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md transition-all flex-1 min-w-[64px] ${
           language === 'he'
-            ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
-            : 'text-white/60 hover:text-white hover:bg-white/10'
+            ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg font-semibold'
+            : 'text-white/60 hover:text-white hover:bg-white/10 dark:text-white/60 dark:hover:text-white light:text-black/70 light:hover:text-black light:hover:bg-black/10'
         }`}
         title="עברית"
       >

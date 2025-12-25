@@ -1,12 +1,18 @@
 import { CheckCircle, Circle } from 'lucide-react';
 import { useStore } from '../store/useStore';
+import { t } from '../utils/translations';
 
 interface LabNavigationProps {
   labs: { id: number; title: string }[];
 }
 
 export function LabNavigation({ labs }: LabNavigationProps) {
-  const { currentLab, labProgress, setCurrentLab } = useStore();
+  const { currentLab, labProgress, setCurrentLab, language } = useStore();
+
+  const getLabKey = (labId: number): string => {
+    const labKeys = ['agentComponents', 'simplePrompt', 'customPrompts', 'conversationMemory', 'knowledgeBase', 'ragWikipedia', 'multiAgentCollab', 'orchestrator'];
+    return labKeys[labId - 1] || 'agentComponents';
+  };
 
   return (
     <nav className="relative h-full overflow-y-auto bg-gradient-to-b from-slate-900/95 via-blue-900/30 to-purple-900/30 backdrop-blur-xl border-r border-cyan-500/20">
@@ -29,15 +35,17 @@ export function LabNavigation({ labs }: LabNavigationProps) {
         <div className="mb-6 pb-6 border-b border-cyan-500/30">
           <div className="flex items-center gap-2 mb-2">
             <div className="relative w-12 h-12">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-0.5" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.7), 0 0 35px rgba(168, 85, 247, 0.5)' }}>
-                <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-cyan-400/15 via-purple-500/15 to-pink-500/15" style={{ boxShadow: 'inset 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 15px rgba(168, 85, 247, 0.3)' }}>
+              {/* Animated RGB Ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-0.5 animate-rgb-rotate" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.7), 0 0 35px rgba(168, 85, 247, 0.5)' }}>
+                <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-blue-900/50 via-purple-900/50 to-pink-900/50" style={{ boxShadow: 'inset 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 15px rgba(168, 85, 247, 0.3)' }}>
                 </div>
               </div>
-              <div className="absolute inset-0 flex items-center justify-center">
+              {/* Avatar Image - No gap */}
+              <div className="absolute inset-[2px] flex items-end justify-center">
                 <img
                   src="round-avatar.png"
                   alt="AI Avatar"
-                  className="w-full h-full object-contain scale-110"
+                  className="w-full h-full object-cover rounded-full"
                   style={{ filter: 'drop-shadow(0 2px 10px rgba(0, 212, 255, 0.4))' }}
                 />
               </div>
@@ -60,14 +68,16 @@ export function LabNavigation({ labs }: LabNavigationProps) {
               <button
                 key={lab.id}
                 onClick={() => setCurrentLab(lab.id)}
-                className={`w-full text-left px-4 py-3 rounded-xl transition-all hover-lift relative overflow-hidden ${
+                className={`w-full px-4 py-3 rounded-xl transition-all hover-lift relative overflow-hidden ${
+                  language === 'he' ? 'text-right' : 'text-left'
+                } ${
                   isActive
                     ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border-2 border-cyan-400 shadow-neural'
                     : 'glass border border-white/10 hover:glass-strong hover:border-cyan-500/50'
                 }`}
                 style={isActive ? { boxShadow: '0 0 20px rgba(0, 212, 255, 0.3)' } : {}}
               >
-                <div className="flex items-center gap-3 relative z-10">
+                <div className={`flex items-center gap-3 relative z-10 ${language === 'he' ? 'flex-row-reverse' : 'flex-row'}`}>
                   {isCompleted ? (
                     <CheckCircle
                       className={`w-5 h-5 flex-shrink-0 ${
@@ -82,12 +92,12 @@ export function LabNavigation({ labs }: LabNavigationProps) {
                       }`}
                     />
                   )}
-                  <div>
+                  <div className="flex-1">
                     <div className={`text-sm font-bold ${isActive ? 'neon-cyan' : 'text-white'}`}>
-                      LAB {lab.id}
+                      {language === 'he' ? `מעבדה ${lab.id}` : `LAB ${lab.id}`}
                     </div>
                     <div className={`text-xs ${isActive ? 'text-white font-medium' : 'text-white/60'}`}>
-                      {lab.title}
+                      {t(language, `labs.${getLabKey(lab.id)}`)}
                     </div>
                   </div>
                 </div>
