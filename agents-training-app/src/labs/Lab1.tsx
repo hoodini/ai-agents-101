@@ -4,6 +4,14 @@ export function Lab1() {
 
   return (
     <div className="max-w-4xl mx-auto">
+      <div className="mb-8 rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
+        <img
+          src="/lab1-hero.jpg"
+          alt="Lab 1: Understanding AI Agent Components"
+          className="w-full h-auto"
+        />
+      </div>
+
       <div className="mb-8 pb-6 border-b border-cyan-500/30">
         <h1 className="text-5xl font-bold heading-font neon-cyan mb-4 tracking-wider">
           LAB 1: UNDERSTANDING AI AGENT COMPONENTS

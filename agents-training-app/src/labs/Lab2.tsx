@@ -167,6 +167,14 @@ console.log('Agent Response:', response.content);`;
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+      <div className="mb-8 rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
+        <img
+          src="/lab2-hero.jpg"
+          alt="Lab 2: Simple Prompt/Response Agent"
+          className="w-full h-auto"
+        />
+      </div>
+
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex items-center gap-4 mb-4">
           <div className="p-3 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl shadow-lg">

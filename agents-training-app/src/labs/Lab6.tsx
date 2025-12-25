@@ -531,6 +531,14 @@ ANSWER:`;
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+      <div className="mb-8 rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-2xl">
+        <img
+          src="/lab6-hero.jpg"
+          alt="Lab 6: RAG Deep Dive"
+          className="w-full h-auto"
+        />
+      </div>
+
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex items-center gap-4 mb-4">
           <div className="p-3 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl shadow-lg">
