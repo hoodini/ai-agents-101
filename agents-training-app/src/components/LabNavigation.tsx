@@ -35,18 +35,18 @@ export function LabNavigation({ labs }: LabNavigationProps) {
         <div className="mb-6 pb-6 border-b border-cyan-500/30">
           <div className="flex items-center gap-2 mb-2">
             <div className="relative w-12 h-12">
-              {/* Animated RGB Ring - Only outer glow */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-0.5 animate-rgb-rotate" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.7), 0 0 35px rgba(168, 85, 247, 0.5)' }}>
-                <div className="w-full h-full rounded-full overflow-hidden bg-transparent">
+              {/* Thick Animated RGB Ring with Neon Glow */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-1 animate-rgb-rotate" style={{ boxShadow: '0 0 25px rgba(0, 212, 255, 0.8), 0 0 40px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.1)' }}>
+                <div className="w-full h-full rounded-full overflow-hidden bg-slate-900/30 backdrop-blur-sm">
                 </div>
               </div>
-              {/* Avatar Image - Bigger to touch circle */}
-              <div className="absolute inset-[-10%] flex items-center justify-center">
+              {/* Avatar Image - Even Bigger to touch and pop out */}
+              <div className="absolute inset-[-15%] flex items-center justify-center">
                 <img
                   src="round-avatar.png"
                   alt="AI Avatar"
                   className="w-full h-full object-contain"
-                  style={{ filter: 'drop-shadow(0 2px 10px rgba(0, 212, 255, 0.4))' }}
+                  style={{ filter: 'drop-shadow(0 3px 15px rgba(0, 212, 255, 0.5))' }}
                 />
               </div>
             </div>

@@ -197,18 +197,18 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
             {/* Avatar - Fully responsive */}
             <div className="relative flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64">
-              {/* Animated RGB Ring - Only outer glow */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-1 animate-rgb-rotate" style={{ boxShadow: '0 0 40px rgba(0, 212, 255, 0.8), 0 0 60px rgba(168, 85, 247, 0.6), 0 0 80px rgba(236, 72, 153, 0.4)' }}>
-                <div className="w-full h-full rounded-full overflow-hidden bg-transparent">
+              {/* Thick Animated RGB Ring with Neon Glow */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-2 animate-rgb-rotate" style={{ boxShadow: '0 0 50px rgba(0, 212, 255, 0.9), 0 0 80px rgba(168, 85, 247, 0.7), 0 0 120px rgba(236, 72, 153, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.1)' }}>
+                <div className="w-full h-full rounded-full overflow-hidden bg-slate-900/30 backdrop-blur-sm">
                 </div>
               </div>
-              {/* Avatar Image - Bigger to touch circle */}
-              <div className="absolute inset-[-10%] flex items-center justify-center">
+              {/* Avatar Image - Even Bigger to touch and pop out */}
+              <div className="absolute inset-[-15%] flex items-center justify-center">
                 <img
                   src="round-avatar.png"
                   alt="Yuval Avidani"
                   className="w-full h-full object-contain"
-                  style={{ filter: 'drop-shadow(0 6px 30px rgba(0, 212, 255, 0.5)) drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))' }}
+                  style={{ filter: 'drop-shadow(0 8px 40px rgba(0, 212, 255, 0.6)) drop-shadow(0 0 25px rgba(168, 85, 247, 0.5))' }}
                 />
               </div>
             </div>
