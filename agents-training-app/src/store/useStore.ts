@@ -11,6 +11,7 @@ export const useStore = create<AppState>()(
       availableModels: [],
       currentLab: 1,
       labProgress: {},
+      language: 'en',
 
       setApiKey: (key: string, provider: 'groq' | 'cohere') => {
         const defaultModel = provider === 'groq' ? 'llama-3.1-8b-instant' : 'command-a-03-2025';
@@ -30,6 +31,9 @@ export const useStore = create<AppState>()(
         set((state) => ({
           labProgress: { ...state.labProgress, [labId]: true },
         })),
+
+      setLanguage: (lang: 'en' | 'he') =>
+        set({ language: lang }),
     }),
     {
       name: 'agents-training-storage',

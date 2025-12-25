@@ -1,4 +1,7 @@
 import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube } from 'lucide-react';
+import { useStore } from '../store/useStore';
+import { t } from '../utils/translations';
+import { LanguageToggle } from './LanguageToggle';
 
 interface HomepageProps {
   onGetStarted: () => void;
@@ -6,67 +9,69 @@ interface HomepageProps {
 }
 
 export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
+  const { language } = useStore();
+
   const hexagonModules = [
     {
       id: 1,
-      title: 'Agent Components',
-      description: 'Learn how about diffe lest agents components.',
+      title: t(language, 'labs.agentComponents'),
+      description: t(language, 'labs.agentComponentsDesc'),
       icon: SettingsIcon,
       color: 'cyan',
       bgClass: 'bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 border-cyan-400/40'
     },
     {
       id: 2,
-      title: 'Simple Prompt/Response',
-      description: "Simple prompt's & prompt consepence.",
+      title: t(language, 'labs.simplePrompt'),
+      description: t(language, 'labs.simplePromptDesc'),
       icon: MessageCircle,
       color: 'purple',
       bgClass: 'bg-gradient-to-br from-purple-500/20 to-purple-600/20 border-purple-400/40'
     },
     {
       id: 3,
-      title: 'Conversation Memory',
-      description: 'Aconersationwall memory, briliet conversation controme.',
+      title: t(language, 'labs.conversationMemory'),
+      description: t(language, 'labs.conversationMemoryDesc'),
       icon: Brain,
       color: 'orange',
       bgClass: 'bg-gradient-to-br from-orange-500/20 to-orange-600/20 border-orange-400/40'
     },
     {
       id: 4,
-      title: 'Custom System Prompts',
-      description: 'Custom system prompts for specialized agent behavior.',
+      title: t(language, 'labs.customPrompts'),
+      description: t(language, 'labs.customPromptsDesc'),
       icon: MessageCircle,
       color: 'pink',
       bgClass: 'bg-gradient-to-br from-pink-500/20 to-pink-600/20 border-pink-400/40'
     },
     {
       id: 5,
-      title: 'Knowledge Base',
-      description: 'A penivise lan vation of our knowledge AI agents.',
+      title: t(language, 'labs.knowledgeBase'),
+      description: t(language, 'labs.knowledgeBaseDesc'),
       icon: Database,
       color: 'blue',
       bgClass: 'bg-gradient-to-br from-blue-500/20 to-blue-600/20 border-blue-400/40'
     },
     {
       id: 6,
-      title: 'RAG with Wikipedia',
-      description: 'RAG with with wikipedia and Wikipedia with Wikipedia.',
+      title: t(language, 'labs.ragWikipedia'),
+      description: t(language, 'labs.ragWikipediaDesc'),
       icon: Globe,
       color: 'green',
       bgClass: 'bg-gradient-to-br from-green-500/20 to-green-600/20 border-green-400/40'
     },
     {
       id: 7,
-      title: 'Multi-Agent Collaboration',
-      description: 'Multi-constituent wims the ontraces in multi-agent collaboration.',
+      title: t(language, 'labs.multiAgentCollab'),
+      description: t(language, 'labs.multiAgentCollabDesc'),
       icon: Users,
       color: 'red',
       bgClass: 'bg-gradient-to-br from-red-500/20 to-red-600/20 border-red-400/40'
     },
     {
       id: 8,
-      title: 'Orchestrator Agent',
-      description: 'Orchestrator accelbut multi-agent varialese erecuitves.',
+      title: t(language, 'labs.orchestrator'),
+      description: t(language, 'labs.orchestratorDesc'),
       icon: Network,
       color: 'yellow',
       bgClass: 'bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 border-yellow-400/40'
@@ -95,52 +100,78 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
             <img src="logo.png" alt="YUV.AI Logo" className="h-8 sm:h-10 md:h-12 w-auto" />
           </div>
           <nav className="hidden md:flex items-center gap-8 text-base font-medium">
-            <button className="text-white hover:text-cyan-400 transition-colors">Home</button>
+            <button className="text-white hover:text-cyan-400 transition-colors">{t(language, 'home')}</button>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                Agents <ChevronDown className="w-4 h-4" />
+                {t(language, 'agents')} <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">8 Progressive Labs</div>
-                  <div className="text-xs text-white/60">From basic components to orchestrator agents</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.progressiveLabs')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.progressiveLabsDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Interactive Learning</div>
-                  <div className="text-xs text-white/60">Hands-on code cells with real LLM integration</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.interactiveLearning')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.interactiveLearningDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Multi-Agent Systems</div>
-                  <div className="text-xs text-white/60">Learn collaboration and orchestration patterns</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.multiAgent')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.multiAgentDesc')}</div>
                 </div>
               </div>
             </div>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                Features <ChevronDown className="w-4 h-4" />
+                {t(language, 'features')} <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">100% Browser-Based</div>
-                  <div className="text-xs text-white/60">No backend needed - runs entirely in your browser</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.browserBased')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.browserBasedDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Monaco Editor</div>
-                  <div className="text-xs text-white/60">Professional code editing experience</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.monacoEditor')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.monacoEditorDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Progress Tracking</div>
-                  <div className="text-xs text-white/60">Save your progress with localStorage</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.progressTracking')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.progressTrackingDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">LangChain.js</div>
-                  <div className="text-xs text-white/60">Industry-standard agent framework</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.langchain')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.langchainDesc')}</div>
                 </div>
               </div>
             </div>
-            <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">Blog</a>
-            <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">Contact</a>
+            <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'blog')}</a>
+            <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'contact')}</a>
           </nav>
+
+          {/* Language Toggle & GitHub Links - Desktop */}
+          <div className="hidden md:flex items-center gap-3">
+            <LanguageToggle />
+            <div className="flex items-center gap-2">
+            <a
+              href="https://github.com/hoodini"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10"
+              title="GitHub Profile"
+            >
+              <Github className="w-5 h-5 text-white" />
+            </a>
+            <a
+              href="https://github.com/hoodini/agents-training"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
+              title="View Repository"
+            >
+              <Github className="w-4 h-4" />
+              <span>{t(language, 'repo')}</span>
+            </a>
+          </div>
+          </div>
         </div>
       </header>
 
@@ -158,7 +189,7 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
 
           {/* Subtitle below */}
           <h2 className="text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white/90 mt-6 sm:mt-8 px-4">
-            Master the art of building AI agents
+            {t(language, 'homepage.subtitle')}
           </h2>
         </div>
       </section>
@@ -167,19 +198,19 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
       <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
         <div className="holo-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 bg-gradient-to-br from-purple-900/40 to-blue-900/40 backdrop-blur-xl">
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-            {/* Avatar - Simple without circle border */}
-            <div className="relative flex-shrink-0">
+            {/* Avatar - Fully responsive */}
+            <div className="relative flex-shrink-0 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
               <img
                 src="yuvai.png"
                 alt="Yuval Avidani"
-                className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain"
+                className="w-full h-full object-contain"
               />
             </div>
 
             {/* Welcome Text */}
             <div className="flex-1 text-center sm:text-left">
               <h3 className="text-lg sm:text-xl md:text-2xl heading-font neon-cyan mb-2 sm:mb-3 tracking-wider">
-                WELCOME TO YOUR AI AGENTS TRAINING
+                {t(language, 'homepage.welcomeTitle')}
               </h3>
               <p className="text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-3">Yuval Avidani</p>
 
@@ -205,7 +236,7 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
                 </a>
               </div>
 
-              <p className="text-lg sm:text-xl md:text-xl text-white/90 font-medium">AI Builder, Speaker & Educator</p>
+              <p className="text-lg sm:text-xl md:text-xl text-white/90 font-medium">{t(language, 'homepage.aiBuilder')}</p>
             </div>
           </div>
         </div>
@@ -214,7 +245,7 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
       {/* What You'll Learn - Hexagonal Grid */}
       <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold heading-font text-white text-center mb-8 sm:mb-12">
-          What You'll Learn
+          {t(language, 'homepage.whatYouLearn')}
         </h2>
 
         {/* Hexagon Grid */}
@@ -414,9 +445,9 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
       {/* Info Card */}
       <section className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12">
         <div className="border-2 border-cyan-500/30 rounded-xl sm:rounded-2xl p-6 sm:p-8 bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-xl">
-          <div className="text-xs sm:text-sm text-cyan-400 font-mono mb-2 sm:mb-3">INFO</div>
+          <div className="text-xs sm:text-sm text-cyan-400 font-mono mb-2 sm:mb-3">{t(language, 'homepage.infoTitle')}</div>
           <p className="text-base sm:text-lg text-white/80 mb-6 leading-relaxed">
-            This interactive training platform runs entirely in your browser using your API keys. Your keys are stored securely in local storage and never sent to any server.
+            {t(language, 'homepage.infoText')}
           </p>
 
           <div className="flex flex-col gap-3">
@@ -424,13 +455,13 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
               onClick={onGetStarted}
               className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold text-base sm:text-lg transition-all duration-300 hover-lift shadow-lg shadow-blue-500/30"
             >
-              CONFIGURE API KEY & START LEARNING
+              {t(language, 'homepage.getStarted')}
             </button>
             <button
               onClick={onSkip}
               className="w-full px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white/80 hover:text-white font-semibold text-base sm:text-lg transition-all duration-300 border border-white/20"
             >
-              SKIP FOR NOW
+              {t(language, 'homepage.skipForNow')}
             </button>
           </div>
         </div>
@@ -438,9 +469,9 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-cyan-500/20 py-6 sm:py-8 text-center px-4">
-        <p className="text-white/60 text-sm sm:text-base mb-2">© 2025 Yuval Avidani. All rights reserved</p>
+        <p className="text-white/60 text-sm sm:text-base mb-2">{t(language, 'homepage.footerCopyright')}</p>
         <p className="text-white/50 text-sm sm:text-base">
-          Founder of YUV.AI - Making AI practical, personal, and powerful
+          {t(language, 'homepage.footerTagline')}
         </p>
       </footer>
     </div>

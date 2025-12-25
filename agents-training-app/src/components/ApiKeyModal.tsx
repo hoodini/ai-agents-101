@@ -90,10 +90,10 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
-      <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 pointer-events-auto">
+      <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto pointer-events-auto">
         {/* Animated particles background */}
-        <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+        <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none -z-10">
           {[...Array(10)].map((_, i) => (
             <div
               key={i}
@@ -107,7 +107,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
           ))}
         </div>
 
-        <div className="relative holo-border rounded-2xl bg-gradient-to-br from-slate-900/95 via-blue-900/40 to-purple-900/40 backdrop-blur-xl shadow-2xl border-2 border-cyan-500/30">
+        <div className="relative holo-border rounded-2xl bg-gradient-to-br from-slate-900/95 via-blue-900/40 to-purple-900/40 backdrop-blur-xl shadow-2xl border-2 border-cyan-500/30 pointer-events-auto">
           <div className="sticky top-0 backdrop-blur-md bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-b border-cyan-500/30 px-6 py-4 flex items-center justify-between rounded-t-2xl">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg shadow-lg" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.5)' }}>
@@ -230,7 +230,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
               <button
                 onClick={validateApiKey}
                 disabled={!inputKey.trim() || isValidating}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed inline-flex items-center justify-center gap-2 shadow-lg"
+                className="relative z-10 flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed inline-flex items-center justify-center gap-2 shadow-lg pointer-events-auto"
               >
                 {isValidating ? (
                   <>
@@ -244,7 +244,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
               <button
                 onClick={handleSave}
                 disabled={!inputKey.trim() || validationStatus !== 'success'}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg"
+                className="relative z-10 flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg pointer-events-auto"
               >
                 SAVE & CONTINUE
               </button>

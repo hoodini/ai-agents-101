@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Settings, Menu, X, ChevronDown } from 'lucide-react';
+import { Github } from 'lucide-react';
 import { LabNavigation } from './components/LabNavigation';
 import { ApiKeyModal } from './components/ApiKeyModal';
 import { ModelSelector } from './components/ModelSelector';
+import { LanguageToggle } from './components/LanguageToggle';
 import { Homepage } from './components/Homepage';
 import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab6, Lab7, Lab8 } from './labs';
 import { useStore } from './store/useStore';
+import { t } from './utils/translations';
 
 const LABS = [
   { id: 1, title: 'Agent Components', component: Lab1 },
@@ -19,10 +22,16 @@ const LABS = [
 ];
 
 function App() {
-  const { currentLab, apiKey, labProgress } = useStore();
+  const { currentLab, apiKey, labProgress, language } = useStore();
   const [isApiModalOpen, setIsApiModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showWelcome, setShowWelcome] = useState(!apiKey);
+
+  // Set initial document direction based on language
+  useEffect(() => {
+    document.documentElement.dir = language === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.lang = language;
+  }, [language]);
 
   const CurrentLabComponent = LABS.find((lab) => lab.id === currentLab)?.component || Lab1;
 
@@ -84,59 +93,83 @@ function App() {
               onClick={() => setShowWelcome(true)}
               className="text-white hover:text-cyan-400 transition-colors"
             >
-              Home
+              {t(language, 'home')}
             </button>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                Agents <ChevronDown className="w-4 h-4" />
+                {t(language, 'agents')} <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">8 Progressive Labs</div>
-                  <div className="text-xs text-white/60">From basic components to orchestrator agents</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.progressiveLabs')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.progressiveLabsDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Interactive Learning</div>
-                  <div className="text-xs text-white/60">Hands-on code cells with real LLM integration</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.interactiveLearning')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.interactiveLearningDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Multi-Agent Systems</div>
-                  <div className="text-xs text-white/60">Learn collaboration and orchestration patterns</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.multiAgent')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.multiAgentDesc')}</div>
                 </div>
               </div>
             </div>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                Features <ChevronDown className="w-4 h-4" />
+                {t(language, 'features')} <ChevronDown className="w-4 h-4" />
               </button>
               <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">100% Browser-Based</div>
-                  <div className="text-xs text-white/60">No backend needed - runs entirely in your browser</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.browserBased')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.browserBasedDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Monaco Editor</div>
-                  <div className="text-xs text-white/60">Professional code editing experience</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.monacoEditor')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.monacoEditorDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">Progress Tracking</div>
-                  <div className="text-xs text-white/60">Save your progress with localStorage</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.progressTracking')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.progressTrackingDesc')}</div>
                 </div>
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">LangChain.js</div>
-                  <div className="text-xs text-white/60">Industry-standard agent framework</div>
+                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.langchain')}</div>
+                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.langchainDesc')}</div>
                 </div>
               </div>
             </div>
-            <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">Blog</a>
-            <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">Contact</a>
+            <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'blog')}</a>
+            <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'contact')}</a>
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
+            {/* GitHub Links */}
+            <div className="flex items-center gap-2">
+              <a
+                href="https://github.com/hoodini"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10"
+                title="GitHub Profile"
+              >
+                <Github className="w-5 h-5 text-white" />
+              </a>
+              <a
+                href="https://github.com/hoodini/agents-training"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
+                title="View Repository"
+              >
+                <Github className="w-4 h-4" />
+                <span>{t(language, 'repo')}</span>
+              </a>
+            </div>
+
+            <LanguageToggle />
             <ModelSelector />
 
             <div className="hidden md:flex items-center gap-3">
-              <span className="text-sm md:text-base text-white/60">Progress:</span>
+              <span className="text-sm md:text-base text-white/60">{t(language, 'progress')}:</span>
               <div className="w-24 md:w-32 h-2 glass rounded-full overflow-hidden border border-white/20">
                 <div
                   className="h-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 transition-all duration-300 shadow-neural"

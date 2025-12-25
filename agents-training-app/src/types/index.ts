@@ -28,9 +28,11 @@ export interface AppState {
   availableModels: string[];
   currentLab: number;
   labProgress: Record<number, boolean>;
+  language: 'en' | 'he';
   setApiKey: (key: string, provider: 'groq' | 'cohere') => void;
   setSelectedModel: (model: string) => void;
   setAvailableModels: (models: string[]) => void;
   setCurrentLab: (labId: number) => void;
   markLabComplete: (labId: number) => void;
+  setLanguage: (lang: 'en' | 'he') => void;
 }
