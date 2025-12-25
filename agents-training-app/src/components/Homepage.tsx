@@ -81,7 +81,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden tech-grid">
+    <div className="min-h-screen relative tech-grid">
       {/* Animated Background Particles */}
       {[...Array(20)].map((_, i) => (
         <div
