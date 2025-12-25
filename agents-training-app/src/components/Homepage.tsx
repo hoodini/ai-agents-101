@@ -92,7 +92,7 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
       <header className="relative z-20 border-b border-cyan-500/20 backdrop-blur-md bg-black/20">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="YUV.AI Logo" className="h-12 w-auto" />
+            <img src="logo.png" alt="YUV.AI Logo" className="h-12 w-auto" />
           </div>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <button className="text-white hover:text-cyan-400 transition-colors">Home</button>
@@ -115,7 +115,7 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
           {/* Hero Image - Clean without background */}
           <div className="relative">
             <img
-              src="/hero.jpg"
+              src="hero.jpg"
               alt="AI Agents 101"
               className="w-full max-w-5xl h-auto object-contain mx-auto hero-glow rounded-3xl"
             />
@@ -135,7 +135,7 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
             {/* Avatar - Simple without circle border */}
             <div className="relative flex-shrink-0">
               <img
-                src="/yuvai.png"
+                src="yuvai.png"
                 alt="Yuval Avidani"
                 className="w-48 h-48 object-contain"
               />

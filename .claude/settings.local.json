@@ -27,7 +27,8 @@
       "Bash(gh repo view:*)",
       "Bash(gh repo create:*)",
       "Bash(git remote:*)",
-      "Bash(npm run deploy:*)"
+      "Bash(npm run deploy:*)",
+      "Bash(gh api:*)"
     ]
   }
 }

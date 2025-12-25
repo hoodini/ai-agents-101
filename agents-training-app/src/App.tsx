@@ -75,7 +75,7 @@ function App() {
               onClick={() => setShowWelcome(true)}
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
-              <img src="/logo.png" alt="YUV.AI Logo" className="h-10 w-auto" />
+              <img src="logo.png" alt="YUV.AI Logo" className="h-10 w-auto" />
             </button>
           </div>
 
