@@ -89,6 +89,10 @@ export const translations = {
       runCode: 'Run Code',
       running: 'Running...',
       output: 'OUTPUT:',
+      error: 'Error',
+      success: 'Success',
+      collapseOutput: 'Collapse Output',
+      expandOutput: 'Expand Output',
     },
 
     // CompleteLabButton
@@ -97,6 +101,29 @@ export const translations = {
       completeLabShort: 'Complete',
       labCompleted: 'Lab Completed!',
       labCompletedShort: 'Completed!',
+    },
+
+    // Lab 2 - Simple Prompt/Response
+    lab2: {
+      title: 'Lab 2: Simple Prompt/Response Agent',
+      subtitle: 'Learn the basics of interacting with an LLM',
+      whatYouLearn: "What you'll learn:",
+      learn1: 'How to import and initialize a LangChain LLM',
+      learn2: 'Sending a simple prompt to the AI',
+      learn3: 'Receiving and displaying the response',
+      learn4: 'Understanding the basic request/response cycle',
+      step1Title: 'Import LangChain',
+      step1Desc: 'class from LangChain',
+      step2Title: 'Create LLM Instance',
+      step2Desc: 'Initialize the LLM with your API key and selected model',
+      step3Title: 'Define Your Prompt',
+      step3Desc: 'Create a simple question to ask the AI',
+      step4Title: 'Get AI Response',
+      step4Desc: "Send the prompt and receive the AI's response",
+      step5Title: 'Complete Example',
+      step5Desc: 'Put it all together - your first working AI agent!',
+      congratsTitle: 'Congratulations!',
+      congratsText: "You've created your first AI agent! This simple prompt/response pattern is the foundation for all AI agents. In the next labs, we'll add memory, tools, and more complex behaviors.",
     },
   },
   he: {
@@ -189,6 +216,10 @@ export const translations = {
       runCode: 'הרץ קוד',
       running: 'מריץ...',
       output: ':פלט',
+      error: 'שגיאה',
+      success: 'הצלחה',
+      collapseOutput: 'כווץ פלט',
+      expandOutput: 'הרחב פלט',
     },
 
     // CompleteLabButton
@@ -197,6 +228,29 @@ export const translations = {
       completeLabShort: 'השלם',
       labCompleted: '!המעבדה הושלמה',
       labCompletedShort: '!הושלמה',
+    },
+
+    // Lab 2 - Simple Prompt/Response
+    lab2: {
+      title: 'מעבדה 2: סוכן הנחיה/תגובה פשוט',
+      subtitle: 'למד את היסודות של אינטראקציה עם LLM',
+      whatYouLearn: ':מה תלמד',
+      learn1: 'כיצד לייבא ולאתחל LangChain LLM',
+      learn2: 'שליחת הנחיה פשוטה ל-AI',
+      learn3: 'קבלת והצגת התגובה',
+      learn4: 'הבנת מחזור הבקשה/תגובה הבסיסי',
+      step1Title: 'ייבוא LangChain',
+      step1Desc: 'מ-LangChain',
+      step2Title: 'יצירת מופע LLM',
+      step2Desc: 'אתחול ה-LLM עם מפתח ה-API והמודל שנבחר',
+      step3Title: 'הגדרת ההנחיה שלך',
+      step3Desc: 'צור שאלה פשוטה לשאול את ה-AI',
+      step4Title: 'קבלת תגובת AI',
+      step4Desc: 'שלח את ההנחיה וקבל את תגובת ה-AI',
+      step5Title: 'דוגמה מלאה',
+      step5Desc: 'חבר הכל ביחד - סוכן ה-AI הראשון שלך!',
+      congratsTitle: '!מזל טוב',
+      congratsText: 'יצרת את סוכן ה-AI הראשון שלך! דפוס ההנחיה/תגובה הפשוט הזה הוא הבסיס לכל סוכני ה-AI. במעבדות הבאות, נוסיף זיכרון, כלים והתנהגויות מורכבות יותר.',
     },
   },
 };

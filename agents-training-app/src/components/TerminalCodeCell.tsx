@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import { Play, Loader2, Terminal, Check, AlertCircle } from 'lucide-react';
+import { useStore } from '../store/useStore';
+import { t } from '../utils/translations';
 import type { ExecutionResult } from '../types';
 
 interface TerminalCodeCellProps {
@@ -23,6 +25,7 @@ export function TerminalCodeCell({
   onExecute,
   autoRun = false,
 }: TerminalCodeCellProps) {
+  const { language: lang } = useStore();
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<ExecutionResult | null>(null);
@@ -86,18 +89,18 @@ export function TerminalCodeCell({
           <button
             onClick={handleRun}
             disabled={isRunning || !onExecute}
-            className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 hover:from-emerald-600 hover:via-green-600 hover:to-teal-700 disabled:from-slate-700 disabled:to-slate-800 text-white text-sm font-bold rounded-lg transition-all duration-200 shadow-luxury disabled:cursor-not-allowed hover-lift disabled:opacity-50 relative overflow-hidden group/btn"
+            className={`inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 hover:from-emerald-600 hover:via-green-600 hover:to-teal-700 disabled:from-slate-700 disabled:to-slate-800 text-white text-sm font-bold rounded-lg transition-all duration-200 shadow-luxury disabled:cursor-not-allowed hover-lift disabled:opacity-50 relative overflow-hidden group/btn ${lang === 'he' ? 'flex-row-reverse' : 'flex-row'}`}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-emerald-600 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
             {isRunning ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin relative z-10" />
-                <span className="font-mono relative z-10">Running...</span>
+                <span className="font-mono relative z-10">{t(lang, 'codeCell.running')}</span>
               </>
             ) : (
               <>
                 <Play className="w-4 h-4 relative z-10" />
-                <span className="font-mono relative z-10">Run Code</span>
+                <span className="font-mono relative z-10">{t(lang, 'codeCell.runCode')}</span>
               </>
             )}
           </button>
@@ -148,12 +151,12 @@ export function TerminalCodeCell({
                 {result.error ? (
                   <>
                     <AlertCircle className="w-5 h-5 text-red-400" />
-                    <span className="text-base font-mono font-bold text-red-400">Error</span>
+                    <span className="text-base font-mono font-bold text-red-400">{t(lang, 'codeCell.error')}</span>
                   </>
                 ) : (
                   <>
                     <Check className="w-5 h-5 text-green-400" />
-                    <span className="text-base font-mono font-bold text-gradient-neural">Success</span>
+                    <span className="text-base font-mono font-bold text-gradient-neural">{t(lang, 'codeCell.success')}</span>
                   </>
                 )}
               </div>
@@ -179,7 +182,10 @@ export function TerminalCodeCell({
               onClick={() => setIsExpanded(!isExpanded)}
               className="w-full py-2.5 text-sm text-white/60 hover:text-white/90 glass border-t border-white/10 transition-all font-mono font-semibold"
             >
-              {isExpanded ? '▼ Collapse Output' : '▲ Expand Output'}
+              {isExpanded
+                ? `${lang === 'he' ? '' : '▼ '}${t(lang, 'codeCell.collapseOutput')}${lang === 'he' ? ' ▼' : ''}`
+                : `${lang === 'he' ? '' : '▲ '}${t(lang, 'codeCell.expandOutput')}${lang === 'he' ? ' ▲' : ''}`
+              }
             </button>
           </div>
         )}

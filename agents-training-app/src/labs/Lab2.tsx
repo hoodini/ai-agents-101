@@ -4,12 +4,13 @@ import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
 import { celebrateCompletion } from '../utils/confetti';
+import { t } from '../utils/translations';
 import type { ExecutionResult } from '../types';
 
 const TOTAL_LABS = 8;
 
 export function Lab2() {
-  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance, language } = useStore();
 
   const getLLMClass = () => {
     return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
@@ -173,10 +174,10 @@ console.log('Agent Response:', response.content);`;
           </div>
           <div>
             <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-              Lab 2: Simple Prompt/Response Agent
+              {t(language, 'lab2.title')}
             </h1>
             <p className="text-slate-600 dark:text-slate-400 mt-1">
-              Learn the basics of interacting with an LLM
+              {t(language, 'lab2.subtitle')}
             </p>
           </div>
         </div>
@@ -184,12 +185,12 @@ console.log('Agent Response:', response.content);`;
         <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
           <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-blue-900 dark:text-blue-100">
-            <p className="font-semibold mb-2">What you'll learn:</p>
+            <p className="font-semibold mb-2">{t(language, 'lab2.whatYouLearn')}</p>
             <ul className="space-y-1 list-disc list-inside">
-              <li>How to import and initialize a LangChain LLM</li>
-              <li>Sending a simple prompt to the AI</li>
-              <li>Receiving and displaying the response</li>
-              <li>Understanding the basic request/response cycle</li>
+              <li>{t(language, 'lab2.learn1')}</li>
+              <li>{t(language, 'lab2.learn2')}</li>
+              <li>{t(language, 'lab2.learn3')}</li>
+              <li>{t(language, 'lab2.learn4')}</li>
             </ul>
           </div>
         </div>
@@ -201,13 +202,13 @@ console.log('Agent Response:', response.content);`;
             1
           </div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-            Import LangChain
+            {t(language, 'lab2.step1Title')}
           </h2>
         </div>
         <TerminalCodeCell
           title="step-1-import"
           initialCode={step1Code}
-          description={`First, we import the ${getLLMClass()} class from LangChain`}
+          description={`${language === 'he' ? 'ראשית, אנו מייבאים את המחלקה' : 'First, we import the'} ${getLLMClass()} ${t(language, 'lab2.step1Desc')}`}
           onExecute={executeStep1}
         />
       </div>
@@ -218,13 +219,13 @@ console.log('Agent Response:', response.content);`;
             2
           </div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-            Create LLM Instance
+            {t(language, 'lab2.step2Title')}
           </h2>
         </div>
         <TerminalCodeCell
           title="step-2-create-llm"
           initialCode={step2Code}
-          description="Initialize the LLM with your API key and selected model"
+          description={t(language, 'lab2.step2Desc')}
           onExecute={executeStep2}
         />
       </div>
@@ -235,13 +236,13 @@ console.log('Agent Response:', response.content);`;
             3
           </div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-            Define Your Prompt
+            {t(language, 'lab2.step3Title')}
           </h2>
         </div>
         <TerminalCodeCell
           title="step-3-prompt"
           initialCode={step3Code}
-          description="Create a simple question to ask the AI"
+          description={t(language, 'lab2.step3Desc')}
           onExecute={executeStep3}
         />
       </div>
@@ -252,13 +253,13 @@ console.log('Agent Response:', response.content);`;
             4
           </div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-            Get AI Response
+            {t(language, 'lab2.step4Title')}
           </h2>
         </div>
         <TerminalCodeCell
           title="step-4-response"
           initialCode={step4Code}
-          description="Send the prompt and receive the AI's response"
+          description={t(language, 'lab2.step4Desc')}
           onExecute={executeStep4}
         />
       </div>
@@ -269,24 +270,23 @@ console.log('Agent Response:', response.content);`;
             5
           </div>
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
-            Complete Example
+            {t(language, 'lab2.step5Title')}
           </h2>
         </div>
         <TerminalCodeCell
           title="complete-agent"
           initialCode={step5Code}
-          description="Put it all together - your first working AI agent!"
+          description={t(language, 'lab2.step5Desc')}
           onExecute={executeStep5}
         />
       </div>
 
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
         <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">
-          🎉 Congratulations!
+          🎉 {t(language, 'lab2.congratsTitle')}
         </h3>
         <p className="text-green-800 dark:text-green-200 text-sm">
-          You've created your first AI agent! This simple prompt/response pattern is the foundation
-          for all AI agents. In the next labs, we'll add memory, tools, and more complex behaviors.
+          {t(language, 'lab2.congratsText')}
         </p>
       </div>
 
