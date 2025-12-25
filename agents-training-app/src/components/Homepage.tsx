@@ -149,17 +149,12 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
 
           {/* Language Toggle & GitHub Links - Desktop */}
           <div className="hidden md:flex items-center gap-3">
-            <LanguageToggle />
-            <div className="flex items-center gap-2">
-            <a
-              href="https://github.com/hoodini"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10"
-              title="GitHub Profile"
-            >
-              <Github className="w-5 h-5 text-white" />
-            </a>
+            {/* Language Toggle - Fixed width to prevent shifting */}
+            <div className="w-[140px]">
+              <LanguageToggle />
+            </div>
+
+            {/* GitHub Repository Link */}
             <a
               href="https://github.com/hoodini/agents-training"
               target="_blank"
@@ -168,9 +163,8 @@ export function Homepage({ onGetStarted, onSkip }: HomepageProps) {
               title="View Repository"
             >
               <Github className="w-4 h-4" />
-              <span>{t(language, 'repo')}</span>
+              <span>Repo</span>
             </a>
-          </div>
           </div>
         </div>
       </header>

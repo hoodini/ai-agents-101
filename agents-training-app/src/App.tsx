@@ -142,30 +142,23 @@ function App() {
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4">
-            {/* GitHub Links */}
-            <div className="flex items-center gap-2">
-              <a
-                href="https://github.com/hoodini"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10"
-                title="GitHub Profile"
-              >
-                <Github className="w-5 h-5 text-white" />
-              </a>
-              <a
-                href="https://github.com/hoodini/agents-training"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
-                title="View Repository"
-              >
-                <Github className="w-4 h-4" />
-                <span>{t(language, 'repo')}</span>
-              </a>
+            {/* Language Toggle - Fixed width to prevent shifting */}
+            <div className="w-[140px]">
+              <LanguageToggle />
             </div>
 
-            <LanguageToggle />
+            {/* GitHub Repository Link */}
+            <a
+              href="https://github.com/hoodini/agents-training"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
+              title="View Repository"
+            >
+              <Github className="w-4 h-4" />
+              <span>Repo</span>
+            </a>
+
             <ModelSelector />
 
             <div className="hidden md:flex items-center gap-3">
