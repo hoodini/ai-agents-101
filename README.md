@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![AI Agents 101](agents-training-app/public/hero.jpg)
+![AI Agents 101](https://raw.githubusercontent.com/hoodini/ai-agents-101/main/agents-training-app/public/hero.jpg)
 
 **Master the art of building AI agents through 8 progressive, interactive labs**
 
