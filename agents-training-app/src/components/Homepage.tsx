@@ -269,7 +269,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
                  style={{ boxShadow: '0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 80px rgba(236, 72, 153, 0.3)' }}>
               <div className="w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-black">
                 <iframe
-                  src="https://www.youtube.com/embed/da9AJ-T3JhY"
+                  src="https://www.youtube.com/embed/ETuT0yOaAvg"
                   title="AI Agents 101 - Introduction"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen

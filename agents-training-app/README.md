@@ -9,6 +9,14 @@ Founder of [YUV.AI](https://yuv.ai) | GitHub [@hoodini](https://github.com/hoodi
 
 ---
 
+## 🎬 Watch the 60-Second Intro
+
+[![AI Agents 101 Introduction](https://img.youtube.com/vi/ETuT0yOaAvg/maxresdefault.jpg)](https://youtu.be/ETuT0yOaAvg)
+
+▶️ **[Click to watch the intro video](https://youtu.be/ETuT0yOaAvg)**
+
+---
+
 ## What is This?
 
 AI Agents 101 is an interactive web-based training platform that teaches you how to build AI agents from scratch. Unlike traditional tutorials, this platform features:
