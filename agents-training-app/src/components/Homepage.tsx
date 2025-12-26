@@ -240,10 +240,12 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
             {/* Video container */}
             <div className="relative w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-black">
               <iframe
-                src="https://www.youtube.com/embed/ETuT0yOaAvg"
+                src="https://www.youtube.com/embed/ETuT0yOaAvg?rel=0&modestbranding=1&playsinline=1"
                 title="AI Agents 101 - Introduction"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+                loading="lazy"
                 className="w-full h-full"
               />
             </div>
