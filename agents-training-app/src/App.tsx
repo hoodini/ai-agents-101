@@ -66,6 +66,24 @@ function App() {
             setCurrentLab(labId);
             setShowWelcome(false);
           }}
+          onResourcesClick={() => {
+            setShowWelcome(false);
+            setShowResources(true);
+            setShowAdvanced(false);
+            setShowTechnical(false);
+          }}
+          onTechnicalClick={() => {
+            setShowWelcome(false);
+            setShowResources(false);
+            setShowAdvanced(false);
+            setShowTechnical(true);
+          }}
+          onAdvancedClick={() => {
+            setShowWelcome(false);
+            setShowResources(false);
+            setShowAdvanced(true);
+            setShowTechnical(false);
+          }}
         />
         <ApiKeyModal isOpen={isApiModalOpen} onClose={() => setIsApiModalOpen(false)} />
       </>
@@ -538,43 +556,11 @@ function App() {
                 setShowWelcome(true);
                 setShowResources(false);
                 setShowAdvanced(false);
+                setShowTechnical(false);
               }}
               className="text-white hover:text-cyan-400 transition-colors"
             >
               {t(language, 'home')}
-            </button>
-            <button
-              onClick={() => {
-                setShowWelcome(false);
-                setShowResources(true);
-                setShowAdvanced(false);
-                setShowTechnical(false);
-              }}
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Resources
-            </button>
-            <button
-              onClick={() => {
-                setShowWelcome(false);
-                setShowResources(false);
-                setShowAdvanced(false);
-                setShowTechnical(true);
-              }}
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Technical
-            </button>
-            <button
-              onClick={() => {
-                setShowWelcome(false);
-                setShowResources(false);
-                setShowAdvanced(true);
-                setShowTechnical(false);
-              }}
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Advanced
             </button>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
@@ -618,6 +604,39 @@ function App() {
                 </div>
               </div>
             </div>
+            <button
+              onClick={() => {
+                setShowWelcome(false);
+                setShowResources(true);
+                setShowAdvanced(false);
+                setShowTechnical(false);
+              }}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Resources
+            </button>
+            <button
+              onClick={() => {
+                setShowWelcome(false);
+                setShowResources(false);
+                setShowAdvanced(false);
+                setShowTechnical(true);
+              }}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Technical
+            </button>
+            <button
+              onClick={() => {
+                setShowWelcome(false);
+                setShowResources(false);
+                setShowAdvanced(true);
+                setShowTechnical(false);
+              }}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Advanced
+            </button>
             <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'blog')}</a>
             <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'contact')}</a>
           </nav>

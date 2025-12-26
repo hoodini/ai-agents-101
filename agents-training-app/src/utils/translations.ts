@@ -217,9 +217,9 @@ export const translations = {
     // Advanced Playground
     advanced: {
       title: 'Advanced Playground',
-      subtitle: 'Run LLMs and Python entirely in your browser - no server required!',
+      subtitle: 'Run LLMs and Python 100% in your browser locally - no server required!',
       infoTitle: 'Welcome to the Advanced Playground!',
-      infoText: 'This experimental feature lets you run large language models and Python code directly in your browser using WebLLM and Pyodide. Everything runs locally with WebGPU acceleration.',
+      infoText: 'This experimental feature lets you run large language models and Python code 100% locally in your browser. Everything runs on your device with WebGPU acceleration.',
       infoPoint1: 'First-time model downloads can be large (2-3GB) and may take several minutes',
       infoPoint2: 'Models are cached in your browser for future use',
       infoPoint3: 'Requires a modern browser with WebGPU support (Chrome/Edge 113+)',
@@ -230,7 +230,7 @@ export const translations = {
       unloadModel: 'Unload Model',
       modelReady: 'Model Ready',
       modelNotLoaded: 'No Model Loaded',
-      pythonEditor: 'Python Code (Pyodide)',
+      pythonEditor: 'Python Code Editor',
       runCode: 'Run Python',
       running: 'Running...',
       clearOutput: 'Clear Output',
@@ -543,9 +543,9 @@ export const translations = {
     // Advanced Playground
     advanced: {
       title: 'מגרש משחקים מתקדם',
-      subtitle: '!הרץ מודלי שפה ופייתון לחלוטין בדפדפן - ללא צורך בשרת',
+      subtitle: '!הרץ מודלי שפה ופייתון 100% בדפדפן מקומית - ללא צורך בשרת',
       infoTitle: '!ברוכים הבאים למגרש המשחקים המתקדם',
-      infoText: 'תכונה ניסיונית זו מאפשרת לך להריץ מודלי שפה גדולים וקוד פייתון ישירות בדפדפן באמצעות WebLLM ו-Pyodide. הכל רץ מקומית עם האצת WebGPU.',
+      infoText: 'תכונה ניסיונית זו מאפשרת לך להריץ מודלי שפה גדולים וקוד פייתון 100% מקומית בדפדפן. הכל רץ על המכשיר שלך עם האצת WebGPU.',
       infoPoint1: 'הורדות מודלים בפעם הראשונה יכולות להיות גדולות (2-3GB) ועשויות לקחת מספר דקות',
       infoPoint2: 'מודלים נשמרים במטמון הדפדפן לשימוש עתידי',
       infoPoint3: 'דורש דפדפן מודרני עם תמיכת WebGPU (Chrome/Edge 113+)',
@@ -556,7 +556,7 @@ export const translations = {
       unloadModel: 'הסר מודל',
       modelReady: 'המודל מוכן',
       modelNotLoaded: 'לא נטען מודל',
-      pythonEditor: '(Pyodide) קוד פייתון',
+      pythonEditor: 'עורך קוד פייתון',
       runCode: 'הרץ פייתון',
       running: '...רץ',
       clearOutput: 'נקה פלט',

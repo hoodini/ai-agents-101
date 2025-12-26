@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Cpu, Download, Play, Trash2, Terminal, Zap, Info, ChevronUp } from 'lucide-react';
+import { Cpu, Download, Play, Trash2, Terminal, Zap, Info, ChevronUp, Loader2 } from 'lucide-react';
+import Editor from '@monaco-editor/react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 import * as webllm from '@mlc-ai/web-llm';
@@ -305,49 +306,84 @@ print(f"\\nPython calculation: sqrt(16) = {math.sqrt(16)}")`);
       </div>
 
       {/* Python Code Editor */}
-      <div className="mb-6 p-4 sm:p-6 glass rounded-xl border border-cyan-500/30">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <Terminal className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
-            <h2 className="text-lg sm:text-xl font-bold text-white">
-              {t(language, 'advanced.pythonEditor')}
-            </h2>
+      <div className="mb-6 relative animate-fade-in">
+        {/* Luxury Terminal Window */}
+        <div className="relative rounded-2xl overflow-hidden glass-strong shadow-neural border-2 border-white/10 transition-all duration-300 hover:border-white/20 hover-lift">
+          {/* Premium Terminal Header */}
+          <div className="flex items-center justify-between px-4 py-3 glass border-b border-white/10 backdrop-blur-xl">
+            <div className="flex items-center gap-3">
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-red-500 to-red-600 hover:shadow-lg hover:shadow-red-500/50 transition-all cursor-pointer"></div>
+                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 hover:shadow-lg hover:shadow-yellow-500/50 transition-all cursor-pointer"></div>
+                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-green-400 to-green-500 hover:shadow-lg hover:shadow-green-500/50 transition-all cursor-pointer"></div>
+              </div>
+              <div className="flex items-center gap-2 text-white/60">
+                <Terminal className="w-4 h-4 text-gradient-neural" />
+                <span className="text-sm font-mono text-white/80">{t(language, 'advanced.pythonEditor')}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${isPyodideReady ? 'bg-green-400 shadow-neural' : 'bg-yellow-400'}`} />
+                <span className="text-xs text-white/70">
+                  {isPyodideReady ? 'Python Ready' : 'Loading...'}
+                </span>
+              </div>
+
+              <button
+                onClick={runPythonCode}
+                disabled={!isPyodideReady || isRunningPython}
+                className={`inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 hover:from-emerald-600 hover:via-green-600 hover:to-teal-700 disabled:from-slate-700 disabled:to-slate-800 text-white text-sm font-bold rounded-lg transition-all duration-200 shadow-luxury disabled:cursor-not-allowed hover-lift disabled:opacity-50 relative overflow-hidden group/btn`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-emerald-600 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                {isRunningPython ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin relative z-10" />
+                    <span className="font-mono relative z-10">{t(language, 'advanced.running')}</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-4 h-4 relative z-10" />
+                    <span className="font-mono relative z-10">{t(language, 'advanced.runCode')}</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${isPyodideReady ? 'bg-green-400 shadow-neural' : 'bg-yellow-400'}`} />
-            <span className="text-xs sm:text-sm text-white/70">
-              {isPyodideReady ? 'Python Ready' : 'Loading...'}
-            </span>
+
+          {/* Monaco Editor */}
+          <div className="h-[400px] relative bg-[#1e1e1e]">
+            <Editor
+              value={pythonCode}
+              onChange={(value) => setPythonCode(value || '')}
+              language="python"
+              theme="vs-dark"
+              options={{
+                minimap: { enabled: false },
+                fontSize: 14,
+                lineNumbers: 'on',
+                scrollBeyondLastLine: false,
+                wordWrap: 'on',
+                automaticLayout: true,
+                tabSize: 4,
+                insertSpaces: true,
+                renderWhitespace: 'selection',
+                fontFamily: 'Fira Code, Monaco, Consolas, monospace',
+              }}
+            />
           </div>
-        </div>
 
-        <textarea
-          value={pythonCode}
-          onChange={(e) => setPythonCode(e.target.value)}
-          className="w-full h-64 sm:h-80 px-4 py-3 glass rounded-lg border border-white/20 text-white font-mono text-xs sm:text-sm focus:border-cyan-500/50 focus:outline-none resize-none"
-          placeholder="Write your Python code here..."
-          spellCheck={false}
-        />
-
-        <div className="flex gap-3 mt-4">
-          <button
-            onClick={runPythonCode}
-            disabled={!isPyodideReady || isRunningPython}
-            className="flex items-center gap-2 px-4 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Play className="w-4 h-4" />
-            <span className="font-medium">
-              {isRunningPython ? t(language, 'advanced.running') : t(language, 'advanced.runCode')}
-            </span>
-          </button>
-
-          <button
-            onClick={clearOutput}
-            className="flex items-center gap-2 px-4 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/20"
-          >
-            <Trash2 className="w-4 h-4" />
-            <span className="font-medium">{t(language, 'advanced.clearOutput')}</span>
-          </button>
+          {/* Action Buttons Footer */}
+          <div className="flex gap-3 px-4 py-3 glass border-t border-white/10">
+            <button
+              onClick={clearOutput}
+              className="flex items-center gap-2 px-4 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/20"
+            >
+              <Trash2 className="w-4 h-4" />
+              <span className="font-medium">{t(language, 'advanced.clearOutput')}</span>
+            </button>
+          </div>
         </div>
       </div>
 

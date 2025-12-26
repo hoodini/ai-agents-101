@@ -1,4 +1,4 @@
-import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles } from 'lucide-react';
+import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles, BookOpen, Code, Zap } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 import { LanguageToggle } from './LanguageToggle';
@@ -8,9 +8,12 @@ interface HomepageProps {
   onGetStarted: () => void;
   onSkip: () => void;
   onLabSelect?: (labId: number) => void;
+  onResourcesClick?: () => void;
+  onAdvancedClick?: () => void;
+  onTechnicalClick?: () => void;
 }
 
-export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
+export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, onAdvancedClick, onTechnicalClick }: HomepageProps) {
   const { language } = useStore();
 
   const hexagonModules = [
@@ -91,6 +94,37 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
     bgClass: 'bg-gradient-to-br from-purple-500/30 to-cyan-500/20 border-purple-400/50'
   };
 
+  // Special feature modules
+  const specialModules = [
+    {
+      id: 'resources',
+      title: t(language, 'resources.title'),
+      description: 'Curated cookbooks and learning materials',
+      icon: BookOpen,
+      color: 'cyan',
+      bgClass: 'bg-gradient-to-br from-cyan-500/30 to-blue-500/20 border-cyan-400/50',
+      onClick: onResourcesClick
+    },
+    {
+      id: 'technical',
+      title: t(language, 'technical.title'),
+      description: 'Understanding browser-based AI execution',
+      icon: Code,
+      color: 'blue',
+      bgClass: 'bg-gradient-to-br from-blue-500/30 to-indigo-500/20 border-blue-400/50',
+      onClick: onTechnicalClick
+    },
+    {
+      id: 'advanced',
+      title: 'Browser-Based AI Playground',
+      description: 'Run LLMs and code entirely in your browser',
+      icon: Zap,
+      color: 'purple',
+      bgClass: 'bg-gradient-to-br from-purple-500/30 to-pink-500/20 border-purple-400/50',
+      onClick: onAdvancedClick
+    },
+  ];
+
   return (
     <div className="min-h-screen relative tech-grid overflow-x-hidden">
       {/* Animated Background Particles */}
@@ -156,6 +190,24 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
                 </div>
               </div>
             </div>
+            <button
+              onClick={onResourcesClick}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Resources
+            </button>
+            <button
+              onClick={onTechnicalClick}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Technical
+            </button>
+            <button
+              onClick={onAdvancedClick}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Advanced
+            </button>
             <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'blog')}</a>
             <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'contact')}</a>
           </nav>
@@ -431,14 +483,14 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
                     <Sparkles className="w-10 h-10 text-purple-300"
                           style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
                   </div>
-                  
+
                   <div className="flex-1">
                     {/* Bonus Badge */}
                     <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-500/30 rounded-full text-xs font-bold text-purple-300 mb-1">
                       <Sparkles className="w-3 h-3" />
                       {t(language, 'bonus.label')}
                     </div>
-                    
+
                     {/* Title */}
                     <h3 className="text-xl font-bold text-white mb-1">
                       {bonusModule.title}
@@ -452,6 +504,43 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Special Features Cards - Desktop */}
+          <div className="flex justify-center gap-4 mt-6 flex-wrap max-w-5xl mx-auto">
+            {specialModules.map((module) => {
+              const Icon = module.icon;
+              return (
+                <div
+                  key={module.id}
+                  className="relative group cursor-pointer flex-1 min-w-[280px] max-w-[320px]"
+                  onClick={module.onClick}
+                >
+                  <div className={`${module.bgClass} rounded-2xl p-5 border-2 transition-all duration-300 group-hover:scale-105 relative`}
+                       style={{ boxShadow: `0 0 25px ${module.color === 'cyan' ? 'rgba(0, 212, 255, 0.3)' : module.color === 'blue' ? 'rgba(68, 136, 255, 0.3)' : 'rgba(168, 85, 247, 0.3)'}` }}>
+                    <div className="flex items-center gap-3">
+                      {/* Icon */}
+                      <div className={`p-3 bg-gradient-to-br ${module.color === 'cyan' ? 'from-cyan-500/30 to-blue-500/30 border-cyan-400/50' : module.color === 'blue' ? 'from-blue-500/30 to-indigo-500/30 border-blue-400/50' : 'from-purple-500/30 to-pink-500/30 border-purple-400/50'} rounded-xl border`}>
+                        <Icon className={`w-8 h-8 ${module.color === 'cyan' ? 'text-cyan-300' : module.color === 'blue' ? 'text-blue-300' : 'text-purple-300'}`}
+                              style={{ filter: `drop-shadow(0 0 10px ${module.color === 'cyan' ? '#00d4ff' : module.color === 'blue' ? '#4488ff' : '#c084fc'})` }} />
+                      </div>
+
+                      <div className="flex-1">
+                        {/* Title */}
+                        <h3 className="text-lg font-bold text-white mb-1 leading-tight">
+                          {module.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-xs text-white/70 leading-tight">
+                          {module.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -510,14 +599,14 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
                 <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-purple-300"
                       style={{ filter: 'drop-shadow(0 0 8px #c084fc)' }} />
               </div>
-              
+
               <div className="flex-1 min-w-0">
                 {/* Bonus Badge */}
                 <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-500/30 rounded-full text-xs font-bold text-purple-300 mb-1">
                   <Sparkles className="w-3 h-3" />
                   {t(language, 'bonus.label')}
                 </div>
-                
+
                 {/* Title */}
                 <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 truncate">
                   {bonusModule.title}
@@ -530,6 +619,39 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
               </div>
             </div>
           </div>
+
+          {/* Special Features Cards - Mobile */}
+          {specialModules.map((module) => {
+            const Icon = module.icon;
+            return (
+              <div
+                key={module.id}
+                className={`${module.bgClass} rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 transition-all duration-300 hover:scale-105 relative cursor-pointer`}
+                onClick={module.onClick}
+                style={{ boxShadow: `0 0 20px ${module.color === 'cyan' ? 'rgba(0, 212, 255, 0.2)' : module.color === 'blue' ? 'rgba(68, 136, 255, 0.2)' : 'rgba(168, 85, 247, 0.2)'}` }}
+              >
+                <div className="flex items-center gap-3 sm:gap-4">
+                  {/* Icon */}
+                  <div className={`p-2 sm:p-3 bg-gradient-to-br ${module.color === 'cyan' ? 'from-cyan-500/30 to-blue-500/30 border-cyan-400/50' : module.color === 'blue' ? 'from-blue-500/30 to-indigo-500/30 border-blue-400/50' : 'from-purple-500/30 to-pink-500/30 border-purple-400/50'} rounded-lg sm:rounded-xl border`}>
+                    <Icon className={`w-7 h-7 sm:w-8 sm:h-8 ${module.color === 'cyan' ? 'text-cyan-300' : module.color === 'blue' ? 'text-blue-300' : 'text-purple-300'}`}
+                          style={{ filter: `drop-shadow(0 0 8px ${module.color === 'cyan' ? '#00d4ff' : module.color === 'blue' ? '#4488ff' : '#c084fc'})` }} />
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    {/* Title */}
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
+                      {module.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs text-white/70 line-clamp-2 leading-tight">
+                      {module.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
