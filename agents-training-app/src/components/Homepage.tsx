@@ -147,12 +147,12 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
             <img src="logo.png" alt="YUV.AI Logo" className="h-7 sm:h-8 md:h-10 lg:h-12 w-auto" />
           </div>
           <nav className="hidden md:flex items-center gap-4 lg:gap-8 text-sm lg:text-base font-medium">
-            <button className="text-white hover:text-cyan-400 transition-colors">{t(language, 'home')}</button>
+            <button className="text-cyan-400 transition-colors">{t(language, 'home')}</button>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
                 {t(language, 'agents')} <ChevronDown className="w-4 h-4" />
               </button>
-              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
                   <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.progressiveLabs')}</div>
                   <div className="text-xs text-white/60">{t(language, 'agentsDropdown.progressiveLabsDesc')}</div>
@@ -171,7 +171,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
                 {t(language, 'features')} <ChevronDown className="w-4 h-4" />
               </button>
-              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
                   <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.browserBased')}</div>
                   <div className="text-xs text-white/60">{t(language, 'featuresDropdown.browserBasedDesc')}</div>
@@ -251,6 +251,33 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
           <h2 className="text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-white/90 mt-4 sm:mt-6 md:mt-8 px-2 sm:px-4">
             {t(language, 'homepage.subtitle')}
           </h2>
+        </div>
+      </section>
+
+      {/* Intro Video Section */}
+      <section className="relative z-10 max-w-4xl mx-auto px-3 sm:px-4 md:px-6 mb-6 sm:mb-8 md:mb-12">
+        <div className="holo-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 bg-gradient-to-br from-cyan-900/30 to-blue-900/30 backdrop-blur-xl">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
+            <h3 className="text-base sm:text-lg md:text-xl font-bold text-white">
+              🎬 Watch the 60-Second Intro
+            </h3>
+          </div>
+          <div className="relative w-full aspect-video rounded-lg sm:rounded-xl overflow-hidden">
+            {/* RGB Glowing Ring */}
+            <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-1 animate-rgb-rotate"
+                 style={{ boxShadow: '0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 80px rgba(236, 72, 153, 0.3)' }}>
+              <div className="w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-black">
+                <iframe
+                  src="https://www.youtube.com/embed/da9AJ-T3JhY"
+                  title="AI Agents 101 - Introduction"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

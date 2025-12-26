@@ -397,6 +397,26 @@ Each lab features a unique custom-designed hero image to visually represent the 
 
 </div>
 
+### 🔧 Technical Deep Dive
+
+<div align="center">
+
+![Technical Deep Dive](agents-training-app/public/tech-dive.jpg)
+
+</div>
+
+Understanding how browser-based AI execution works with WebAssembly (Pyodide) and WebGPU (WebLLM). Learn the technical foundations that make running LLMs and Python code entirely in your browser possible.
+
+### 🚀 Browser-Based AI Playground
+
+<div align="center">
+
+![Browser-Based AI Playground](agents-training-app/public/browser-llm.jpg)
+
+</div>
+
+Run LLMs (Phi-3.5, Llama 3.2, Qwen 2.5) and Python code entirely in your browser using WebLLM and Pyodide. No server required - everything runs locally on your machine with GPU acceleration via WebGPU.
+
 ---
 
 ## 🛠️ Technology Stack

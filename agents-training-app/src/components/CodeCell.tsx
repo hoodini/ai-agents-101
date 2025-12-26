@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import { Play, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import type { ExecutionResult } from '../types';
@@ -14,6 +14,12 @@ interface CodeCellProps {
   onExecute?: (code: string) => Promise<ExecutionResult>;
 }
 
+// Detect if device is touch-enabled
+const isTouchDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+};
+
 export function CodeCell({
   initialCode,
   language = 'typescript',
@@ -25,6 +31,16 @@ export function CodeCell({
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<ExecutionResult | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || isTouchDevice());
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleRun = async () => {
     if (!onExecute) return;
@@ -54,40 +70,64 @@ export function CodeCell({
         </div>
       )}
 
-      <div className="relative">
+      <div className="relative code-cell-editor" style={{ touchAction: 'pan-y' }}>
         <Editor
-          height="250px"
+          height={isMobile ? "200px" : "250px"}
           language={language}
           value={code}
           onChange={(value) => editable && setCode(value || '')}
           theme={theme === 'light' ? 'light' : 'vs-dark'}
           options={{
             minimap: { enabled: false },
-            fontSize: 14,
-            lineNumbers: 'on',
+            fontSize: isMobile ? 12 : 14,
+            lineNumbers: isMobile ? 'off' : 'on',
             scrollBeyondLastLine: false,
             automaticLayout: true,
             readOnly: !editable,
             tabSize: 2,
+            wordWrap: 'on',
+            wrappingIndent: 'indent',
+            scrollbar: {
+              vertical: 'auto',
+              horizontal: 'auto',
+              verticalScrollbarSize: isMobile ? 8 : 10,
+              horizontalScrollbarSize: isMobile ? 8 : 10,
+            },
+            overviewRulerLanes: 0,
+            hideCursorInOverviewRuler: true,
+            overviewRulerBorder: false,
+            folding: !isMobile,
+            lineDecorationsWidth: isMobile ? 4 : 10,
+            lineNumbersMinChars: isMobile ? 2 : 3,
+            glyphMargin: false,
+            renderLineHighlight: isMobile ? 'none' : 'line',
+            // Touch-friendly settings
+            quickSuggestions: !isMobile,
+            parameterHints: { enabled: !isMobile },
+            suggestOnTriggerCharacters: !isMobile,
+            acceptSuggestionOnEnter: isMobile ? 'off' : 'on',
+            hover: { enabled: !isMobile },
+            contextmenu: !isMobile,
           }}
         />
       </div>
 
-      <div className="px-4 py-3 bg-gradient-to-r from-slate-900/80 to-purple-900/20 border-t border-cyan-500/30 flex items-center justify-between backdrop-blur-sm dark:from-slate-900/80 dark:to-purple-900/20 light:from-slate-50/90 light:to-purple-50/30 dark:border-cyan-500/30 light:border-cyan-600/30">
+      <div className="px-3 sm:px-4 py-2 sm:py-3 bg-gradient-to-r from-slate-900/80 to-purple-900/20 border-t border-cyan-500/30 flex items-center justify-between backdrop-blur-sm dark:from-slate-900/80 dark:to-purple-900/20 light:from-slate-50/90 light:to-purple-50/30 dark:border-cyan-500/30 light:border-cyan-600/30">
         <button
           onClick={handleRun}
           disabled={isRunning || !onExecute}
-          className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-lg font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg uppercase tracking-wide text-sm"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 active:from-green-700 active:to-cyan-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-lg font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg uppercase tracking-wide text-xs sm:text-sm touch-manipulation"
         >
           {isRunning ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              {t(lang, 'codeCell.running')}
+              <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 animate-spin" />
+              <span className="hidden xs:inline">{t(lang, 'codeCell.running')}</span>
+              <span className="xs:hidden">...</span>
             </>
           ) : (
             <>
-              <Play className="w-4 h-4" />
-              {t(lang, 'codeCell.runCode')}
+              <Play className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span>{t(lang, 'codeCell.runCode')}</span>
             </>
           )}
         </button>
@@ -95,9 +135,9 @@ export function CodeCell({
         {result && (
           <div className="flex items-center gap-2">
             {result.error ? (
-              <XCircle className="w-6 h-6 text-red-400 dark:text-red-400 light:text-red-600" style={{ filter: 'drop-shadow(0 0 8px rgba(248, 113, 113, 0.8))' }} />
+              <XCircle className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 dark:text-red-400 light:text-red-600" style={{ filter: 'drop-shadow(0 0 8px rgba(248, 113, 113, 0.8))' }} />
             ) : (
-              <CheckCircle className="w-6 h-6 text-green-400 dark:text-green-400 light:text-green-600" style={{ filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
+              <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-400 dark:text-green-400 light:text-green-600" style={{ filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
             )}
           </div>
         )}

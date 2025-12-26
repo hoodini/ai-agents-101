@@ -1,5 +1,7 @@
 # AI Agents 101 - Interactive Training Platform
 
+![AI Agents 101 Hero](public/hero.jpg)
+
 > Master the art of building AI agents through hands-on, browser-based labs
 
 Created by **Yuval Avidani** - AI Builder, Speaker & Educator
@@ -41,6 +43,16 @@ Build systems where multiple specialized agents work together
 
 ### Lab 8: Orchestrator Agent
 Create an intelligent orchestrator that routes queries to specialized agents
+
+### 🔧 Technical Deep Dive
+![Technical Deep Dive](public/tech-dive.jpg)
+
+Understand how browser-based AI execution works with WebAssembly and WebGPU.
+
+### 🚀 Browser-Based AI Playground
+![Browser-Based AI Playground](public/browser-llm.jpg)
+
+Run LLMs and Python code entirely in your browser with WebLLM and Pyodide.
 
 ## Tech Stack
 

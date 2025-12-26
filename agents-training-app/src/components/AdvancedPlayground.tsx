@@ -188,6 +188,15 @@ print(f"\\nPython calculation: sqrt(16) = {math.sqrt(16)}")`);
 
   return (
     <div className="max-w-7xl mx-auto">
+      {/* Hero Image */}
+      <div className="hero-image-container mb-6 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-purple-500/30 shadow-2xl">
+        <img
+          src="/browser-llm.jpg"
+          alt="Browser-Based AI Playground - Run LLMs in Your Browser"
+          className="w-full h-auto object-cover"
+        />
+      </div>
+
       {/* Header */}
       <div className="mb-6 sm:mb-8">
         <div className="flex items-center gap-3 mb-4">

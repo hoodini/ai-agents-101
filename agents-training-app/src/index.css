@@ -20,6 +20,8 @@
   html {
     overflow-x: hidden;
     width: 100%;
+    /* Prevent pull-to-refresh and improve touch handling */
+    overscroll-behavior: none;
   }
 
   body {
@@ -30,6 +32,8 @@
     position: relative;
     overflow-x: hidden;
     width: 100%;
+    /* Improve touch scrolling */
+    -webkit-overflow-scrolling: touch;
   }
 
   body[dir="rtl"] {
@@ -722,6 +726,98 @@
       box-sizing: border-box;
     }
 
+    /* =============================================
+       MOBILE CODE CELL FIXES - Touch Interaction
+       ============================================= */
+    
+    /* Code cell editor container - critical for touch */
+    .code-cell-editor {
+      position: relative;
+      touch-action: pan-y !important;
+      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
+    }
+
+    /* Monaco Editor Mobile Fixes */
+    .monaco-editor {
+      max-width: 100% !important;
+      touch-action: pan-y pinch-zoom !important;
+    }
+
+    .monaco-editor .overflow-guard {
+      touch-action: pan-y !important;
+    }
+
+    .monaco-editor .view-lines {
+      touch-action: pan-y !important;
+    }
+
+    .monaco-editor .lines-content {
+      touch-action: pan-y !important;
+    }
+
+    /* Prevent editor from capturing all touch events */
+    .monaco-editor .inputarea {
+      touch-action: manipulation !important;
+    }
+
+    /* Make scrollbars more touch-friendly */
+    .monaco-editor .scrollbar {
+      touch-action: pan-y !important;
+    }
+
+    .monaco-editor .scrollbar.vertical {
+      width: 10px !important;
+    }
+
+    /* Ensure editor doesn't expand beyond container */
+    .monaco-editor,
+    .monaco-editor .overflow-guard,
+    .monaco-editor-background {
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+
+    /* Fix for editor wrapper */
+    [class*="react-monaco-editor"] {
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+
+    /* Touch manipulation for buttons */
+    .touch-manipulation {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Prevent double-tap zoom on interactive elements */
+    button,
+    a,
+    input,
+    select,
+    textarea {
+      touch-action: manipulation;
+    }
+
+    /* Make run buttons more tappable */
+    button[class*="bg-gradient-to-r"] {
+      min-height: 44px;
+      min-width: 80px;
+    }
+
+    /* xs breakpoint for very small phones */
+    .hidden.xs\\:inline {
+      display: none !important;
+    }
+
+    .xs\\:hidden {
+      display: inline !important;
+    }
+
+    /* =============================================
+       END MOBILE CODE CELL FIXES
+       ============================================= */
+
     /* Lab content container - full width centered */
     .max-w-4xl {
       max-width: 100% !important;
@@ -781,11 +877,6 @@
       max-width: 100%;
       word-wrap: break-word;
       overflow-wrap: break-word;
-    }
-
-    /* Fix Monaco Editor overflow */
-    .monaco-editor {
-      max-width: 100% !important;
     }
 
     /* Fix glass containers */

@@ -7,6 +7,15 @@ export function TechnicalDeepDive() {
 
   return (
     <div className="max-w-6xl mx-auto">
+      {/* Hero Image */}
+      <div className="hero-image-container mb-6 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-blue-500/30 shadow-2xl">
+        <img
+          src="/tech-dive.jpg"
+          alt="Technical Deep Dive - Browser-based AI Execution"
+          className="w-full h-auto object-cover"
+        />
+      </div>
+
       {/* Header */}
       <div className="mb-8 sm:mb-12">
         <div className="flex items-center gap-3 mb-4">

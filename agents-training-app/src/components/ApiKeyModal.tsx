@@ -90,10 +90,10 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 pointer-events-auto">
-      <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto pointer-events-auto">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 pointer-events-auto">
+      <div className="relative max-w-2xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto pointer-events-auto">
         {/* Animated particles background */}
-        <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none -z-10">
+        <div className="absolute inset-0 overflow-hidden rounded-xl sm:rounded-2xl pointer-events-none -z-10">
           {[...Array(10)].map((_, i) => (
             <div
               key={i}
@@ -107,25 +107,25 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
           ))}
         </div>
 
-        <div className="relative holo-border rounded-2xl bg-gradient-to-br from-slate-900/95 via-blue-900/40 to-purple-900/40 backdrop-blur-xl shadow-2xl border-2 border-cyan-500/30 pointer-events-auto">
-          <div className="sticky top-0 backdrop-blur-md bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-b border-cyan-500/30 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg shadow-lg" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.5)' }}>
-                <Key className="w-6 h-6 text-white" />
+        <div className="relative holo-border rounded-xl sm:rounded-2xl bg-gradient-to-br from-slate-900/95 via-blue-900/40 to-purple-900/40 backdrop-blur-xl shadow-2xl border-2 border-cyan-500/30 pointer-events-auto">
+          <div className="sticky top-0 backdrop-blur-md bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border-b border-cyan-500/30 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between rounded-t-xl sm:rounded-t-2xl">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="p-1.5 sm:p-2 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg shadow-lg" style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.5)' }}>
+                <Key className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <h2 className="text-2xl font-bold heading-font neon-cyan tracking-wider">
-                API CONFIGURATION
+              <h2 className="text-lg sm:text-2xl font-bold heading-font neon-cyan tracking-wider">
+                API CONFIG
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="p-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10"
+              className="p-1.5 sm:p-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 touch-manipulation"
             >
               <X className="w-5 h-5 text-white" />
             </button>
           </div>
 
-          <div className="p-6 space-y-6">
+          <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             <div className="border border-cyan-500/30 rounded-xl p-4 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-sm">
               <p className="text-sm text-cyan-100">
                 {apiKey
@@ -226,33 +226,38 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
               </div>
             )}
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4">
               <button
                 onClick={validateApiKey}
                 disabled={!inputKey.trim() || isValidating}
-                className="relative z-10 flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed inline-flex items-center justify-center gap-2 shadow-lg pointer-events-auto"
+                className="relative z-10 flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 active:from-blue-700 active:to-cyan-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed inline-flex items-center justify-center gap-2 shadow-lg pointer-events-auto touch-manipulation text-sm sm:text-base"
               >
                 {isValidating ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    VALIDATING...
+                    <span className="hidden xs:inline">VALIDATING...</span>
+                    <span className="xs:hidden">...</span>
                   </>
                 ) : (
-                  'VALIDATE API KEY'
+                  <>
+                    <span className="hidden xs:inline">VALIDATE API KEY</span>
+                    <span className="xs:hidden">VALIDATE</span>
+                  </>
                 )}
               </button>
               <button
                 onClick={handleSave}
                 disabled={!inputKey.trim() || validationStatus !== 'success'}
-                className="relative z-10 flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg pointer-events-auto"
+                className="relative z-10 flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 active:from-purple-700 active:to-pink-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg pointer-events-auto touch-manipulation text-sm sm:text-base"
               >
-                SAVE & CONTINUE
+                <span className="hidden xs:inline">SAVE & CONTINUE</span>
+                <span className="xs:hidden">SAVE</span>
               </button>
             </div>
 
             <button
               onClick={onClose}
-              className="w-full px-6 py-3 glass hover:glass-strong border border-white/20 hover:border-white/40 text-white rounded-xl font-semibold transition-all hover-lift"
+              className="w-full px-4 sm:px-6 py-2.5 sm:py-3 glass hover:glass-strong active:bg-white/10 border border-white/20 hover:border-white/40 text-white rounded-xl font-semibold transition-all hover-lift touch-manipulation text-sm sm:text-base"
             >
               Cancel
             </button>
