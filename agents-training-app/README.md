@@ -86,8 +86,8 @@ Run LLMs and Python code entirely in your browser with WebLLM and Pyodide.
 
 1. Clone this repository:
 \`\`\`bash
-git clone <your-repo-url>
-cd agents-training-app
+git clone https://github.com/hoodini/ai-agents-101.git
+cd ai-agents-101/agents-training-app
 \`\`\`
 
 2. Install dependencies:
