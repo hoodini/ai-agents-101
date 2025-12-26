@@ -719,6 +719,7 @@
     #root {
       max-width: 100vw;
       overflow-x: hidden;
+      position: relative;
     }
 
     /* Fix viewport containment */
@@ -736,16 +737,23 @@
       touch-action: pan-y !important;
       -webkit-overflow-scrolling: touch;
       overflow: hidden;
+      width: 100% !important;
+      max-width: 100% !important;
     }
 
     /* Monaco Editor Mobile Fixes */
     .monaco-editor {
       max-width: 100% !important;
+      width: 100% !important;
       touch-action: pan-y pinch-zoom !important;
+      -webkit-user-select: text !important;
+      user-select: text !important;
     }
 
     .monaco-editor .overflow-guard {
       touch-action: pan-y !important;
+      max-width: 100% !important;
+      width: 100% !important;
     }
 
     .monaco-editor .view-lines {
@@ -761,13 +769,22 @@
       touch-action: manipulation !important;
     }
 
+    /* Allow text selection in monaco editor on mobile */
+    .monaco-editor .inputarea.ime-input {
+      touch-action: manipulation !important;
+    }
+
     /* Make scrollbars more touch-friendly */
     .monaco-editor .scrollbar {
       touch-action: pan-y !important;
     }
 
     .monaco-editor .scrollbar.vertical {
-      width: 10px !important;
+      width: 8px !important;
+    }
+
+    .monaco-editor .scrollbar.horizontal {
+      height: 8px !important;
     }
 
     /* Ensure editor doesn't expand beyond container */
@@ -779,8 +796,10 @@
     }
 
     /* Fix for editor wrapper */
-    [class*="react-monaco-editor"] {
+    [class*="react-monaco-editor"],
+    .monaco-editor-container {
       max-width: 100% !important;
+      width: 100% !important;
       overflow: hidden !important;
     }
 
@@ -797,21 +816,32 @@
     select,
     textarea {
       touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* Make run buttons more tappable */
+    /* Make run buttons more tappable - Apple's minimum 44px */
     button[class*="bg-gradient-to-r"] {
       min-height: 44px;
-      min-width: 80px;
+      min-width: 100px;
     }
 
-    /* xs breakpoint for very small phones */
-    .hidden.xs\\:inline {
-      display: none !important;
+    /* Fix the main scrolling container */
+    main {
+      -webkit-overflow-scrolling: touch;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
-    .xs\\:hidden {
-      display: inline !important;
+    /* Ensure code cell containers don't overflow */
+    .border-2.border-cyan-500\/30.rounded-xl {
+      max-width: 100% !important;
+      width: 100% !important;
+      overflow: hidden !important;
+    }
+
+    /* Fix any potential overflow from nested elements */
+    .border-2.border-cyan-500\/30.rounded-xl > * {
+      max-width: 100% !important;
     }
 
     /* =============================================

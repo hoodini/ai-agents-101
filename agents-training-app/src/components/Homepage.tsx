@@ -94,37 +94,6 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
     bgClass: 'bg-gradient-to-br from-purple-500/30 to-cyan-500/20 border-purple-400/50'
   };
 
-  // Special feature modules
-  const specialModules = [
-    {
-      id: 'resources',
-      title: t(language, 'resources.title'),
-      description: 'Curated cookbooks and learning materials',
-      icon: BookOpen,
-      color: 'cyan',
-      bgClass: 'bg-gradient-to-br from-cyan-500/30 to-blue-500/20 border-cyan-400/50',
-      onClick: onResourcesClick
-    },
-    {
-      id: 'technical',
-      title: t(language, 'technical.title'),
-      description: 'Understanding browser-based AI execution',
-      icon: Code,
-      color: 'blue',
-      bgClass: 'bg-gradient-to-br from-blue-500/30 to-indigo-500/20 border-blue-400/50',
-      onClick: onTechnicalClick
-    },
-    {
-      id: 'advanced',
-      title: 'Browser-Based AI Playground',
-      description: 'Run LLMs and code entirely in your browser',
-      icon: Zap,
-      color: 'purple',
-      bgClass: 'bg-gradient-to-br from-purple-500/30 to-pink-500/20 border-purple-400/50',
-      onClick: onAdvancedClick
-    },
-  ];
-
   return (
     <div className="min-h-screen relative tech-grid overflow-x-hidden">
       {/* Animated Background Particles */}
@@ -263,19 +232,20 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               🎬 Watch the 60-Second Intro
             </h3>
           </div>
-          <div className="relative w-full aspect-video rounded-lg sm:rounded-xl overflow-hidden">
-            {/* RGB Glowing Ring */}
-            <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 p-1 animate-rgb-rotate"
-                 style={{ boxShadow: '0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 80px rgba(236, 72, 153, 0.3)' }}>
-              <div className="w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-black">
-                <iframe
-                  src="https://www.youtube.com/embed/ETuT0yOaAvg"
-                  title="AI Agents 101 - Introduction"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
+          <div className="relative w-full aspect-video">
+            {/* RGB Glowing Ring - Outline only */}
+            <div className="absolute -inset-1 rounded-xl sm:rounded-2xl bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-rgb-rotate opacity-75 blur-sm"
+                 style={{ boxShadow: '0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 80px rgba(236, 72, 153, 0.3)' }} />
+            <div className="absolute -inset-0.5 rounded-lg sm:rounded-xl bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-rgb-rotate" />
+            {/* Video container */}
+            <div className="relative w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/ETuT0yOaAvg"
+                title="AI Agents 101 - Introduction"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full"
+              />
             </div>
           </div>
         </div>
@@ -496,78 +466,121 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
             })}
           </div>
 
-          {/* Bonus Card - Desktop */}
-          <div className="flex justify-center mt-6">
+          {/* Row 4 - 2 hexagons (Bonus + Resources) */}
+          <div className="flex justify-center gap-4">
+            {/* Bonus Context Engineering Hexagon */}
             <div
-              className="relative group cursor-pointer max-w-md w-full"
+              className="hexagon relative group cursor-pointer"
+              style={{
+                animationDelay: '0.8s',
+                color: '#c084fc'
+              }}
               onClick={() => onLabSelect && onLabSelect(bonusModule.id)}
             >
-              <div className={`${bonusModule.bgClass} rounded-2xl p-6 border-2 transition-all duration-300 group-hover:scale-105 relative`}
-                   style={{ boxShadow: '0 0 30px rgba(168, 85, 247, 0.3)' }}>
-                <div className="flex items-center gap-4">
-                  {/* Icon */}
-                  <div className="p-3 bg-gradient-to-br from-purple-500/30 to-cyan-500/30 rounded-xl border border-purple-400/50">
-                    <Sparkles className="w-10 h-10 text-purple-300"
-                          style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
-                  </div>
-
-                  <div className="flex-1">
-                    {/* Bonus Badge */}
-                    <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-500/30 rounded-full text-xs font-bold text-purple-300 mb-1">
-                      <Sparkles className="w-3 h-3" />
-                      {t(language, 'bonus.label')}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-white mb-1">
-                      {bonusModule.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm text-white/70">
-                      {bonusModule.description}
-                    </p>
-                  </div>
+              <div className={`hexagon-content ${bonusModule.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
+                {/* Bonus Badge */}
+                <div className="absolute top-8 left-8 px-3 py-1.5 rounded-lg bg-gradient-to-br from-purple-500/40 to-cyan-500/30 flex items-center gap-1 font-bold text-purple-300 text-xs border border-purple-400/50"
+                     style={{ boxShadow: '0 0 15px rgba(168, 85, 247, 0.6)' }}>
+                  <Sparkles className="w-3 h-3" />
+                  {t(language, 'bonus.label')}
                 </div>
+
+                {/* Icon */}
+                <Sparkles className="w-24 h-24 mb-3 text-purple-300"
+                      style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
+
+                {/* Title */}
+                <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
+                  {bonusModule.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs text-white/70 text-center px-4 leading-snug">
+                  {bonusModule.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Resources Hexagon */}
+            <div
+              className="hexagon relative group cursor-pointer"
+              style={{
+                animationDelay: '0.9s',
+                color: '#00d4ff'
+              }}
+              onClick={onResourcesClick}
+            >
+              <div className="hexagon-content bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border-cyan-400/40 relative overflow-visible transition-all duration-300 group-hover:scale-105">
+                {/* Icon */}
+                <BookOpen className="w-24 h-24 mb-3 text-cyan-300"
+                      style={{ filter: 'drop-shadow(0 0 12px #00d4ff)' }} />
+
+                {/* Title */}
+                <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
+                  {t(language, 'resources.title')}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs text-white/70 text-center px-4 leading-snug">
+                  Curated cookbooks and learning materials
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Special Features Cards - Desktop */}
-          <div className="flex justify-center gap-4 mt-6 flex-wrap max-w-5xl mx-auto">
-            {specialModules.map((module) => {
-              const Icon = module.icon;
-              return (
-                <div
-                  key={module.id}
-                  className="relative group cursor-pointer flex-1 min-w-[280px] max-w-[320px]"
-                  onClick={module.onClick}
-                >
-                  <div className={`${module.bgClass} rounded-2xl p-5 border-2 transition-all duration-300 group-hover:scale-105 relative`}
-                       style={{ boxShadow: `0 0 25px ${module.color === 'cyan' ? 'rgba(0, 212, 255, 0.3)' : module.color === 'blue' ? 'rgba(68, 136, 255, 0.3)' : 'rgba(168, 85, 247, 0.3)'}` }}>
-                    <div className="flex items-center gap-3">
-                      {/* Icon */}
-                      <div className={`p-3 bg-gradient-to-br ${module.color === 'cyan' ? 'from-cyan-500/30 to-blue-500/30 border-cyan-400/50' : module.color === 'blue' ? 'from-blue-500/30 to-indigo-500/30 border-blue-400/50' : 'from-purple-500/30 to-pink-500/30 border-purple-400/50'} rounded-xl border`}>
-                        <Icon className={`w-8 h-8 ${module.color === 'cyan' ? 'text-cyan-300' : module.color === 'blue' ? 'text-blue-300' : 'text-purple-300'}`}
-                              style={{ filter: `drop-shadow(0 0 10px ${module.color === 'cyan' ? '#00d4ff' : module.color === 'blue' ? '#4488ff' : '#c084fc'})` }} />
-                      </div>
+          {/* Row 5 - 2 hexagons (Technical + Advanced) */}
+          <div className="flex justify-center gap-4">
+            {/* Technical Deep Dive Hexagon */}
+            <div
+              className="hexagon relative group cursor-pointer"
+              style={{
+                animationDelay: '1.0s',
+                color: '#4488ff'
+              }}
+              onClick={onTechnicalClick}
+            >
+              <div className="hexagon-content bg-gradient-to-br from-blue-500/20 to-indigo-600/20 border-blue-400/40 relative overflow-visible transition-all duration-300 group-hover:scale-105">
+                {/* Icon */}
+                <Code className="w-24 h-24 mb-3 text-blue-300"
+                      style={{ filter: 'drop-shadow(0 0 12px #4488ff)' }} />
 
-                      <div className="flex-1">
-                        {/* Title */}
-                        <h3 className="text-lg font-bold text-white mb-1 leading-tight">
-                          {module.title}
-                        </h3>
+                {/* Title */}
+                <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
+                  {t(language, 'technical.title')}
+                </h3>
 
-                        {/* Description */}
-                        <p className="text-xs text-white/70 leading-tight">
-                          {module.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                {/* Description */}
+                <p className="text-xs text-white/70 text-center px-4 leading-snug">
+                  Understanding browser-based AI execution
+                </p>
+              </div>
+            </div>
+
+            {/* Advanced Playground Hexagon */}
+            <div
+              className="hexagon relative group cursor-pointer"
+              style={{
+                animationDelay: '1.1s',
+                color: '#c084fc'
+              }}
+              onClick={onAdvancedClick}
+            >
+              <div className="hexagon-content bg-gradient-to-br from-purple-500/20 to-pink-600/20 border-purple-400/40 relative overflow-visible transition-all duration-300 group-hover:scale-105">
+                {/* Icon */}
+                <Zap className="w-24 h-24 mb-3 text-purple-300"
+                      style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
+
+                {/* Title */}
+                <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
+                  Browser-Based AI Playground
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs text-white/70 text-center px-4 leading-snug">
+                  Run LLMs and code entirely in your browser
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -648,37 +661,71 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
           </div>
 
           {/* Special Features Cards - Mobile */}
-          {specialModules.map((module) => {
-            const Icon = module.icon;
-            return (
-              <div
-                key={module.id}
-                className={`${module.bgClass} rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 transition-all duration-300 hover:scale-105 relative cursor-pointer`}
-                onClick={module.onClick}
-                style={{ boxShadow: `0 0 20px ${module.color === 'cyan' ? 'rgba(0, 212, 255, 0.2)' : module.color === 'blue' ? 'rgba(68, 136, 255, 0.2)' : 'rgba(168, 85, 247, 0.2)'}` }}
-              >
-                <div className="flex items-center gap-3 sm:gap-4">
-                  {/* Icon */}
-                  <div className={`p-2 sm:p-3 bg-gradient-to-br ${module.color === 'cyan' ? 'from-cyan-500/30 to-blue-500/30 border-cyan-400/50' : module.color === 'blue' ? 'from-blue-500/30 to-indigo-500/30 border-blue-400/50' : 'from-purple-500/30 to-pink-500/30 border-purple-400/50'} rounded-lg sm:rounded-xl border`}>
-                    <Icon className={`w-7 h-7 sm:w-8 sm:h-8 ${module.color === 'cyan' ? 'text-cyan-300' : module.color === 'blue' ? 'text-blue-300' : 'text-purple-300'}`}
-                          style={{ filter: `drop-shadow(0 0 8px ${module.color === 'cyan' ? '#00d4ff' : module.color === 'blue' ? '#4488ff' : '#c084fc'})` }} />
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    {/* Title */}
-                    <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
-                      {module.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-xs text-white/70 line-clamp-2 leading-tight">
-                      {module.description}
-                    </p>
-                  </div>
-                </div>
+          {/* Resources - Mobile */}
+          <div
+            className="bg-gradient-to-br from-cyan-500/30 to-blue-500/20 border-cyan-400/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 transition-all duration-300 hover:scale-105 relative cursor-pointer"
+            onClick={onResourcesClick}
+            style={{ boxShadow: '0 0 20px rgba(0, 212, 255, 0.2)' }}
+          >
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-2 sm:p-3 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border-cyan-400/50 rounded-lg sm:rounded-xl border">
+                <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-cyan-300"
+                      style={{ filter: 'drop-shadow(0 0 8px #00d4ff)' }} />
               </div>
-            );
-          })}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
+                  {t(language, 'resources.title')}
+                </h3>
+                <p className="text-xs text-white/70 line-clamp-2 leading-tight">
+                  Curated cookbooks and learning materials
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Technical - Mobile */}
+          <div
+            className="bg-gradient-to-br from-blue-500/30 to-indigo-500/20 border-blue-400/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 transition-all duration-300 hover:scale-105 relative cursor-pointer"
+            onClick={onTechnicalClick}
+            style={{ boxShadow: '0 0 20px rgba(68, 136, 255, 0.2)' }}
+          >
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-500/30 to-indigo-500/30 border-blue-400/50 rounded-lg sm:rounded-xl border">
+                <Code className="w-7 h-7 sm:w-8 sm:h-8 text-blue-300"
+                      style={{ filter: 'drop-shadow(0 0 8px #4488ff)' }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
+                  {t(language, 'technical.title')}
+                </h3>
+                <p className="text-xs text-white/70 line-clamp-2 leading-tight">
+                  Understanding browser-based AI execution
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Advanced - Mobile */}
+          <div
+            className="bg-gradient-to-br from-purple-500/30 to-pink-500/20 border-purple-400/50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 transition-all duration-300 hover:scale-105 relative cursor-pointer"
+            onClick={onAdvancedClick}
+            style={{ boxShadow: '0 0 20px rgba(168, 85, 247, 0.2)' }}
+          >
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500/30 to-pink-500/30 border-purple-400/50 rounded-lg sm:rounded-xl border">
+                <Zap className="w-7 h-7 sm:w-8 sm:h-8 text-purple-300"
+                      style={{ filter: 'drop-shadow(0 0 8px #c084fc)' }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
+                  Browser-Based AI Playground
+                </h3>
+                <p className="text-xs text-white/70 line-clamp-2 leading-tight">
+                  Run LLMs and code entirely in your browser
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
