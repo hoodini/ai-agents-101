@@ -8,6 +8,7 @@ import { LanguageToggle } from './components/LanguageToggle';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Homepage } from './components/Homepage';
 import { Resources } from './components/Resources';
+import { AdvancedPlayground } from './components/AdvancedPlayground';
 import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab6, Lab7, Lab8, BonusContextEngineering } from './labs';
 import { useStore } from './store/useStore';
 import { t } from './utils/translations';
