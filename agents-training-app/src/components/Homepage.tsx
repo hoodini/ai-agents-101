@@ -170,7 +170,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
 
             {/* GitHub Repository Link */}
             <a
-              href="https://github.com/hoodini/agents-training"
+              href="https://github.com/hoodini/ai-agents-101"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"

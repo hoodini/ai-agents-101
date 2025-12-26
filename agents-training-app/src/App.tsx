@@ -8,6 +8,7 @@ import { LanguageToggle } from './components/LanguageToggle';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Homepage } from './components/Homepage';
 import { Resources } from './components/Resources';
+import { AdvancedPlayground } from './components/AdvancedPlayground';
 import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab6, Lab7, Lab8, BonusContextEngineering } from './labs';
 import { useStore } from './store/useStore';
 import { t } from './utils/translations';
@@ -126,7 +127,7 @@ function App() {
               <LanguageToggle />
               <ThemeToggle />
               <a
-                href="https://github.com/hoodini/agents-training"
+                href="https://github.com/hoodini/ai-agents-101"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
@@ -168,7 +169,7 @@ function App() {
                   <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">{t(language, 'blog')}</a>
                   <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">{t(language, 'contact')}</a>
                   <a
-                    href="https://github.com/hoodini/agents-training"
+                    href="https://github.com/hoodini/ai-agents-101"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
@@ -294,7 +295,7 @@ function App() {
             <LanguageToggle />
             <ThemeToggle />
             <a
-              href="https://github.com/hoodini/agents-training"
+              href="https://github.com/hoodini/ai-agents-101"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-2 glass hover:glass-strong rounded-lg transition-all hover-lift border border-white/10 text-sm text-white/80 hover:text-white"
@@ -366,7 +367,7 @@ function App() {
                 <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">{t(language, 'blog')}</a>
                 <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">{t(language, 'contact')}</a>
                 <a
-                  href="https://github.com/hoodini/agents-training"
+                  href="https://github.com/hoodini/ai-agents-101"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
