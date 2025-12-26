@@ -126,6 +126,15 @@ export const translations = {
       congratsText: "You've created your first AI agent! This simple prompt/response pattern is the foundation for all AI agents. In the next labs, we'll add memory, tools, and more complex behaviors.",
     },
 
+    // Resources
+    resources: {
+      title: 'Learning Resources & Cookbooks',
+      subtitle: 'Curated collection of essential cookbooks, documentation, and tutorials for building AI agents. These resources will help you master agent development across different frameworks and platforms.',
+      visitResource: 'Visit Resource',
+      footerTitle: 'Start Exploring!',
+      footerText: 'Each of these resources offers unique perspectives and techniques. We recommend exploring them all to build a comprehensive understanding of AI agent development.',
+    },
+
     // Bonus - Context Engineering
     bonus: {
       label: 'BONUS',
@@ -339,6 +348,15 @@ export const translations = {
       step5Desc: 'חבר הכל ביחד - סוכן ה-AI הראשון שלך!',
       congratsTitle: '!מזל טוב',
       congratsText: 'יצרת את סוכן ה-AI הראשון שלך! דפוס ההנחיה/תגובה הפשוט הזה הוא הבסיס לכל סוכני ה-AI. במעבדות הבאות, נוסיף זיכרון, כלים והתנהגויות מורכבות יותר.',
+    },
+
+    // Resources
+    resources: {
+      title: 'משאבי למידה וספרי מתכונים',
+      subtitle: 'אוסף מקיף של ספרי מתכונים חיוניים, תיעוד ומדריכים לבניית סוכני AI. משאבים אלו יעזרו לך לשלוט בפיתוח סוכנים על פני מסגרות ופלטפורמות שונות.',
+      visitResource: 'בקר במשאב',
+      footerTitle: '!התחל לחקור',
+      footerText: 'כל אחד מהמשאבים הללו מציע נקודות מבט וטכניקות ייחודיות. אנו ממליצים לחקור את כולם כדי לבנות הבנה מקיפה של פיתוח סוכני AI.',
     },
 
     // Bonus - Context Engineering

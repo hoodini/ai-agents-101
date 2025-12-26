@@ -106,8 +106,8 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
         />
       ))}
 
-      {/* Header - Sticky with Apple Glass Effect */}
-      <header className="sticky top-0 z-50 glass-navbar border-b border-cyan-500/20">
+      {/* Header - Fixed with Apple Glass Effect */}
+      <header className="fixed top-0 left-0 right-0 z-50 glass-navbar border-b border-cyan-500/20">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             <img src="logo.png" alt="YUV.AI Logo" className="h-7 sm:h-8 md:h-10 lg:h-12 w-auto" />
@@ -184,7 +184,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect }: HomepageProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-12">
+      <section className="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-12 pt-20 sm:pt-24 md:pt-28">
         <div className="relative">
           {/* Hero Image - Clean without background */}
           <div className="relative w-full">
