@@ -135,6 +135,29 @@ export const translations = {
       footerText: 'Each of these resources offers unique perspectives and techniques. We recommend exploring them all to build a comprehensive understanding of AI agent development.',
     },
 
+    // Advanced Playground
+    advanced: {
+      title: 'Advanced Playground',
+      subtitle: 'Run LLMs and Python entirely in your browser - no server required!',
+      infoTitle: 'Welcome to the Advanced Playground!',
+      infoText: 'This experimental feature lets you run large language models and Python code directly in your browser using WebLLM and Pyodide. Everything runs locally with WebGPU acceleration.',
+      infoPoint1: 'First-time model downloads can be large (2-3GB) and may take several minutes',
+      infoPoint2: 'Models are cached in your browser for future use',
+      infoPoint3: 'Requires a modern browser with WebGPU support (Chrome/Edge 113+)',
+      modelSection: 'Browser-Based LLM',
+      selectModel: 'Select Model',
+      loadModel: 'Download & Load Model',
+      loading: 'Loading...',
+      unloadModel: 'Unload Model',
+      modelReady: 'Model Ready',
+      modelNotLoaded: 'No Model Loaded',
+      pythonEditor: 'Python Code (Pyodide)',
+      runCode: 'Run Python',
+      running: 'Running...',
+      clearOutput: 'Clear Output',
+      output: 'Output',
+    },
+
     // Bonus - Context Engineering
     bonus: {
       label: 'BONUS',
@@ -357,6 +380,29 @@ export const translations = {
       visitResource: 'בקר במשאב',
       footerTitle: '!התחל לחקור',
       footerText: 'כל אחד מהמשאבים הללו מציע נקודות מבט וטכניקות ייחודיות. אנו ממליצים לחקור את כולם כדי לבנות הבנה מקיפה של פיתוח סוכני AI.',
+    },
+
+    // Advanced Playground
+    advanced: {
+      title: 'מגרש משחקים מתקדם',
+      subtitle: '!הרץ מודלי שפה ופייתון לחלוטין בדפדפן - ללא צורך בשרת',
+      infoTitle: '!ברוכים הבאים למגרש המשחקים המתקדם',
+      infoText: 'תכונה ניסיונית זו מאפשרת לך להריץ מודלי שפה גדולים וקוד פייתון ישירות בדפדפן באמצעות WebLLM ו-Pyodide. הכל רץ מקומית עם האצת WebGPU.',
+      infoPoint1: 'הורדות מודלים בפעם הראשונה יכולות להיות גדולות (2-3GB) ועשויות לקחת מספר דקות',
+      infoPoint2: 'מודלים נשמרים במטמון הדפדפן לשימוש עתידי',
+      infoPoint3: 'דורש דפדפן מודרני עם תמיכת WebGPU (Chrome/Edge 113+)',
+      modelSection: 'מודל שפה מבוסס דפדפן',
+      selectModel: 'בחר מודל',
+      loadModel: 'הורד וטען מודל',
+      loading: '...טוען',
+      unloadModel: 'הסר מודל',
+      modelReady: 'המודל מוכן',
+      modelNotLoaded: 'לא נטען מודל',
+      pythonEditor: '(Pyodide) קוד פייתון',
+      runCode: 'הרץ פייתון',
+      running: '...רץ',
+      clearOutput: 'נקה פלט',
+      output: 'פלט',
     },
 
     // Bonus - Context Engineering
