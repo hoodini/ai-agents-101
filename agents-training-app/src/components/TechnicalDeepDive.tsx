@@ -1,4 +1,4 @@
-import { BookOpen, Lightbulb, Cpu, Code, Zap, Check, X, ArrowRight, Terminal, Globe } from 'lucide-react';
+import { BookOpen, Lightbulb, Cpu, Code, Zap, Check, X, Terminal, Globe } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 
