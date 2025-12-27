@@ -148,7 +148,15 @@ export function TerminalCodeCell({
             </div>
 
             <button
-            onClick={isMobile ? () => setIsModalOpen(true) : handleRun}
+            onClick={(e) => {
+              if (isMobile) {
+                e.stopPropagation();
+                e.preventDefault();
+                setIsModalOpen(true);
+              } else {
+                handleRun();
+              }
+            }}
             disabled={isRunning || !onExecute}
             className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-600 hover:from-emerald-600 hover:via-green-600 hover:to-teal-700 active:from-emerald-700 active:via-green-700 active:to-teal-800 disabled:from-slate-700 disabled:to-slate-800 text-white text-xs sm:text-sm font-bold rounded-lg transition-all duration-200 shadow-luxury disabled:cursor-not-allowed hover-lift disabled:opacity-50 relative overflow-hidden group/btn touch-manipulation select-none flex-shrink-0 ${lang === 'he' ? 'flex-row-reverse' : 'flex-row'}`}
             style={{
@@ -185,7 +193,11 @@ export function TerminalCodeCell({
                 <code>{code}</code>
               </pre>
               <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  setIsModalOpen(true);
+                }}
                 className="absolute top-2 right-2 p-2 bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation"
                 style={{ minHeight: '40px', minWidth: '40px', WebkitTapHighlightColor: 'transparent' }}
               >

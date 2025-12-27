@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Play, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
@@ -25,9 +26,13 @@ export function MobileCodeModal({
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<ExecutionResult | null>(null);
 
+  // Reset state when modal opens
   useEffect(() => {
-    setCode(initialCode);
-  }, [initialCode]);
+    if (isOpen) {
+      setCode(initialCode);
+      setResult(null);
+    }
+  }, [isOpen, initialCode]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -63,8 +68,16 @@ export function MobileCodeModal({
 
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 bg-slate-900/95 backdrop-blur-sm">
+  const modalContent = (
+    <div
+      className="fixed inset-0 z-[9999] bg-slate-900/95 backdrop-blur-sm"
+      onClick={(e) => {
+        // Only close if clicking the backdrop, not the modal content
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-cyan-500/30 bg-gradient-to-r from-slate-900 to-blue-900/50">
         <h2 className="text-lg font-bold text-cyan-400">
@@ -158,4 +171,6 @@ export function MobileCodeModal({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

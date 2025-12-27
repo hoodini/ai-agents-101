@@ -122,7 +122,11 @@ export function CodeCell({
               <code>{code}</code>
             </pre>
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setIsModalOpen(true);
+              }}
               className="absolute top-2 right-2 p-2 bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation"
               style={{ minHeight: '40px', minWidth: '40px', WebkitTapHighlightColor: 'transparent' }}
             >
@@ -192,7 +196,15 @@ export function CodeCell({
 
         <div className="px-3 sm:px-4 py-2 sm:py-3 bg-gradient-to-r from-slate-900/80 to-purple-900/20 border-t border-cyan-500/30 flex items-center justify-between backdrop-blur-sm dark:from-slate-900/80 dark:to-purple-900/20 light:from-slate-50/90 light:to-purple-50/30 dark:border-cyan-500/30 light:border-cyan-600/30">
           <button
-            onClick={isMobile ? () => setIsModalOpen(true) : handleRun}
+            onClick={(e) => {
+              if (isMobile) {
+                e.stopPropagation();
+                e.preventDefault();
+                setIsModalOpen(true);
+              } else {
+                handleRun();
+              }
+            }}
             disabled={isRunning || !onExecute}
             className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-2.5 bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 active:from-green-700 active:to-cyan-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-lg font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg uppercase tracking-wide text-xs sm:text-sm touch-manipulation select-none"
             style={{

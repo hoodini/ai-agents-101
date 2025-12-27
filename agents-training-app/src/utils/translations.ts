@@ -87,6 +87,9 @@ export const translations = {
     // CodeCell
     codeCell: {
       runCode: 'Run Code',
+      tryCode: 'Try Code',
+      editCode: 'Edit Code',
+      close: 'Close',
       running: 'Running...',
       output: 'OUTPUT:',
       error: 'Error',
@@ -413,6 +416,9 @@ export const translations = {
     // CodeCell
     codeCell: {
       runCode: 'הרץ קוד',
+      tryCode: 'נסה קוד',
+      editCode: 'ערוך קוד',
+      close: 'סגור',
       running: 'מריץ...',
       output: ':פלט',
       error: 'שגיאה',
