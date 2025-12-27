@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { Cpu, Download, Play, Trash2, Terminal, Zap, Info, ChevronUp, Loader2 } from 'lucide-react';
+import { Cpu, Download, Play, Trash2, Terminal, Zap, Info, ChevronUp, Loader2, Sparkles } from 'lucide-react';
 import Editor from '@monaco-editor/react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 import * as webllm from '@mlc-ai/web-llm';
+import { CODE_TEMPLATES, type CodeTemplate } from '../data/codeTemplates';
 
 declare global {
   interface Window {
@@ -184,7 +185,21 @@ print(f"\\nPython calculation: sqrt(16) = {math.sqrt(16)}")`);
     setPythonOutput('');
   };
 
+  const loadTemplate = (template: CodeTemplate) => {
+    setPythonCode(template.code);
+    setPythonOutput('');
+  };
+
   const selectedModelInfo = AVAILABLE_MODELS.find(m => m.id === selectedModel);
+
+  // Group templates by category
+  const templatesByCategory = CODE_TEMPLATES.reduce((acc, template) => {
+    if (!acc[template.category]) {
+      acc[template.category] = [];
+    }
+    acc[template.category].push(template);
+    return acc;
+  }, {} as Record<string, CodeTemplate[]>);
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -312,6 +327,46 @@ print(f"\\nPython calculation: sqrt(16) = {math.sqrt(16)}")`);
             <p className="text-xs sm:text-sm text-cyan-400 font-mono">{loadProgress}</p>
           </div>
         )}
+      </div>
+
+      {/* Code Templates */}
+      <div className="mb-6 p-4 sm:p-6 glass rounded-xl border border-pink-500/30">
+        <div className="flex items-center gap-3 mb-4">
+          <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
+          <h2 className="text-lg sm:text-xl font-bold text-white">
+            Pre-Made Templates
+          </h2>
+          <span className="text-xs text-white/50">Click to load</span>
+        </div>
+
+        <div className="space-y-4">
+          {Object.entries(templatesByCategory).map(([category, templates]) => (
+            <div key={category}>
+              <h3 className="text-sm font-semibold text-white/70 mb-2 uppercase tracking-wide">
+                {category}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {templates.map((template) => (
+                  <button
+                    key={template.id}
+                    onClick={() => loadTemplate(template)}
+                    className="group text-left p-4 glass hover:glass-strong rounded-lg border border-white/10 hover:border-pink-500/40 transition-all hover-lift"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h4 className="font-semibold text-white text-sm group-hover:text-pink-400 transition-colors">
+                        {template.title}
+                      </h4>
+                      <Sparkles className="w-4 h-4 text-pink-400/50 group-hover:text-pink-400 transition-colors flex-shrink-0" />
+                    </div>
+                    <p className="text-xs text-white/60">
+                      {template.description}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Python Code Editor */}
