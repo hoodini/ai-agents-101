@@ -115,118 +115,104 @@ export function CodeCell({
           </div>
         )}
 
-        {/* On mobile, show read-only code with "Edit" button */}
-        {isMobile ? (
-          <div className="relative w-full bg-slate-950">
-            <pre className="px-4 py-3 text-green-300 font-mono text-xs leading-relaxed overflow-x-auto">
-              <code>{code}</code>
-            </pre>
+        <div
+          ref={editorContainerRef}
+          className="relative code-cell-editor w-full overflow-hidden"
+          style={{
+            touchAction: isMobile ? 'pan-y' : 'auto',
+            WebkitOverflowScrolling: 'touch',
+            minHeight: isMobile ? '200px' : '250px',
+            maxWidth: '100%'
+          }}
+        >
+          <Editor
+            height={isMobile ? "200px" : "250px"}
+            language={language}
+            value={code}
+            onChange={(value) => !isMobile && editable && setCode(value || '')}
+            theme={theme === 'light' ? 'light' : 'vs-dark'}
+            options={{
+              minimap: { enabled: false },
+              fontSize: isMobile ? 12 : 14,
+              lineNumbers: isMobile ? 'off' : 'on',
+              scrollBeyondLastLine: false,
+              automaticLayout: true,
+              readOnly: isMobile ? true : !editable, // Always read-only on mobile
+              tabSize: 2,
+              wordWrap: 'on',
+              wrappingIndent: 'indent',
+              scrollbar: {
+                vertical: 'auto',
+                horizontal: 'auto',
+                verticalScrollbarSize: isMobile ? 8 : 10,
+                horizontalScrollbarSize: isMobile ? 8 : 10,
+                useShadows: false,
+              },
+              overviewRulerLanes: 0,
+              hideCursorInOverviewRuler: true,
+              overviewRulerBorder: false,
+              folding: false,
+              lineDecorationsWidth: isMobile ? 0 : 10,
+              lineNumbersMinChars: isMobile ? 0 : 3,
+              glyphMargin: false,
+              renderLineHighlight: 'none',
+              quickSuggestions: false,
+              parameterHints: { enabled: false },
+              suggestOnTriggerCharacters: false,
+              acceptSuggestionOnEnter: 'off',
+              hover: { enabled: false },
+              contextmenu: false,
+              dragAndDrop: false,
+              links: false,
+              colorDecorators: false,
+              cursorBlinking: isMobile ? 'solid' : 'blink',
+              cursorSmoothCaretAnimation: 'off',
+              smoothScrolling: false,
+              mouseWheelZoom: false,
+              padding: { top: isMobile ? 8 : 12, bottom: isMobile ? 8 : 12 },
+            }}
+          />
+          {isMobile && editable && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
                 setIsModalOpen(true);
               }}
-              className="absolute top-2 right-2 p-2 bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation"
-              style={{ minHeight: '40px', minWidth: '40px', WebkitTapHighlightColor: 'transparent' }}
+              className="absolute top-2 right-2 p-2 bg-cyan-600/90 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation backdrop-blur-sm"
+              style={{ minHeight: '36px', minWidth: '36px', WebkitTapHighlightColor: 'transparent' }}
+              title="Edit Code"
             >
-              <Code className="w-5 h-5" />
+              <Code className="w-4 h-4" />
             </button>
-          </div>
-        ) : (
-          <div
-            ref={editorContainerRef}
-            className="relative code-cell-editor w-full overflow-hidden"
-            style={{
-              touchAction: 'pan-y',
-              WebkitOverflowScrolling: 'touch',
-              minHeight: '250px',
-              maxWidth: '100%'
-            }}
-          >
-            <Editor
-              height="250px"
-              language={language}
-              value={code}
-              onChange={(value) => editable && setCode(value || '')}
-              theme={theme === 'light' ? 'light' : 'vs-dark'}
-              options={{
-                minimap: { enabled: false },
-                fontSize: 14,
-                lineNumbers: 'on',
-                scrollBeyondLastLine: false,
-                automaticLayout: true,
-                readOnly: !editable,
-                tabSize: 2,
-                wordWrap: 'on',
-                wrappingIndent: 'indent',
-                scrollbar: {
-                  vertical: 'auto',
-                  horizontal: 'auto',
-                  verticalScrollbarSize: 10,
-                  horizontalScrollbarSize: 10,
-                  useShadows: false,
-                },
-                overviewRulerLanes: 0,
-                hideCursorInOverviewRuler: true,
-                overviewRulerBorder: false,
-                folding: false,
-                lineDecorationsWidth: 10,
-                lineNumbersMinChars: 3,
-                glyphMargin: false,
-                renderLineHighlight: 'line',
-                quickSuggestions: true,
-                parameterHints: { enabled: true },
-                suggestOnTriggerCharacters: true,
-                acceptSuggestionOnEnter: 'on',
-                hover: { enabled: true },
-                contextmenu: true,
-                dragAndDrop: true,
-                links: true,
-                colorDecorators: true,
-                cursorBlinking: 'blink',
-                cursorSmoothCaretAnimation: 'on',
-                smoothScrolling: true,
-                mouseWheelZoom: false,
-                padding: { top: 12, bottom: 12 },
-              }}
-            />
-          </div>
-        )}
+          )}
+        </div>
 
         <div className="px-3 sm:px-4 py-2 sm:py-3 bg-gradient-to-r from-slate-900/80 to-purple-900/20 border-t border-cyan-500/30 flex items-center justify-between backdrop-blur-sm dark:from-slate-900/80 dark:to-purple-900/20 light:from-slate-50/90 light:to-purple-50/30 dark:border-cyan-500/30 light:border-cyan-600/30">
           <button
-            onClick={(e) => {
-              if (isMobile) {
-                e.stopPropagation();
-                e.preventDefault();
-                setIsModalOpen(true);
-              } else {
-                handleRun();
-              }
-            }}
+            onClick={handleRun}
             disabled={isRunning || !onExecute}
             className="inline-flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-2.5 bg-gradient-to-r from-green-600 to-cyan-600 hover:from-green-500 hover:to-cyan-500 active:from-green-700 active:to-cyan-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-lg font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg uppercase tracking-wide text-xs sm:text-sm touch-manipulation select-none"
             style={{
-              minHeight: '44px',
-              minWidth: '100px',
+              minHeight: '48px',
+              minWidth: '120px',
               WebkitTapHighlightColor: 'transparent'
             }}
           >
             {isRunning ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
                 <span>{t(lang, 'codeCell.running')}</span>
               </>
             ) : (
               <>
-                {isMobile ? <Code className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                <span>{isMobile ? (t(lang, 'codeCell.tryCode') || 'Try Code') : t(lang, 'codeCell.runCode')}</span>
+                <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>{t(lang, 'codeCell.runCode')}</span>
               </>
             )}
           </button>
 
-          {!isMobile && result && (
+          {result && (
             <div className="flex items-center gap-2">
               {result.error ? (
                 <XCircle className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 dark:text-red-400 light:text-red-600" style={{ filter: 'drop-shadow(0 0 8px rgba(248, 113, 113, 0.8))' }} />
@@ -237,7 +223,7 @@ export function CodeCell({
           )}
         </div>
 
-        {!isMobile && result && (
+        {result && (
           <div className="px-3 sm:px-4 py-2 sm:py-3 border-t border-cyan-500/30 bg-gradient-to-r from-slate-900/60 to-slate-800/60 dark:from-slate-900/60 dark:to-slate-800/60 light:from-slate-50/80 light:to-slate-100/80 dark:border-cyan-500/30 light:border-cyan-600/30">
             <div className="font-mono text-xs sm:text-sm">
               <div className={`text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wide dark:text-cyan-400 light:text-cyan-700 ${lang === 'he' ? 'text-right' : 'text-left'}`}>

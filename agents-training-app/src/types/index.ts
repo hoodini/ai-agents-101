@@ -23,14 +23,14 @@ export interface ExecutionResult {
 
 export interface AppState {
   apiKey: string | null;
-  provider: 'groq' | 'cohere';
+  provider: 'groq' | 'cohere' | 'browser';
   selectedModel: string;
   availableModels: string[];
   currentLab: number;
   labProgress: Record<number, boolean>;
   language: 'en' | 'he';
   theme: 'dark' | 'light';
-  setApiKey: (key: string, provider: 'groq' | 'cohere') => void;
+  setApiKey: (key: string, provider: 'groq' | 'cohere' | 'browser') => void;
   setSelectedModel: (model: string) => void;
   setAvailableModels: (models: string[]) => void;
   setCurrentLab: (labId: number) => void;
