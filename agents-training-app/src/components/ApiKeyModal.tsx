@@ -10,16 +10,33 @@ interface ApiKeyModalProps {
 
 export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   const { apiKey, provider, setApiKey, setAvailableModels } = useStore();
-  const [selectedProvider, setSelectedProvider] = useState<'groq' | 'cohere'>(provider);
+  const [selectedProvider, setSelectedProvider] = useState<'groq' | 'cohere' | 'browser'>(provider);
   const [inputKey, setInputKey] = useState(apiKey || '');
   const [isValidating, setIsValidating] = useState(false);
-  // If we already have an API key stored, mark it as validated so user can save immediately
-  const [validationStatus, setValidationStatus] = useState<'idle' | 'success' | 'error'>(apiKey ? 'success' : 'idle');
-  const [validationMessage, setValidationMessage] = useState(apiKey ? '✓ API key loaded from storage' : '');
+  // If we already have an API key stored or browser provider selected, mark as validated
+  const [validationStatus, setValidationStatus] = useState<'idle' | 'success' | 'error'>(
+    apiKey || provider === 'browser' ? 'success' : 'idle'
+  );
+  const [validationMessage, setValidationMessage] = useState(
+    apiKey ? '✓ API key loaded from storage' : provider === 'browser' ? '✓ Browser LLM requires no API key' : ''
+  );
 
   if (!isOpen) return null;
 
   const validateApiKey = async () => {
+    // Browser provider doesn't need validation
+    if (selectedProvider === 'browser') {
+      const models = [
+        'Phi-3.5-mini-instruct-q4f16_1-MLC',
+        'Llama-3.2-3B-Instruct-q4f16_1-MLC',
+        'Qwen2.5-3B-Instruct-q4f16_1-MLC',
+      ];
+      setAvailableModels(models);
+      setValidationStatus('success');
+      setValidationMessage('✓ Browser LLM ready! No API key required, models run in your browser');
+      return;
+    }
+
     if (!inputKey.trim()) return;
 
     setIsValidating(true);
@@ -42,13 +59,12 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
         models = [
           'llama-3.1-8b-instant',
           'llama-3.1-70b-versatile',
-          'llama-3.2-1b-preview',
-          'llama-3.2-3b-preview',
+          'llama-3.3-70b-versatile',
           'mixtral-8x7b-32768',
           'gemma2-9b-it',
         ];
       } else if (selectedProvider === 'cohere') {
-        models = ['command-a-03-2025', 'command-r-plus-08-2024', 'command-r-08-2024', 'command-r7b-12-2024'];
+        models = ['command-a-03-2025', 'command-r-plus', 'command-r', 'command'];
       }
 
       setAvailableModels(models);
@@ -67,6 +83,13 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   };
 
   const handleSave = () => {
+    // Browser provider doesn't need API key
+    if (selectedProvider === 'browser' && validationStatus === 'success') {
+      setApiKey('browser-llm', selectedProvider);
+      onClose();
+      return;
+    }
+
     if (inputKey.trim() && validationStatus === 'success') {
       // Only update if the key or provider has changed
       if (inputKey.trim() !== apiKey || selectedProvider !== provider) {
@@ -86,6 +109,11 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
       name: 'Cohere',
       url: 'https://dashboard.cohere.com/api-keys',
       description: 'Excellent for RAG and embeddings',
+    },
+    browser: {
+      name: 'Browser LLM',
+      url: '#',
+      description: '100% private, no API key needed, runs locally in your browser',
     },
   };
 
@@ -139,7 +167,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                 Select Provider
               </label>
               <div className="grid grid-cols-1 gap-3">
-                {(Object.keys(providerInfo) as Array<'groq' | 'cohere'>).map((p) => (
+                {(Object.keys(providerInfo) as Array<'groq' | 'cohere' | 'browser'>).map((p) => (
                   <button
                     key={p}
                     onClick={() => {
@@ -179,33 +207,35 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-bold text-cyan-400 mb-2 uppercase tracking-wide">
-                API Key
-              </label>
-              <input
-                type="password"
-                value={inputKey}
-                onChange={(e) => {
-                  setInputKey(e.target.value);
-                  setValidationStatus('idle');
-                  setValidationMessage('');
-                }}
-                placeholder="Enter your API key"
-                className="w-full px-4 py-3 glass border border-cyan-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-white/40 transition-all"
-              />
-              <p className="text-xs text-white/60 mt-2">
-                Get your API key from{' '}
-                <a
-                  href={providerInfo[selectedProvider].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-400 hover:text-cyan-300 hover:underline"
-                >
-                  {providerInfo[selectedProvider].name}
-                </a>
-              </p>
-            </div>
+            {selectedProvider !== 'browser' && (
+              <div>
+                <label className="block text-sm font-bold text-cyan-400 mb-2 uppercase tracking-wide">
+                  API Key
+                </label>
+                <input
+                  type="password"
+                  value={inputKey}
+                  onChange={(e) => {
+                    setInputKey(e.target.value);
+                    setValidationStatus('idle');
+                    setValidationMessage('');
+                  }}
+                  placeholder="Enter your API key"
+                  className="w-full px-4 py-3 glass border border-cyan-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 text-white placeholder-white/40 transition-all"
+                />
+                <p className="text-xs text-white/60 mt-2">
+                  Get your API key from{' '}
+                  <a
+                    href={providerInfo[selectedProvider].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:text-cyan-300 hover:underline"
+                  >
+                    {providerInfo[selectedProvider].name}
+                  </a>
+                </p>
+              </div>
+            )}
 
             {validationMessage && (
               <div
@@ -229,7 +259,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4">
               <button
                 onClick={validateApiKey}
-                disabled={!inputKey.trim() || isValidating}
+                disabled={(selectedProvider !== 'browser' && !inputKey.trim()) || isValidating}
                 className="relative z-10 flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 active:from-blue-700 active:to-cyan-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed inline-flex items-center justify-center gap-2 shadow-lg pointer-events-auto touch-manipulation text-sm sm:text-base"
               >
                 {isValidating ? (
@@ -247,7 +277,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
               </button>
               <button
                 onClick={handleSave}
-                disabled={!inputKey.trim() || validationStatus !== 'success'}
+                disabled={(selectedProvider !== 'browser' && !inputKey.trim()) || validationStatus !== 'success'}
                 className="relative z-10 flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 active:from-purple-700 active:to-pink-700 disabled:from-slate-600 disabled:to-slate-700 text-white rounded-xl font-bold transition-all hover-lift disabled:cursor-not-allowed shadow-lg pointer-events-auto touch-manipulation text-sm sm:text-base"
               >
                 <span className="hidden xs:inline">SAVE & CONTINUE</span>

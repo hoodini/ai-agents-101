@@ -14,8 +14,16 @@ export const useStore = create<AppState>()(
       language: 'en',
       theme: 'dark',
 
-      setApiKey: (key: string, provider: 'groq' | 'cohere') => {
-        const defaultModel = provider === 'groq' ? 'llama-3.1-8b-instant' : 'command-a-03-2025';
+      setApiKey: (key: string, provider: 'groq' | 'cohere' | 'browser') => {
+        let defaultModel: string;
+        if (provider === 'groq') {
+          defaultModel = 'llama-3.1-8b-instant';
+        } else if (provider === 'cohere') {
+          defaultModel = 'command-a-03-2025';
+        } else {
+          // browser provider - use WebLLM model
+          defaultModel = 'Phi-3.5-mini-instruct-q4f16_1-MLC';
+        }
         set({ apiKey: key, provider, selectedModel: defaultModel });
       },
 

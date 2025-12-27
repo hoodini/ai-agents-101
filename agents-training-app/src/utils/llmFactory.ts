@@ -1,21 +1,17 @@
-import { ChatGroq } from '@langchain/groq';
-import { ChatCohere } from '@langchain/cohere';
 import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
+import { createUnifiedLLM } from './unifiedLLM';
 
+/**
+ * Create an LLM instance - now supports browser-based WebLLM!
+ * For browser provider, apiKey can be any string (not used)
+ */
 export function createLLM(
   apiKey: string,
-  provider: 'groq' | 'cohere',
+  provider: 'groq' | 'cohere' | 'browser',
   modelName: string
-): BaseChatModel {
-  if (provider === 'groq') {
-    return new ChatGroq({
-      apiKey,
-      model: modelName,
-    });
-  } else {
-    return new ChatCohere({
-      apiKey,
-      model: modelName,
-    });
-  }
+): BaseChatModel | any {
+  return createUnifiedLLM(apiKey, provider, modelName);
 }
+
+// Re-export the unified version as the new default
+export { createUnifiedLLM };
