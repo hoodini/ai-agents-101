@@ -1,8 +1,10 @@
-import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles, BookOpen, Code, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles, BookOpen, Code, Zap, HelpCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 import { LanguageToggle } from './LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
+import { OnboardingTutorial } from './OnboardingTutorial';
 
 interface HomepageProps {
   onGetStarted: () => void;
@@ -15,6 +17,7 @@ interface HomepageProps {
 
 export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, onAdvancedClick, onTechnicalClick }: HomepageProps) {
   const { language } = useStore();
+  const [showTutorial, setShowTutorial] = useState(false);
 
   const hexagonModules = [
     {
