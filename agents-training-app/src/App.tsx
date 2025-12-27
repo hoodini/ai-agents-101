@@ -933,7 +933,31 @@ function App() {
             isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
           } lg:translate-x-0 fixed lg:relative inset-y-0 left-0 z-40 w-[280px] sm:w-[300px] lg:w-72 transition-transform duration-300 ease-in-out pt-16 sm:pt-20 lg:pt-0 top-0 h-full lg:h-auto`}
         >
-          <LabNavigation labs={LABS} onLabClick={() => setIsSidebarOpen(false)} />
+          <LabNavigation
+            labs={LABS}
+            onLabClick={() => setIsSidebarOpen(false)}
+            onResourcesClick={() => {
+              setShowWelcome(false);
+              setShowResources(true);
+              setShowAdvanced(false);
+              setShowTechnical(false);
+              setIsSidebarOpen(false);
+            }}
+            onTechnicalClick={() => {
+              setShowWelcome(false);
+              setShowResources(false);
+              setShowAdvanced(false);
+              setShowTechnical(true);
+              setIsSidebarOpen(false);
+            }}
+            onAdvancedClick={() => {
+              setShowWelcome(false);
+              setShowResources(false);
+              setShowAdvanced(true);
+              setShowTechnical(false);
+              setIsSidebarOpen(false);
+            }}
+          />
         </aside>
 
         {/* Overlay for mobile sidebar */}

@@ -35,19 +35,19 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
     },
     {
       id: 3,
+      title: t(language, 'labs.customPrompts'),
+      description: t(language, 'labs.customPromptsDesc'),
+      icon: Sparkles,
+      color: 'pink',
+      bgClass: 'bg-gradient-to-br from-pink-500/20 to-pink-600/20 border-pink-400/40'
+    },
+    {
+      id: 4,
       title: t(language, 'labs.conversationMemory'),
       description: t(language, 'labs.conversationMemoryDesc'),
       icon: Brain,
       color: 'orange',
       bgClass: 'bg-gradient-to-br from-orange-500/20 to-orange-600/20 border-orange-400/40'
-    },
-    {
-      id: 4,
-      title: t(language, 'labs.customPrompts'),
-      description: t(language, 'labs.customPromptsDesc'),
-      icon: MessageCircle,
-      color: 'pink',
-      bgClass: 'bg-gradient-to-br from-pink-500/20 to-pink-600/20 border-pink-400/40'
     },
     {
       id: 5,

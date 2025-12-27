@@ -1,13 +1,16 @@
-import { CheckCircle, Circle, Sparkles } from 'lucide-react';
+import { CheckCircle, Circle, Sparkles, BookOpen, Code, Zap } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 
 interface LabNavigationProps {
   labs: { id: number; title: string; isBonus?: boolean }[];
   onLabClick?: () => void;
+  onResourcesClick?: () => void;
+  onTechnicalClick?: () => void;
+  onAdvancedClick?: () => void;
 }
 
-export function LabNavigation({ labs, onLabClick }: LabNavigationProps) {
+export function LabNavigation({ labs, onLabClick, onResourcesClick, onTechnicalClick, onAdvancedClick }: LabNavigationProps) {
   const { currentLab, labProgress, setCurrentLab, language } = useStore();
 
   const getLabKey = (labId: number): string => {
@@ -166,6 +169,77 @@ export function LabNavigation({ labs, onLabClick }: LabNavigationProps) {
             </div>
           </div>
         )}
+
+        {/* Additional Resources Section */}
+        <div className="mt-6 pt-6 border-t border-cyan-500/30">
+          <div className="mb-3 flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-cyan-400" />
+            <span className="text-sm font-bold text-cyan-400 tracking-wider">
+              {language === 'he' ? 'משאבים נוספים' : 'ADDITIONAL RESOURCES'}
+            </span>
+          </div>
+          <div className="space-y-2">
+            {/* Resources */}
+            {onResourcesClick && (
+              <button
+                onClick={onResourcesClick}
+                className="w-full px-4 py-3 rounded-xl transition-all hover-lift relative overflow-hidden text-left glass border border-white/10 hover:glass-strong hover:border-cyan-500/50"
+              >
+                <div className="flex items-center gap-3 relative z-10">
+                  <BookOpen className="w-5 h-5 flex-shrink-0 text-cyan-400" />
+                  <div className="flex-1">
+                    <div className="text-sm font-bold text-cyan-400">
+                      {t(language, 'resources.title')}
+                    </div>
+                    <div className="text-xs text-white/60">
+                      Curated learning materials
+                    </div>
+                  </div>
+                </div>
+              </button>
+            )}
+
+            {/* Technical Deep Dive */}
+            {onTechnicalClick && (
+              <button
+                onClick={onTechnicalClick}
+                className="w-full px-4 py-3 rounded-xl transition-all hover-lift relative overflow-hidden text-left glass border border-white/10 hover:glass-strong hover:border-blue-500/50"
+              >
+                <div className="flex items-center gap-3 relative z-10">
+                  <Code className="w-5 h-5 flex-shrink-0 text-blue-400" />
+                  <div className="flex-1">
+                    <div className="text-sm font-bold text-blue-400">
+                      {t(language, 'technical.title')}
+                    </div>
+                    <div className="text-xs text-white/60">
+                      Browser-based AI execution
+                    </div>
+                  </div>
+                </div>
+              </button>
+            )}
+
+            {/* Advanced Playground */}
+            {onAdvancedClick && (
+              <button
+                onClick={onAdvancedClick}
+                className="w-full px-4 py-3 rounded-xl transition-all hover-lift relative overflow-hidden text-left glass border border-white/10 hover:glass-strong hover:border-purple-500/50"
+              >
+                <div className="flex items-center gap-3 relative z-10">
+                  <Zap className="w-5 h-5 flex-shrink-0 text-purple-400" />
+                  <div className="flex-1">
+                    <div className="text-sm font-bold text-purple-400">
+                      Advanced Playground
+                    </div>
+                    <div className="text-xs text-white/60">
+                      Run LLMs in your browser
+                    </div>
+                  </div>
+                </div>
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </nav>
   );
