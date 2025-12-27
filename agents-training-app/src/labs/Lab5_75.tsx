@@ -229,7 +229,7 @@ const thresholds = [0.5, 0.6, 0.7];
 thresholds.forEach(threshold => {
   const filtered = results.filter(r => r.score >= threshold);
   console.log(\`📌 WITH THRESHOLD = \${threshold}:\`);
-  console.log(\`   Kept \${filtered.length}/${documents.length} documents\\n\`);
+  console.log(\`   Kept \${filtered.length}/\${documents.length} documents\\n\`);
   filtered.forEach((r, i) => {
     console.log(\`   \${i + 1}. [\${r.score.toFixed(4)}] \${r.doc.substring(0, 50)}...\`);
   });
