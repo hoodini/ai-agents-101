@@ -38,7 +38,8 @@
       "Bash(taskkill:*)",
       "Bash(ls:*)",
       "Bash(git restore:*)",
-      "Bash(del srcdatacodeTemplates.ts)"
+      "Bash(del srcdatacodeTemplates.ts)",
+      "Bash(git reset:*)"
     ]
   }
 }

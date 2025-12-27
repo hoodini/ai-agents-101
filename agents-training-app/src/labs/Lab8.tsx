@@ -7,7 +7,7 @@ import { celebrateCompletion } from '../utils/confetti';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
-const TOTAL_LABS = 8;
+const TOTAL_LABS = 11;
 
 export function Lab8() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();

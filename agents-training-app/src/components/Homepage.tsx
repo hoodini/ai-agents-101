@@ -51,19 +51,35 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
     },
     {
       id: 5,
-      title: t(language, 'labs.knowledgeBase'),
-      description: t(language, 'labs.knowledgeBaseDesc'),
+      title: 'Context Window & Chunking',
+      description: 'Learn why we can\'t send everything to LLMs and master chunking strategies',
       icon: Database,
       color: 'blue',
-      bgClass: 'bg-gradient-to-br from-blue-500/20 to-blue-600/20 border-blue-400/40'
+      bgClass: 'bg-gradient-to-br from-red-500/20 to-orange-600/20 border-orange-400/40'
+    },
+    {
+      id: 5.5,
+      title: 'Embeddings Deep Dive',
+      description: 'See how text transforms into meaning vectors with real examples',
+      icon: Sparkles,
+      color: 'purple',
+      bgClass: 'bg-gradient-to-br from-purple-500/20 to-pink-600/20 border-pink-400/40'
+    },
+    {
+      id: 5.75,
+      title: 'Vector Similarity & Retrieval',
+      description: 'Master cosine similarity, top-K retrieval, and semantic search strategies',
+      icon: Brain,
+      color: 'cyan',
+      bgClass: 'bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border-blue-400/40'
     },
     {
       id: 6,
-      title: t(language, 'labs.ragWikipedia'),
-      description: t(language, 'labs.ragWikipediaDesc'),
+      title: 'Complete RAG Pipeline',
+      description: 'Build end-to-end RAG with chunking, embeddings, retrieval, and reranking',
       icon: Globe,
       color: 'green',
-      bgClass: 'bg-gradient-to-br from-green-500/20 to-green-600/20 border-green-400/40'
+      bgClass: 'bg-gradient-to-br from-green-500/20 to-emerald-600/20 border-emerald-400/40'
     },
     {
       id: 7,
@@ -71,7 +87,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
       description: t(language, 'labs.multiAgentCollabDesc'),
       icon: Users,
       color: 'red',
-      bgClass: 'bg-gradient-to-br from-red-500/20 to-red-600/20 border-red-400/40'
+      bgClass: 'bg-gradient-to-br from-red-500/20 to-rose-600/20 border-rose-400/40'
     },
     {
       id: 8,
@@ -79,7 +95,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
       description: t(language, 'labs.orchestratorDesc'),
       icon: Network,
       color: 'yellow',
-      bgClass: 'bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 border-yellow-400/40'
+      bgClass: 'bg-gradient-to-br from-yellow-500/20 to-amber-600/20 border-amber-400/40'
     },
   ];
 
