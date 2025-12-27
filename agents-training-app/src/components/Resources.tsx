@@ -1,4 +1,4 @@
-import { ExternalLink, BookOpen, Code2, Database, Sparkles, Github } from 'lucide-react';
+import { ExternalLink, BookOpen, Code2, Database, Sparkles, Github, Brain, Zap, FileText, Users } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 
@@ -69,6 +69,61 @@ const resources: Resource[] = [
     icon: Github,
     category: 'LangChain / Tutorials',
     categoryHe: 'LangChain / מדריכים',
+  },
+  {
+    id: 'anthropic-cookbook',
+    title: 'Anthropic Claude Cookbook',
+    titleHe: 'ספר מתכונים של Anthropic Claude',
+    description: 'Official cookbook from Anthropic with production-ready patterns for building AI agents with Claude. Covers tool use, function calling, multi-step workflows, context engineering, and advanced prompting techniques for enterprise applications.',
+    descriptionHe: 'ספר מתכונים רשמי מ-Anthropic עם דפוסים מוכנים לייצור לבניית סוכני AI עם Claude. מכסה שימוש בכלים, קריאות לפונקציות, זרימות עבודה רב-שלביות, הנדסת הקשר וטכניקות פרומפטים מתקדמות ליישומים ארגוניים.',
+    url: 'https://github.com/anthropics/anthropic-cookbook',
+    icon: Brain,
+    category: 'Anthropic / Enterprise',
+    categoryHe: 'Anthropic / ארגוני',
+  },
+  {
+    id: 'openai-assistants',
+    title: 'OpenAI Assistants API',
+    titleHe: 'OpenAI Assistants API',
+    description: 'Build AI assistants with persistent threads, code interpreter, and file search capabilities. Learn how to create stateful agents that can execute code, search documents, and maintain context across conversations using OpenAI\'s managed infrastructure.',
+    descriptionHe: 'בנה עוזרי AI עם שרשורים קבועים, מתורגמן קוד ויכולות חיפוש קבצים. למד כיצד ליצור סוכנים עם מצב שיכולים להריץ קוד, לחפש במסמכים ולשמור על הקשר לאורך שיחות באמצעות תשתית מנוהלת של OpenAI.',
+    url: 'https://platform.openai.com/docs/assistants/overview',
+    icon: Zap,
+    category: 'OpenAI / Platform',
+    categoryHe: 'OpenAI / פלטפורמה',
+  },
+  {
+    id: 'langsmith',
+    title: 'LangSmith - Agent Debugging & Monitoring',
+    titleHe: 'LangSmith - ניפוי באגים ומעקב אחר סוכנים',
+    description: 'Professional observability platform for AI agents. Debug complex agent workflows, trace LLM calls, analyze performance bottlenecks, and monitor production deployments. Essential for building reliable agent systems at scale.',
+    descriptionHe: 'פלטפורמת תצפית מקצועית לסוכני AI. נפה באגים בזרימות עבודה מורכבות של סוכנים, עקוב אחר קריאות LLM, נתח צווארי בקבוק בביצועים ועקוב אחר פריסות ייצור. חיוני לבניית מערכות סוכנים אמינות בקנה מידה.',
+    url: 'https://docs.smith.langchain.com/',
+    icon: Code2,
+    category: 'LangChain / DevOps',
+    categoryHe: 'LangChain / DevOps',
+  },
+  {
+    id: 'crewai',
+    title: 'CrewAI - Multi-Agent Framework',
+    titleHe: 'CrewAI - מסגרת רב-סוכנית',
+    description: 'Framework for orchestrating role-playing autonomous AI agents. Design specialized agent crews with defined roles, goals, and collaboration patterns. Perfect for complex workflows requiring multiple specialized agents working together in coordinated teams.',
+    descriptionHe: 'מסגרת לתזמור סוכני AI אוטונומיים ממלאי תפקידים. עצב צוותי סוכנים מיוחדים עם תפקידים, מטרות ודפוסי שיתוף פעולה מוגדרים. מושלם לזרימות עבודה מורכבות הדורשות מספר סוכנים מיוחדים שעובדים יחד בצוותים מתואמים.',
+    url: 'https://github.com/joaomdmoura/crewAI',
+    icon: Users,
+    category: 'Multi-Agent / Framework',
+    categoryHe: 'רב-סוכני / מסגרת',
+  },
+  {
+    id: 'anthropic-context-retrieval',
+    title: 'Contextual Retrieval (Anthropic)',
+    titleHe: 'אחזור הקשרי (Anthropic)',
+    description: 'Revolutionary approach to RAG that reduces retrieval failures by 49%. Learn how to prepend chunk-specific context to improve semantic search accuracy. Essential reading for anyone building production RAG systems with high accuracy requirements.',
+    descriptionHe: 'גישה מהפכנית ל-RAG שמפחיתה כשלי אחזור ב-49%. למד כיצד להוסיף הקשר ספציפי לחלקים כדי לשפר את דיוק החיפוש הסמנטי. קריאה חיונית לכל מי שבונה מערכות RAG בייצור עם דרישות דיוק גבוהות.',
+    url: 'https://www.anthropic.com/news/contextual-retrieval',
+    icon: FileText,
+    category: 'Anthropic / RAG',
+    categoryHe: 'Anthropic / RAG',
   },
 ];
 

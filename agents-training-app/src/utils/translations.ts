@@ -38,7 +38,7 @@ export const translations = {
       aiBuilder: 'AI Builder, Speaker & Educator',
       whatYouLearn: "What You'll Learn",
       infoTitle: 'INFO',
-      infoText: 'This interactive training platform runs entirely in your browser using your API keys. Your keys are stored in local storage and never sent to any server expect for the LLM provider.',
+      infoText: 'This interactive training platform runs entirely in your browser using your API keys. Your keys are stored in local storage and never sent to any server except for the LLM provider.',
       getStarted: 'CONFIGURE API KEY & START LEARNING',
       skipForNow: 'SKIP FOR NOW',
       footerCopyright: '© 2025 Yuval Avidani. All rights reserved',
