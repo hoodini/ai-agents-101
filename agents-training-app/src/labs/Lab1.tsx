@@ -12,6 +12,14 @@ export function Lab1() {
         />
       </div>
 
+      <div className="mb-6 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-purple-500/30 shadow-2xl bg-black/40 backdrop-blur-sm">
+        <img
+          src="/lab1-diagram.png"
+          alt="AI Agent Components Diagram"
+          className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+
       <div className="mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cyan-500/30">
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold heading-font neon-cyan mb-3 sm:mb-4 tracking-wider leading-tight">
           LAB 1: UNDERSTANDING AI AGENT COMPONENTS

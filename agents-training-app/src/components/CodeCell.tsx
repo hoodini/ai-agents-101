@@ -125,53 +125,69 @@ export function CodeCell({
             maxWidth: '100%'
           }}
         >
-          <Editor
-            height={isMobile ? "200px" : "250px"}
-            language={language}
-            value={code}
-            onChange={(value) => !isMobile && editable && setCode(value || '')}
-            theme={theme === 'light' ? 'light' : 'vs-dark'}
-            options={{
-              minimap: { enabled: false },
-              fontSize: isMobile ? 12 : 14,
-              lineNumbers: isMobile ? 'off' : 'on',
-              scrollBeyondLastLine: false,
-              automaticLayout: true,
-              readOnly: isMobile ? true : !editable, // Always read-only on mobile
-              tabSize: 2,
-              wordWrap: 'on',
-              wrappingIndent: 'indent',
-              scrollbar: {
-                vertical: 'auto',
-                horizontal: 'auto',
-                verticalScrollbarSize: isMobile ? 8 : 10,
-                horizontalScrollbarSize: isMobile ? 8 : 10,
-                useShadows: false,
-              },
-              overviewRulerLanes: 0,
-              hideCursorInOverviewRuler: true,
-              overviewRulerBorder: false,
-              folding: false,
-              lineDecorationsWidth: isMobile ? 0 : 10,
-              lineNumbersMinChars: isMobile ? 0 : 3,
-              glyphMargin: false,
-              renderLineHighlight: 'none',
-              quickSuggestions: false,
-              parameterHints: { enabled: false },
-              suggestOnTriggerCharacters: false,
-              acceptSuggestionOnEnter: 'off',
-              hover: { enabled: false },
-              contextmenu: false,
-              dragAndDrop: false,
-              links: false,
-              colorDecorators: false,
-              cursorBlinking: isMobile ? 'solid' : 'blink',
-              cursorSmoothCaretAnimation: 'off',
-              smoothScrolling: false,
-              mouseWheelZoom: false,
-              padding: { top: isMobile ? 8 : 12, bottom: isMobile ? 8 : 12 },
-            }}
-          />
+          <div className={isMobile ? 'relative' : ''}>
+            <Editor
+              height={isMobile ? "200px" : "250px"}
+              language={language}
+              value={code}
+              onChange={(value) => !isMobile && editable && setCode(value || '')}
+              theme={theme === 'light' ? 'light' : 'vs-dark'}
+              options={{
+                minimap: { enabled: false },
+                fontSize: isMobile ? 12 : 14,
+                lineNumbers: isMobile ? 'off' : 'on',
+                scrollBeyondLastLine: false,
+                automaticLayout: true,
+                readOnly: isMobile ? true : !editable,
+                tabSize: 2,
+                wordWrap: 'on',
+                wrappingIndent: 'indent',
+                scrollbar: {
+                  vertical: 'auto',
+                  horizontal: 'auto',
+                  verticalScrollbarSize: isMobile ? 8 : 10,
+                  horizontalScrollbarSize: isMobile ? 8 : 10,
+                  useShadows: false,
+                },
+                overviewRulerLanes: 0,
+                hideCursorInOverviewRuler: true,
+                overviewRulerBorder: false,
+                folding: false,
+                lineDecorationsWidth: isMobile ? 0 : 10,
+                lineNumbersMinChars: isMobile ? 0 : 3,
+                glyphMargin: false,
+                renderLineHighlight: 'none',
+                quickSuggestions: false,
+                parameterHints: { enabled: false },
+                suggestOnTriggerCharacters: false,
+                acceptSuggestionOnEnter: 'off',
+                hover: { enabled: false },
+                contextmenu: false,
+                dragAndDrop: false,
+                links: false,
+                colorDecorators: false,
+                cursorBlinking: isMobile ? 'solid' : 'blink',
+                cursorSmoothCaretAnimation: 'off',
+                smoothScrolling: false,
+                mouseWheelZoom: false,
+                padding: { top: isMobile ? 8 : 12, bottom: isMobile ? 8 : 12 },
+              }}
+            />
+            {/* Touch event blocker overlay for mobile */}
+            {isMobile && (
+              <div
+                className="absolute inset-0 z-10"
+                style={{
+                  pointerEvents: 'auto',
+                  background: 'transparent',
+                  cursor: 'default'
+                }}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              />
+            )}
+          </div>
           {isMobile && editable && (
             <button
               onClick={(e) => {
@@ -179,7 +195,7 @@ export function CodeCell({
                 e.preventDefault();
                 setIsModalOpen(true);
               }}
-              className="absolute top-2 right-2 p-2 bg-cyan-600/90 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation backdrop-blur-sm"
+              className="absolute top-2 right-2 p-2 bg-cyan-600/90 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation backdrop-blur-sm z-20"
               style={{ minHeight: '36px', minWidth: '36px', WebkitTapHighlightColor: 'transparent' }}
               title="Edit Code"
             >

@@ -608,6 +608,14 @@ Even with large contexts:
         />
       </div>
 
+      <div className="mb-6 sm:mb-8 rounded-xl sm:rounded-2xl overflow-hidden border-2 border-purple-500/30 shadow-2xl bg-black/40 backdrop-blur-sm">
+        <img
+          src="/lab5-diagram.png"
+          alt="Context Window & Chunking Diagram"
+          className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
           <div className="p-2 sm:p-3 bg-gradient-to-br from-red-500 to-orange-600 rounded-xl shadow-lg flex-shrink-0">
