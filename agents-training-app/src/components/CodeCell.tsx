@@ -125,7 +125,10 @@ export function CodeCell({
             maxWidth: '100%'
           }}
         >
-          <div className={isMobile ? 'relative' : ''}>
+          <div
+            className={isMobile ? 'relative' : ''}
+            style={isMobile ? { pointerEvents: 'none', userSelect: 'none' } : {}}
+          >
             <Editor
               height={isMobile ? "200px" : "250px"}
               language={language}
@@ -173,20 +176,6 @@ export function CodeCell({
                 padding: { top: isMobile ? 8 : 12, bottom: isMobile ? 8 : 12 },
               }}
             />
-            {/* Touch event blocker overlay for mobile */}
-            {isMobile && (
-              <div
-                className="absolute inset-0 z-10"
-                style={{
-                  pointerEvents: 'auto',
-                  background: 'transparent',
-                  cursor: 'default'
-                }}
-                onTouchStart={(e) => e.stopPropagation()}
-                onTouchMove={(e) => e.stopPropagation()}
-                onTouchEnd={(e) => e.stopPropagation()}
-              />
-            )}
           </div>
           {isMobile && editable && (
             <button
@@ -196,7 +185,7 @@ export function CodeCell({
                 setIsModalOpen(true);
               }}
               className="absolute top-2 right-2 p-2 bg-cyan-600/90 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation backdrop-blur-sm z-20"
-              style={{ minHeight: '36px', minWidth: '36px', WebkitTapHighlightColor: 'transparent' }}
+              style={{ minHeight: '36px', minWidth: '36px', WebkitTapHighlightColor: 'transparent', pointerEvents: 'auto' }}
               title="Edit Code"
             >
               <Code className="w-4 h-4" />

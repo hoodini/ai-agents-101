@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles, BookOpen, Code, Zap, HelpCircle } from 'lucide-react';
+
+import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles, BookOpen, Code, Zap } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 import { LanguageToggle } from './LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
-import { OnboardingTutorial } from './OnboardingTutorial';
+
 
 interface HomepageProps {
   onGetStarted: () => void;
@@ -17,7 +17,7 @@ interface HomepageProps {
 
 export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, onAdvancedClick, onTechnicalClick }: HomepageProps) {
   const { language } = useStore();
-  const [showTutorial, setShowTutorial] = useState(false);
+
 
   const hexagonModules = [
     {
@@ -254,7 +254,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
           <div className="relative w-full aspect-video">
             {/* RGB Glowing Ring - Outline only */}
             <div className="absolute -inset-1 rounded-xl sm:rounded-2xl bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-rgb-rotate opacity-75 blur-sm"
-                 style={{ boxShadow: '0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 80px rgba(236, 72, 153, 0.3)' }} />
+              style={{ boxShadow: '0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(168, 85, 247, 0.4), 0 0 80px rgba(236, 72, 153, 0.3)' }} />
             <div className="absolute -inset-0.5 rounded-lg sm:rounded-xl bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 animate-rgb-rotate" />
             {/* Video container */}
             <div className="relative w-full h-full rounded-lg sm:rounded-xl overflow-hidden bg-black">
@@ -364,13 +364,13 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
                   <div className={`hexagon-content ${module.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
                     {/* Number Badge */}
                     <div className="absolute top-8 left-8 w-14 h-14 rounded-xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center font-black text-white text-2xl border-2 border-white/40"
-                         style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
+                      style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
                       {module.id}
                     </div>
 
                     {/* Icon */}
                     <Icon className={`w-24 h-24 mb-3 neon-${module.color}`}
-                          style={{ filter: `drop-shadow(0 0 12px ${colorMap[module.color]})` }} />
+                      style={{ filter: `drop-shadow(0 0 12px ${colorMap[module.color]})` }} />
 
                     {/* Title */}
                     <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
@@ -414,13 +414,13 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
                   <div className={`hexagon-content ${module.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
                     {/* Number Badge */}
                     <div className="absolute top-8 left-8 w-14 h-14 rounded-xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center font-black text-white text-2xl border-2 border-white/40"
-                         style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
+                      style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
                       {module.id}
                     </div>
 
                     {/* Icon */}
                     <Icon className={`w-24 h-24 mb-3 neon-${module.color}`}
-                          style={{ filter: `drop-shadow(0 0 12px ${colorMap[module.color]})` }} />
+                      style={{ filter: `drop-shadow(0 0 12px ${colorMap[module.color]})` }} />
 
                     {/* Title */}
                     <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
@@ -464,13 +464,13 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
                   <div className={`hexagon-content ${module.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
                     {/* Number Badge */}
                     <div className="absolute top-8 left-8 w-14 h-14 rounded-xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center font-black text-white text-2xl border-2 border-white/40"
-                         style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
+                      style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
                       {module.id}
                     </div>
 
                     {/* Icon */}
                     <Icon className={`w-24 h-24 mb-3 neon-${module.color}`}
-                          style={{ filter: `drop-shadow(0 0 12px ${colorMap[module.color]})` }} />
+                      style={{ filter: `drop-shadow(0 0 12px ${colorMap[module.color]})` }} />
 
                     {/* Title */}
                     <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
@@ -501,14 +501,14 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               <div className={`hexagon-content ${bonusModule.bgClass} relative overflow-visible transition-all duration-300 group-hover:scale-105`}>
                 {/* Bonus Badge */}
                 <div className="absolute top-8 left-8 px-3 py-1.5 rounded-lg bg-gradient-to-br from-purple-500/40 to-cyan-500/30 flex items-center gap-1 font-bold text-purple-300 text-xs border border-purple-400/50"
-                     style={{ boxShadow: '0 0 15px rgba(168, 85, 247, 0.6)' }}>
+                  style={{ boxShadow: '0 0 15px rgba(168, 85, 247, 0.6)' }}>
                   <Sparkles className="w-3 h-3" />
                   {t(language, 'bonus.label')}
                 </div>
 
                 {/* Icon */}
                 <Sparkles className="w-24 h-24 mb-3 text-purple-300"
-                      style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
+                  style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
 
                 {/* Title */}
                 <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
@@ -534,7 +534,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               <div className="hexagon-content bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border-cyan-400/40 relative overflow-visible transition-all duration-300 group-hover:scale-105">
                 {/* Icon */}
                 <BookOpen className="w-24 h-24 mb-3 text-cyan-300"
-                      style={{ filter: 'drop-shadow(0 0 12px #00d4ff)' }} />
+                  style={{ filter: 'drop-shadow(0 0 12px #00d4ff)' }} />
 
                 {/* Title */}
                 <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
@@ -563,7 +563,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               <div className="hexagon-content bg-gradient-to-br from-blue-500/20 to-indigo-600/20 border-blue-400/40 relative overflow-visible transition-all duration-300 group-hover:scale-105">
                 {/* Icon */}
                 <Code className="w-24 h-24 mb-3 text-blue-300"
-                      style={{ filter: 'drop-shadow(0 0 12px #4488ff)' }} />
+                  style={{ filter: 'drop-shadow(0 0 12px #4488ff)' }} />
 
                 {/* Title */}
                 <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
@@ -589,7 +589,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               <div className="hexagon-content bg-gradient-to-br from-purple-500/20 to-pink-600/20 border-purple-400/40 relative overflow-visible transition-all duration-300 group-hover:scale-105">
                 {/* Icon */}
                 <Zap className="w-24 h-24 mb-3 text-purple-300"
-                      style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
+                  style={{ filter: 'drop-shadow(0 0 12px #c084fc)' }} />
 
                 {/* Title */}
                 <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
@@ -627,13 +627,13 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               >
                 {/* Number Badge */}
                 <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center font-black text-white text-lg sm:text-xl border-2 border-white/40"
-                     style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
+                  style={{ boxShadow: `0 0 15px ${colorMap[module.color]}60` }}>
                   {module.id}
                 </div>
 
                 {/* Icon */}
                 <Icon className="w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4"
-                      style={{ color: colorMap[module.color], filter: `drop-shadow(0 0 8px ${colorMap[module.color]})` }} />
+                  style={{ color: colorMap[module.color], filter: `drop-shadow(0 0 8px ${colorMap[module.color]})` }} />
 
                 {/* Title */}
                 <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-2 sm:mb-3 leading-tight pr-12 sm:pr-14">
@@ -647,7 +647,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               </div>
             );
           })}
-          
+
           {/* Bonus Card - Mobile */}
           <div
             className={`${bonusModule.bgClass} rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 transition-all duration-300 hover:scale-105 relative cursor-pointer sm:col-span-2`}
@@ -658,7 +658,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               {/* Icon */}
               <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500/30 to-cyan-500/30 rounded-lg sm:rounded-xl border border-purple-400/50">
                 <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-purple-300"
-                      style={{ filter: 'drop-shadow(0 0 8px #c084fc)' }} />
+                  style={{ filter: 'drop-shadow(0 0 8px #c084fc)' }} />
               </div>
 
               <div className="flex-1 min-w-0">
@@ -691,7 +691,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="p-2 sm:p-3 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border-cyan-400/50 rounded-lg sm:rounded-xl border">
                 <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-cyan-300"
-                      style={{ filter: 'drop-shadow(0 0 8px #00d4ff)' }} />
+                  style={{ filter: 'drop-shadow(0 0 8px #00d4ff)' }} />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
@@ -713,7 +713,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-500/30 to-indigo-500/30 border-blue-400/50 rounded-lg sm:rounded-xl border">
                 <Code className="w-7 h-7 sm:w-8 sm:h-8 text-blue-300"
-                      style={{ filter: 'drop-shadow(0 0 8px #4488ff)' }} />
+                  style={{ filter: 'drop-shadow(0 0 8px #4488ff)' }} />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
@@ -735,7 +735,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500/30 to-pink-500/30 border-purple-400/50 rounded-lg sm:rounded-xl border">
                 <Zap className="w-7 h-7 sm:w-8 sm:h-8 text-purple-300"
-                      style={{ filter: 'drop-shadow(0 0 8px #c084fc)' }} />
+                  style={{ filter: 'drop-shadow(0 0 8px #c084fc)' }} />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
