@@ -15,20 +15,26 @@ const TOTAL_LABS = 11;
 export function Lab6() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
-  const getBaseConfig = () => {
-    if (provider === 'groq') {
-      return `
-  configuration: {
-    baseURL: 'https://api.groq.com/openai/v1',
-  },`;
+  const getLLMClass = () => {
+    if (provider === 'browser') return 'WebLLM';
+    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
+  };
+
+  const getLLMInit = () => {
+    if (provider === 'browser') {
+      return `// Browser LLM - runs locally, no API key needed!
+const engine = await webllm.CreateMLCEngine('${selectedModel}');
+const llm = {
+  invoke: async (messages) => {
+    const reply = await engine.chat.completions.create({ messages });
+    return { content: reply.choices[0].message.content };
+  }
+}`;
     }
-    if (provider === 'cohere') {
-      return `
-  configuration: {
-    baseURL: 'https://api.cohere.com/v1',
-  },`;
-    }
-    return '';
+    return `const llm = new ${getLLMClass()}({
+  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  model: '${selectedModel}',
+})`;
   };
 
   // Real knowledge base about AI and LLMs
@@ -210,10 +216,7 @@ import { MemoryVectorStore } from '@langchain/classic/vectorstores/memory';
 import { Document } from '@langchain/core/documents';
 import { PromptTemplate } from '@langchain/core/prompts';
 
-const llm = new ChatOpenAI({
-  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  modelName: '${selectedModel}',${getBaseConfig()}
-});
+${getLLMInit()};
 
 const embeddings = new CohereEmbeddings({
   apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-cohere-api-key'}',
@@ -463,14 +466,14 @@ Last 10 dimensions: ${queryEmbedding.slice(-10).map(n => n.toFixed(4)).join(', '
 
   const executeStep6 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const embeddings = new CohereEmbeddings({
-        apiKey,
+        apiKey: apiKey || '',
         model: 'embed-english-v3.0',
       });
 
@@ -481,7 +484,7 @@ Last 10 dimensions: ${queryEmbedding.slice(-10).map(n => n.toFixed(4)).join(', '
       const initialResults = await vectorStore.similaritySearchWithScore(query, 5);
 
       const reranker = new CohereRerank({
-        apiKey,
+        apiKey: apiKey || '',
         model: 'rerank-english-v3.0',
         topN: 3,
       });

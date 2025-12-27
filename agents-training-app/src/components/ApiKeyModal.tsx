@@ -177,11 +177,10 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                         setValidationMessage('');
                       }
                     }}
-                    className={`text-left p-4 rounded-xl border-2 transition-all hover-lift ${
-                      selectedProvider === p
+                    className={`text-left p-4 rounded-xl border-2 transition-all hover-lift ${selectedProvider === p
                         ? 'border-cyan-400 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 shadow-neural'
                         : 'border-white/20 glass hover:glass-strong hover:border-cyan-500/50'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-start justify-between">
                       <div>
@@ -239,11 +238,10 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
 
             {validationMessage && (
               <div
-                className={`p-4 rounded-xl border-2 ${
-                  validationStatus === 'success'
+                className={`p-4 rounded-xl border-2 ${validationStatus === 'success'
                     ? 'bg-gradient-to-r from-green-500/20 to-cyan-500/20 border-green-400/50 text-green-100'
                     : 'bg-gradient-to-r from-red-500/20 to-orange-500/20 border-red-400/50 text-red-100'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   {validationStatus === 'success' ? (
@@ -265,8 +263,13 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                 {isValidating ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span className="hidden xs:inline">VALIDATING...</span>
+                    <span className="hidden xs:inline">{selectedProvider === 'browser' ? 'CHECKING...' : 'VALIDATING...'}</span>
                     <span className="xs:hidden">...</span>
+                  </>
+                ) : selectedProvider === 'browser' ? (
+                  <>
+                    <span className="hidden xs:inline">ACTIVATE BROWSER LLM</span>
+                    <span className="xs:hidden">ACTIVATE</span>
                   </>
                 ) : (
                   <>

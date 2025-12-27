@@ -13,25 +13,43 @@ export function Lab2() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance, language } = useStore();
 
   const getLLMClass = () => {
+    if (provider === 'browser') return 'WebLLM';
     return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
   };
 
   const getLLMImport = () => {
+    if (provider === 'browser') {
+      return `import * as webllm from '@mlc-ai/web-llm';`;
+    }
     return provider === 'groq'
       ? `import { ChatGroq } from '@langchain/groq';`
       : `import { ChatCohere } from '@langchain/cohere';`;
   };
 
-  const step1Code = `// Step 1: Import the LangChain ${getLLMClass()} class
-${getLLMImport()}
-
-console.log('✓ LangChain imported successfully!');`;
-
-  const step2Code = `// Step 2: Create an LLM instance with your API key
-const llm = new ${getLLMClass()}({
+  const getLLMInit = () => {
+    if (provider === 'browser') {
+      return `// Browser LLM - runs locally, no API key needed!
+const engine = await webllm.CreateMLCEngine('${selectedModel}');
+const llm = {
+  invoke: async (messages) => {
+    const reply = await engine.chat.completions.create({ messages });
+    return { content: reply.choices[0].message.content };
+  }
+}`;
+    }
+    return `const llm = new ${getLLMClass()}({
   apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
   model: '${selectedModel}',
-});
+})`;
+  };
+
+  const step1Code = `// Step 1: Import the ${provider === 'browser' ? 'WebLLM library' : `LangChain ${getLLMClass()} class`}
+${getLLMImport()}
+
+console.log('✓ ${provider === 'browser' ? 'WebLLM' : 'LangChain'} imported successfully!');`;
+
+  const step2Code = `// Step 2: ${provider === 'browser' ? 'Create a Browser LLM instance (no API key needed!)' : 'Create an LLM instance with your API key'}
+${getLLMInit()};
 
 console.log('✓ LLM instance created with model: ${selectedModel}');`;
 
@@ -41,10 +59,7 @@ const prompt = "What are the three main components of an AI agent?";
 console.log('✓ Prompt ready:', prompt);`;
 
   const step4Code = `// Step 4: Get a response from the LLM
-const llm = new ${getLLMClass()}({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  model: '${selectedModel}',
-});
+${getLLMInit()};
 
 const prompt = "What are the three main components of an AI agent?";
 const response = await llm.invoke(prompt);
@@ -55,10 +70,7 @@ console.log('Response:', response.content);`;
 ${getLLMImport()}
 
 // Initialize the LLM
-const llm = new ${getLLMClass()}({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  model: '${selectedModel}',
-});
+${getLLMInit()};
 
 // Send a prompt and get response
 const prompt = "Explain what an AI agent is in one sentence.";
@@ -83,7 +95,7 @@ console.log('Agent Response:', response.content);`;
 
   const executeStep2 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
       return {
@@ -117,11 +129,11 @@ console.log('Agent Response:', response.content);`;
 
   const executeStep4 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const prompt = "What are the three main components of an AI agent?";
       const response = await llm.invoke(prompt);
@@ -141,11 +153,11 @@ console.log('Agent Response:', response.content);`;
 
   const executeStep5 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const prompt = "Explain what an AI agent is in one sentence.";
       const response = await llm.invoke(prompt);

@@ -12,20 +12,26 @@ const TOTAL_LABS = 11;
 export function Lab8() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
-  const getBaseConfig = () => {
-    if (provider === 'groq') {
-      return `
-  configuration: {
-    baseURL: 'https://api.groq.com/openai/v1',
-  },`;
+  const getLLMClass = () => {
+    if (provider === 'browser') return 'WebLLM';
+    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
+  };
+
+  const getLLMInit = () => {
+    if (provider === 'browser') {
+      return `// Browser LLM - runs locally, no API key needed!
+const engine = await webllm.CreateMLCEngine('${selectedModel}');
+const llm = {
+  invoke: async (messages) => {
+    const reply = await engine.chat.completions.create({ messages });
+    return { content: reply.choices[0].message.content };
+  }
+}`;
     }
-    if (provider === 'cohere') {
-      return `
-  configuration: {
-    baseURL: 'https://api.cohere.com/v1',
-  },`;
-    }
-    return '';
+    return `const llm = new ${getLLMClass()}({
+  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  model: '${selectedModel}',
+})`;
   };
 
   const step1Code = `// Step 1: Understand orchestrator concept
@@ -40,10 +46,7 @@ console.log('✓ Routes requests to right specialist');
 console.log('✓ Like a manager delegating tasks');`;
 
   const step2Code = `// Step 2: Create routing logic
-const llm = new ChatOpenAI({
-  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  modelName: '${selectedModel}',${getBaseConfig()}
-});
+${getLLMInit()};
 
 const userQuery = "What are the benefits of AI agents?";
 
@@ -62,10 +65,7 @@ console.log('Query:', userQuery);
 console.log('Route to:', routing.content, 'agent');`;
 
   const step3Code = `// Step 3: Complete orchestrator with routing
-const llm = new ChatOpenAI({
-  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  modelName: '${selectedModel}',${getBaseConfig()}
-});
+${getLLMInit()};
 
 const userQuery = "How do I implement an AI agent with memory?";
 
@@ -117,11 +117,11 @@ console.log(response.content);`;
 
   const executeStep2 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const userQuery = "What are the benefits of AI agents?";
 
@@ -150,11 +150,11 @@ console.log(response.content);`;
 
   const executeStep3 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const userQuery = "How do I implement an AI agent with memory?";
 

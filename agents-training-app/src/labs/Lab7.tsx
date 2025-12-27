@@ -12,20 +12,26 @@ const TOTAL_LABS = 11;
 export function Lab7() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
-  const getBaseConfig = () => {
-    if (provider === 'groq') {
-      return `
-  configuration: {
-    baseURL: 'https://api.groq.com/openai/v1',
-  },`;
+  const getLLMClass = () => {
+    if (provider === 'browser') return 'WebLLM';
+    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
+  };
+
+  const getLLMInit = () => {
+    if (provider === 'browser') {
+      return `// Browser LLM - runs locally, no API key needed!
+const engine = await webllm.CreateMLCEngine('${selectedModel}');
+const llm = {
+  invoke: async (messages) => {
+    const reply = await engine.chat.completions.create({ messages });
+    return { content: reply.choices[0].message.content };
+  }
+}`;
     }
-    if (provider === 'cohere') {
-      return `
-  configuration: {
-    baseURL: 'https://api.cohere.com/v1',
-  },`;
-    }
-    return '';
+    return `const llm = new ${getLLMClass()}({
+  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  model: '${selectedModel}',
+})`;
   };
 
   const step1Code = `// Step 1: Create specialized agents with different roles
@@ -37,10 +43,7 @@ console.log('✓ Writer agent: Creates content');
 console.log('✓ Each agent has unique expertise');`;
 
   const step2Code = `// Step 2: Researcher agent gathers information
-const llm = new ChatOpenAI({
-  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  modelName: '${selectedModel}',${getBaseConfig()}
-});
+${getLLMInit()};
 
 const researcherMessages = [
   new SystemMessage("You are a research specialist. Provide 3 key facts about the topic."),
@@ -53,10 +56,7 @@ console.log('Researcher Output:');
 console.log(research.content);`;
 
   const step3Code = `// Step 3: Writer agent creates content from research
-const llm = new ChatOpenAI({
-  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  modelName: '${selectedModel}',${getBaseConfig()}
-});
+${getLLMInit()};
 
 // First: Researcher gathers facts
 const researcherMessages = [
@@ -95,11 +95,11 @@ console.log(article.content);`;
 
   const executeStep2 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const researcherMessages = [
         new SystemMessage("You are a research specialist. Provide 3 key facts about the topic."),
@@ -123,11 +123,11 @@ console.log(article.content);`;
 
   const executeStep3 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const researcherMessages = [
         new SystemMessage("You are a research specialist. Provide 3 key facts about the topic."),

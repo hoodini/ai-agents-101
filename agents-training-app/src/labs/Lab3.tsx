@@ -12,27 +12,42 @@ const TOTAL_LABS = 8;
 export function Lab3() {
   const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
 
-  const getBaseConfig = () => {
-    if (provider === 'groq') {
-      return `
-  configuration: {
-    baseURL: 'https://api.groq.com/openai/v1',
-  },`;
-    }
-    if (provider === 'cohere') {
-      return `
-  configuration: {
-    baseURL: 'https://api.cohere.com/v1',
-  },`;
-    }
-    return '';
+  const getLLMClass = () => {
+    if (provider === 'browser') return 'WebLLM';
+    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
   };
 
-  const step1Code = `// Step 1: Import required message types
-import { ChatOpenAI } from '@langchain/openai';
+  const getLLMImport = () => {
+    if (provider === 'browser') {
+      return `import * as webllm from '@mlc-ai/web-llm';`;
+    }
+    return provider === 'groq'
+      ? `import { ChatGroq } from '@langchain/groq';`
+      : `import { ChatCohere } from '@langchain/cohere';`;
+  };
+
+  const getLLMInit = () => {
+    if (provider === 'browser') {
+      return `// Browser LLM - runs locally, no API key needed!
+const engine = await webllm.CreateMLCEngine('${selectedModel}');
+const llm = {
+  invoke: async (messages) => {
+    const reply = await engine.chat.completions.create({ messages });
+    return { content: reply.choices[0].message.content };
+  }
+}`;
+    }
+    return `const llm = new ${getLLMClass()}({
+  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  model: '${selectedModel}',
+})`;
+  };
+
+  const step1Code = `// Step 1: Import required classes
+${getLLMImport()}
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 
-console.log('✓ Message types imported successfully!');`;
+console.log('✓ ${provider === 'browser' ? 'WebLLM and message types' : 'LangChain classes'} imported successfully!');`;
 
   const step2Code = `// Step 2: Create a system prompt to define agent personality
 const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies. Always be encouraging and patient.\`);
@@ -56,10 +71,7 @@ console.log('✓ Messages array created!');
 console.log('Total messages:', messages.length);`;
 
   const step5Code = `// Step 5: Send to LLM and get response
-const llm = new ChatOpenAI({
-  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  modelName: '${selectedModel}',${getBaseConfig()}
-});
+${getLLMInit()};
 
 const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.\`);
 const userPrompt = new HumanMessage("What is machine learning?");
@@ -70,10 +82,7 @@ const response = await llm.invoke(messages);
 console.log('Agent Response:', response.content);`;
 
   const step6Code = `// Complete Example: Try a different personality!
-const llm = new ChatOpenAI({
-  openAIApiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
-  modelName: '${selectedModel}',${getBaseConfig()}
-});
+${getLLMInit()};
 
 // Try this pirate personality!
 const systemPrompt = new SystemMessage(\`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"\`);
@@ -151,11 +160,11 @@ console.log('Pirate Agent Response:', response.content);`;
 
   const executeStep5 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const systemPrompt = new SystemMessage(`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.`);
       const userPrompt = new HumanMessage("What is machine learning?");
@@ -178,11 +187,11 @@ console.log('Pirate Agent Response:', response.content);`;
 
   const executeStep6 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey) {
+      if (!apiKey && provider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey, provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
 
       const systemPrompt = new SystemMessage(`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"`);
       const userPrompt = new HumanMessage("How do I learn programming?");
