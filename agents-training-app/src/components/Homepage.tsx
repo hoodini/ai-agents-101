@@ -1,10 +1,10 @@
-
-import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles, BookOpen, Code, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { Settings as SettingsIcon, MessageCircle, Brain, Database, Globe, Users, Network, ChevronDown, Link as LinkIcon, Github, Linkedin, Twitter, Instagram, Youtube, Sparkles, BookOpen, Code, Zap, HelpCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { t } from '../utils/translations';
 import { LanguageToggle } from './LanguageToggle';
 import { ThemeToggle } from './ThemeToggle';
-
+import { OnboardingTutorial } from './OnboardingTutorial';
 
 interface HomepageProps {
   onGetStarted: () => void;
@@ -17,7 +17,7 @@ interface HomepageProps {
 
 export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, onAdvancedClick, onTechnicalClick }: HomepageProps) {
   const { language } = useStore();
-
+  const [showTutorial, setShowTutorial] = useState(false);
 
   const hexagonModules = [
     {
@@ -202,6 +202,16 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
 
           {/* Language Toggle & GitHub Links - Desktop */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Tutorial Button */}
+            <button
+              onClick={() => setShowTutorial(true)}
+              className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 rounded-lg transition-all hover-lift text-sm text-white font-semibold shadow-lg"
+              title="Tutorial Guide"
+            >
+              <HelpCircle className="w-4 h-4" />
+              <span>Tutorial</span>
+            </button>
+
             {/* Language Toggle - Fixed width to prevent shifting */}
             <LanguageToggle />
 
@@ -782,6 +792,9 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
           {t(language, 'homepage.footerTagline')}
         </p>
       </footer>
+
+      {/* Onboarding Tutorial Modal */}
+      <OnboardingTutorial isOpen={showTutorial} onClose={() => setShowTutorial(false)} />
     </div>
   );
 }
