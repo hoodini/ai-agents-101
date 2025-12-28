@@ -69,10 +69,13 @@ export const useStore = create<AppState>()(
       markLabCompleteAndAdvance: (labId: number, totalLabs: number) =>
         set((state) => {
           const nextLab = labId < totalLabs ? labId + 1 : labId;
-          // Scroll to top when advancing to next lab
+          // Scroll to top when advancing to next lab - scroll the main content area
           if (typeof window !== 'undefined') {
             setTimeout(() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              const mainContent = document.querySelector('main');
+              if (mainContent) {
+                mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+              }
             }, 100);
           }
           return {
