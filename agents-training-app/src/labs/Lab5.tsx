@@ -6,7 +6,7 @@ import { celebrateCompletion } from '../utils/confetti';
 import type { ExecutionResult } from '../types';
 
 export function Lab5() {
-  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
@@ -342,7 +342,6 @@ console.log('3. Metadata helps track source locations');
 console.log('4. Smaller chunks = better precision, less context');
 console.log('5. Larger chunks = more context, less precision');
 
-markLabComplete(5);
 celebrateCompletion();`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
@@ -583,8 +582,7 @@ Even with large contexts:
       output += '4. Smaller chunks = better precision, less context\n';
       output += '5. Larger chunks = more context, less precision';
 
-      // Mark lab complete and show celebration
-      markLabComplete(5);
+      // Show celebration (lab completion happens when clicking the Complete Lab button)
       celebrateCompletion();
 
       return {

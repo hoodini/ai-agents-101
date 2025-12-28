@@ -8,7 +8,7 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
 export function Lab8() {
-  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
@@ -260,8 +260,7 @@ console.log(response.content);
 
       const response = await llm.invoke(specialistMessages);
 
-      // Mark lab complete and show celebration
-      markLabComplete(8);
+      // Show celebration (lab completion happens when clicking the Complete Lab button)
       celebrateCompletion();
 
       return {

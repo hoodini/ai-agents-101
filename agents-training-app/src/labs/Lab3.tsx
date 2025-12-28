@@ -8,7 +8,7 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
 export function Lab3() {
-  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
@@ -228,8 +228,7 @@ console.log('Pirate Agent Response:', response.content);
       const messages = [systemPrompt, userPrompt];
       const response = await llm.invoke(messages);
 
-      // Mark lab complete and show celebration
-      markLabComplete(3);
+      // Show celebration (lab completion happens when clicking the Complete Lab button)
       celebrateCompletion();
 
       return {

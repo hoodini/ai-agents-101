@@ -9,7 +9,7 @@ import type { ExecutionResult } from '../types';
 import { useState } from 'react';
 
 export function Lab4() {
-  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
   const [limitContext, setLimitContext] = useState(false);
 
@@ -282,8 +282,7 @@ console.log('✓ Agent remembered context across all turns!');
       const messagesToSend3 = limitContext ? messages.slice(-3) : messages;
       const response3 = await llm.invoke(messagesToSend3);
 
-      // Mark lab complete and show celebration
-      markLabComplete(4);
+      // Show celebration (lab completion happens when clicking the Complete Lab button)
       celebrateCompletion();
 
       const contextWarning = limitContext

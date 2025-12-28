@@ -11,7 +11,7 @@ import { PromptTemplate } from '@langchain/core/prompts';
 import type { ExecutionResult } from '../types';
 
 export function Lab6() {
-  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
@@ -518,8 +518,7 @@ ANSWER:`;
       output += answer.content;
       output += '\n\n✓ Complete RAG pipeline: Retrieve → Rerank → Generate!';
 
-      // Mark lab complete and show celebration
-      markLabComplete(6);
+      // Show celebration (lab completion happens when clicking the Complete Lab button)
       celebrateCompletion();
 
       return {

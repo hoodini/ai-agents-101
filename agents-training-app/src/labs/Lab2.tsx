@@ -1,15 +1,43 @@
 import { BookOpen, Zap } from 'lucide-react';
-import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { CompleteLabButton } from '../components/CompleteLabButton';
+import { RunAllCellsButton } from '../components/RunAllCellsButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
 import { celebrateCompletion } from '../utils/confetti';
 import { t } from '../utils/translations';
 import type { ExecutionResult } from '../types';
+import { useRef, useState } from 'react';
 
 export function Lab2() {
-  const { providers, activeProvider, selectedModel, markLabComplete, language } = useStore();
+  const { providers, activeProvider, selectedModel, language } = useStore();
   const apiKey = providers[activeProvider].apiKey;
+
+  const step1Ref = useRef<TerminalCodeCellRef>(null);
+  const step2Ref = useRef<TerminalCodeCellRef>(null);
+  const step3Ref = useRef<TerminalCodeCellRef>(null);
+  const step4Ref = useRef<TerminalCodeCellRef>(null);
+  const step5Ref = useRef<TerminalCodeCellRef>(null);
+
+  const [isRunningAll, setIsRunningAll] = useState(false);
+
+  const handleRunAll = async () => {
+    setIsRunningAll(true);
+    try {
+      // Run each step sequentially
+      await step1Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500)); // Small delay between steps
+      await step2Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step3Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step4Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step5Ref.current?.run();
+    } finally {
+      setIsRunningAll(false);
+    }
+  };
 
   const getLLMClass = () => {
     if (activeProvider === 'browser') return 'WebLLM';
@@ -198,8 +226,7 @@ console.log('Agent Response:', response.content);
       const prompt = "Explain what an AI agent is in one sentence.";
       const response = await llm.invoke(prompt);
 
-      // Mark lab complete and show celebration
-      markLabComplete(2);
+      // Show celebration (lab completion happens when clicking the Complete Lab button)
       celebrateCompletion();
 
       return {
@@ -232,6 +259,8 @@ console.log('Agent Response:', response.content);
           className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
         />
       </div>
+
+      <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
 
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
@@ -272,6 +301,7 @@ console.log('Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step1Ref}
           title="step-1-import"
           initialCode={step1Code}
           description={`${language === 'he' ? 'ראשית, אנו מייבאים את המחלקה' : 'First, we import the'} ${getLLMClass()} ${t(language, 'lab2.step1Desc')}`}
@@ -289,6 +319,7 @@ console.log('Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step2Ref}
           title="step-2-create-llm"
           initialCode={step2Code}
           description={t(language, 'lab2.step2Desc')}
@@ -306,6 +337,7 @@ console.log('Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step3Ref}
           title="step-3-prompt"
           initialCode={step3Code}
           description={t(language, 'lab2.step3Desc')}
@@ -323,6 +355,7 @@ console.log('Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step4Ref}
           title="step-4-response"
           initialCode={step4Code}
           description={t(language, 'lab2.step4Desc')}
@@ -340,6 +373,7 @@ console.log('Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step5Ref}
           title="complete-agent"
           initialCode={step5Code}
           description={t(language, 'lab2.step5Desc')}
