@@ -26,9 +26,6 @@ export function ModelSelector() {
     return null;
   }
 
-  const currentProvider = providers[activeProvider];
-  const availableModels = currentProvider.models;
-
   // Provider badge colors
   const providerColors = {
     cohere: 'from-blue-500 to-cyan-600',
@@ -42,16 +39,17 @@ export function ModelSelector() {
 
   const providerColor = providerColors[activeProvider] || 'from-purple-500 to-blue-600';
 
-  const handleProviderSwitch = (provider: ProviderType) => {
-    setActiveProvider(provider);
-    setIsOpen(false);
-  };
+  const currentProvider = providers[activeProvider];
+  const hasMultipleModels = currentProvider.models.length > 1;
+  const canOpenDropdown = activeProviders.length > 1 || hasMultipleModels;
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => activeProviders.length > 1 && setIsOpen(!isOpen)}
-        className="flex items-center gap-2 glass rounded-lg px-3 py-2 border border-white/10 hover:border-white/20 transition-all dark:border-white/10 light:border-black/15 cursor-pointer"
+        onClick={() => canOpenDropdown && setIsOpen(!isOpen)}
+        className={`flex items-center gap-2 glass rounded-lg px-3 py-2 border border-white/10 transition-all dark:border-white/10 light:border-black/15 ${
+          canOpenDropdown ? 'hover:border-white/20 cursor-pointer' : 'cursor-default'
+        }`}
       >
         <div className={`p-1.5 bg-gradient-to-br ${providerColor} rounded-lg`}>
           <Sparkles className="w-3 h-3 text-white" />
@@ -61,7 +59,7 @@ export function ModelSelector() {
             <span className="text-xs text-white/50 uppercase tracking-wide dark:text-white/50 light:text-black/60">
               {providerNames[activeProvider]}
             </span>
-            {activeProviders.length > 1 && (
+            {canOpenDropdown && (
               <ChevronDown className="w-3 h-3 text-white/50" />
             )}
           </div>
@@ -71,7 +69,7 @@ export function ModelSelector() {
         </div>
       </button>
 
-      {isOpen && activeProviders.length > 1 && (
+      {isOpen && (
         <div className="absolute top-full mt-2 right-0 z-50 min-w-[240px] glass rounded-lg border border-cyan-500/30 shadow-xl overflow-hidden animate-fade-in">
           {activeProviders.map((provider) => (
             <div key={provider} className="border-b border-white/10 last:border-b-0">
