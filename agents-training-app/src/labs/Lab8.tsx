@@ -34,71 +34,151 @@ const llm = {
 })`;
   };
 
-  const step1Code = `// Step 1: Understand orchestrator concept
-// An orchestrator agent:
-// 1. Receives user request
-// 2. Analyzes the request type
-// 3. Routes to the appropriate specialist agent
-// 4. Returns the specialist's response
+  const step1Code = `// Step 1: Understand the Orchestrator Pattern
+// An orchestrator is like a SMART MANAGER that delegates work to specialists
+
+// Think of it like a customer service center:
+// - Customer asks a question
+// - Manager (orchestrator) analyzes: "Is this billing? Technical? Sales?"
+// - Manager routes to the RIGHT specialist
+// - Specialist answers the question
+// - Manager returns the answer to customer
+
+// An orchestrator agent does exactly this:
+// 1. RECEIVES: User request comes in
+// 2. ANALYZES: What type of request is this? (using the LLM's intelligence!)
+// 3. ROUTES: Sends to the appropriate specialist agent
+// 4. RETURNS: Sends the specialist's response back
+
+// Why use an orchestrator?
+// ✓ Scalability: Easy to add new specialist agents
+// ✓ Efficiency: Each specialist focuses on what they do best
+// ✓ Accuracy: Better results from focused experts vs. generalist
+// ✓ Maintainability: Update one specialist without affecting others
 
 console.log('✓ Orchestrator = Smart Router');
 console.log('✓ Routes requests to right specialist');
-console.log('✓ Like a manager delegating tasks');`;
+console.log('✓ Like a manager delegating tasks');
 
-  const step2Code = `// Step 2: Create routing logic
+// Real-world use cases:
+// - Customer support (billing, tech, sales specialists)
+// - Content creation (research, writing, editing specialists)
+// - Data analysis (SQL, visualization, reporting specialists)
+// - Development tools (code review, testing, documentation specialists)`;
+
+  const step2Code = `// Step 2: Build the Router - The "Brain" of the Orchestrator
+// The router's job is to CLASSIFY the user's request and decide where to send it
+
 ${getLLMInit()};
 
+// Example user query
 const userQuery = "What are the benefits of AI agents?";
 
-// Router analyzes query and decides which agent to use
+// ========== THE ROUTER AGENT ==========
+// This is a CLASSIFICATION agent - it categorizes the query
+// Notice the system prompt gives VERY SPECIFIC instructions:
+// - Respond with ONLY one word (makes parsing easy!)
+// - Clear categories with descriptions (helps LLM decide accurately)
+
 const routerMessages = [
   new SystemMessage(\`You are a router. Analyze the query and respond with ONLY one word:
 - "TECHNICAL" for technical/implementation questions
 - "BUSINESS" for business/strategy questions
 - "GENERAL" for general information\`),
+
+  // The user's actual query
   new HumanMessage(userQuery)
 ];
 
+// Execute the routing decision
+// The LLM will analyze the query and return one of: TECHNICAL, BUSINESS, or GENERAL
 const routing = await llm.invoke(routerMessages);
 
+// Display the routing decision
 console.log('Query:', userQuery);
-console.log('Route to:', routing.content, 'agent');`;
+console.log('Route to:', routing.content, 'agent');
 
-  const step3Code = `// Step 3: Complete orchestrator with routing
+// Key insights:
+// 1. The router itself is an LLM agent with a specialized prompt
+// 2. We use the LLM's natural language understanding for smart routing
+// 3. Clear, constrained output format (one word) makes it reliable
+// 4. In production, you might add validation: if (routing.content !== 'TECHNICAL' && ...)
+
+// Alternative routing approaches:
+// - Keyword matching (simpler but less flexible)
+// - Embeddings + similarity (more sophisticated)
+// - Rule-based logic (fastest but least intelligent)
+// - LLM routing (what we're using - good balance of intelligence & simplicity)`;
+
+  const step3Code = `// Step 3: Complete Orchestrator System - Full End-to-End Flow!
+// This brings it all together: Router → Specialist → Response
+
 ${getLLMInit()};
 
+// The user's question
 const userQuery = "How do I implement an AI agent with memory?";
 
-// Step 1: Router decides which specialist
+// ========== STEP 1: ROUTING PHASE ==========
+// The router agent analyzes the query to determine which specialist should handle it
 const routerMessages = [
+  // Router system prompt: Clear categories and instructions
   new SystemMessage(\`You are a router. Respond with ONLY:
 - "TECHNICAL" for technical/implementation questions
 - "BUSINESS" for business/strategy questions\`),
+
+  // The user's query
   new HumanMessage(userQuery)
 ];
+
+// Router makes the decision
 const routing = await llm.invoke(routerMessages);
 
-// Step 2: Route to appropriate specialist
+// ========== STEP 2: SPECIALIST SELECTION ==========
+// Based on the router's decision, we select the appropriate specialist
+// This is where the "orchestration" happens!
+
 let specialistMessages;
+
+// Check what the router decided (using .includes() for robustness)
 if (routing.content.includes('TECHNICAL')) {
+  // TECHNICAL SPECIALIST: Focused on implementation details and code
   specialistMessages = [
     new SystemMessage("You are a technical AI expert. Provide code examples and implementation details."),
     new HumanMessage(userQuery)
   ];
 } else {
+  // BUSINESS SPECIALIST: Focused on ROI and business value
   specialistMessages = [
     new SystemMessage("You are a business AI strategist. Focus on ROI and business value."),
     new HumanMessage(userQuery)
   ];
 }
 
+// ========== STEP 3: SPECIALIST EXECUTION ==========
+// The selected specialist processes the query
 const response = await llm.invoke(specialistMessages);
 
+// ========== STEP 4: RETURN RESULTS ==========
+// Display the complete orchestration flow
 console.log('Query:', userQuery);
 console.log('Routed to:', routing.content);
 console.log('');
 console.log('Specialist Response:');
-console.log(response.content);`;
+console.log(response.content);
+
+// ========== KEY TAKEAWAYS ==========
+// 1. ONE LLM call for routing (fast classification)
+// 2. ONE LLM call for specialist work (focused expertise)
+// 3. Total: 2 LLM calls, but each is optimized for its task!
+// 4. Easy to extend: Just add more specialists and routing rules
+
+// Production enhancements you might add:
+// - Error handling: What if routing fails?
+// - Fallback specialist: Default if routing is unclear
+// - Confidence scoring: Router returns confidence level
+// - Multi-routing: Some queries go to multiple specialists
+// - Caching: Cache routing decisions for similar queries
+// - Logging: Track which specialist handles which queries (analytics!)`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {

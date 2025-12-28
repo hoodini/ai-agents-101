@@ -90,39 +90,74 @@ console.log('Agent:', response2.content);
 console.log('');
 console.log('Messages in memory:', messages.length);`;
 
-  const step5Code = `// Complete Example: Full conversation with memory
+  const step5Code = `// Complete Example: Full Multi-Turn Conversation with Memory!
+// This is how ChatGPT remembers your conversation!
+
 ${getLLMInit()};
 
-// Initialize conversation memory
+// ========== INITIALIZE MEMORY ==========
+// Create an empty array to store the conversation history
+// This array will grow as the conversation continues
 const messages = [];
 
-// Turn 1: Introduce yourself
+// ========== TURN 1: USER INTRODUCES THEMSELVES ==========
+// User shares information
 messages.push(new HumanMessage("My name is Yuval and I teach AI agents"));
+
+// Send ENTIRE conversation history (currently just 1 message) to LLM
 const response1 = await llm.invoke(messages);
+
+// CRITICAL: Store the agent's response in memory too!
+// Now the agent can remember what IT said, not just what the user said
 messages.push(new AIMessage(response1.content.toString()));
+// Memory now has: [User: "My name...", Agent: "Nice to meet you..."]
 
-// Turn 2: Ask about name
+// ========== TURN 2: TEST MEMORY - NAME ==========
+// User asks about something mentioned in Turn 1
 messages.push(new HumanMessage("What's my name?"));
+
+// Send ALL messages (Turn 1 user + Turn 1 agent + Turn 2 user)
+// The LLM sees the full context and can answer!
 const response2 = await llm.invoke(messages);
+
+// Store this exchange too
 messages.push(new AIMessage(response2.content.toString()));
+// Memory now has 4 messages: Turn 1 (user+agent) + Turn 2 (user+agent)
 
-// Turn 3: Ask about profession
+// ========== TURN 3: TEST MEMORY - PROFESSION ==========
+// Ask about the other piece of info from Turn 1
 messages.push(new HumanMessage("What do I teach?"));
-const response3 = await llm.invoke(messages);
 
+// Send the FULL conversation (all 5 messages so far)
+const response3 = await llm.invoke(messages);
+// The agent remembers "AI agents" from Turn 1!
+
+// ========== DISPLAY THE CONVERSATION ==========
 console.log('Turn 1:');
 console.log('User: My name is Yuval and I teach AI agents');
 console.log('Agent:', response1.content);
 console.log('');
 console.log('Turn 2:');
 console.log('User: What\\'s my name?');
-console.log('Agent:', response2.content);
+console.log('Agent:', response2.content); // Should say "Yuval"!
 console.log('');
 console.log('Turn 3:');
 console.log('User: What do I teach?');
-console.log('Agent:', response3.content);
+console.log('Agent:', response3.content); // Should say "AI agents"!
 console.log('');
-console.log('✓ Agent remembered context across all turns!');`;
+console.log('✓ Agent remembered context across all turns!');
+
+// 🧠 How Memory Works:
+// 1. Store EVERY message (user AND agent) in an array
+// 2. Send the ENTIRE array with each new request
+// 3. LLM sees full context and can reference previous turns
+// 4. Continue appending to the array as conversation grows
+
+// Real-world considerations:
+// ⚠️ Memory grows with each turn - costs more tokens!
+// ✓ Solution: Limit to last N messages (e.g., last 10 turns)
+// ✓ Solution: Summarize old messages to save tokens
+// ✓ Solution: Store in database for long-term persistence`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {

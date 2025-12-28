@@ -35,48 +35,107 @@ const llm = {
   };
 
   const step1Code = `// Step 1: Create specialized agents with different roles
+// In multi-agent systems, each agent has a specific expertise or role.
+// This is like having a team where each member is an expert in their domain.
+
+// Define the researcher agent's role
+// This agent specializes in gathering facts and information objectively
 const researcherPrompt = "You are a research specialist. Gather and summarize facts.";
+
+// Define the writer agent's role
+// This agent specializes in creating engaging, well-written content
 const writerPrompt = "You are a creative writer. Write engaging content.";
+
+// Why specialized agents? Because:
+// 1. Each agent can be optimized for its specific task
+// 2. You can combine different models or different prompts per agent
+// 3. Easier to debug and improve individual agent behaviors
+// 4. Real-world teams work this way - specialists collaborate!
 
 console.log('✓ Researcher agent: Gathers facts');
 console.log('✓ Writer agent: Creates content');
 console.log('✓ Each agent has unique expertise');`;
 
   const step2Code = `// Step 2: Researcher agent gathers information
+// Here we create the first agent in our pipeline
+
 ${getLLMInit()};
 
+// Create messages array for the researcher agent
+// SystemMessage: Defines the agent's role and behavior
+// HumanMessage: The actual task/query for the agent
 const researcherMessages = [
+  // This SystemMessage instructs the LLM to act as a research specialist
+  // Clear, specific instructions lead to better agent outputs
   new SystemMessage("You are a research specialist. Provide 3 key facts about the topic."),
+
+  // This HumanMessage is the actual request we're making
+  // The researcher will focus on factual, objective information
   new HumanMessage("Research: AI Agents")
 ];
 
+// Invoke the LLM with the researcher's messages
+// The LLM will respond as a research specialist based on the system prompt
 const research = await llm.invoke(researcherMessages);
 
+// Display the research results
+// This output will be factual and focused on key information
 console.log('Researcher Output:');
-console.log(research.content);`;
+console.log(research.content);
 
-  const step3Code = `// Step 3: Writer agent creates content from research
+// NOTE: In production, you might want to:
+// 1. Validate the research output format
+// 2. Store research results in a database
+// 3. Add error handling for API failures`;
+
+  const step3Code = `// Step 3: Complete Multi-Agent Pipeline - Agents Working Together!
+// This demonstrates a REAL multi-agent workflow where:
+// Agent 1 (Researcher) → produces output → Agent 2 (Writer) → final result
+
 ${getLLMInit()};
 
-// First: Researcher gathers facts
+// ========== PHASE 1: RESEARCH ==========
+// First agent: Research Specialist
+// This agent's job is to gather factual information
 const researcherMessages = [
   new SystemMessage("You are a research specialist. Provide 3 key facts about the topic."),
   new HumanMessage("Research: AI Agents")
 ];
+
+// Execute the research phase
+// The researcher agent runs independently first
 const research = await llm.invoke(researcherMessages);
 
-// Then: Writer creates article from facts
+// ========== PHASE 2: WRITING ==========
+// Second agent: Creative Writer
+// This agent takes the researcher's output as INPUT
+// Notice how we pass research.content into the writer's prompt!
 const writerMessages = [
+  // System prompt defines this agent as a creative writer
   new SystemMessage("You are a creative writer. Write a short engaging paragraph using these facts."),
+
+  // CRITICAL: The writer receives the researcher's output as context
+  // This is how agents "collaborate" - output of one becomes input of another
   new HumanMessage(\`Facts: \${research.content}\`)
 ];
+
+// Execute the writing phase
+// The writer transforms the research into engaging content
 const article = await llm.invoke(writerMessages);
 
+// ========== RESULTS ==========
+// Display both phases of the pipeline
 console.log('Research Phase:');
 console.log(research.content);
 console.log('');
 console.log('Writing Phase:');
-console.log(article.content);`;
+console.log(article.content);
+
+// Key Takeaway: Multi-agent systems create PIPELINES where:
+// 1. Each agent has a specialized role
+// 2. Outputs flow between agents (research → writer)
+// 3. Final result combines multiple expert perspectives
+// 4. More modular and maintainable than one giant prompt!`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {

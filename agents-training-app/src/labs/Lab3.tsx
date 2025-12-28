@@ -81,17 +81,49 @@ const response = await llm.invoke(messages);
 
 console.log('Agent Response:', response.content);`;
 
-  const step6Code = `// Complete Example: Try a different personality!
+  const step6Code = `// Complete Example: The Power of Personalities!
+// System prompts let you create agents with ANY personality or expertise
+
 ${getLLMInit()};
 
-// Try this pirate personality!
+// Example: A Pirate AI Assistant
+// Notice how DETAILED the system prompt is:
+// - Defines speaking style ("speak like a pirate")
+// - Sets boundaries ("helpful but always stay in character")
+// - Adds signature behavior ("End responses with 'Arrr!'")
 const systemPrompt = new SystemMessage(\`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"\`);
+
+// The user's question (same as before, but now gets a pirate response!)
 const userPrompt = new HumanMessage("How do I learn programming?");
 
+// Combine system and user messages
 const messages = [systemPrompt, userPrompt];
+
+// Get the pirate's response!
 const response = await llm.invoke(messages);
 
-console.log('Pirate Agent Response:', response.content);`;
+// The response will be helpful programming advice... in pirate speak!
+console.log('Pirate Agent Response:', response.content);
+
+// 🏴‍☠️ What makes this powerful?
+// - SAME user question
+// - SAME LLM model
+// - DIFFERENT system prompt
+// - COMPLETELY DIFFERENT response style!
+
+// Real-world applications:
+// ✓ Customer support bot (professional, empathetic)
+// ✓ Code review agent (technical, detailed)
+// ✓ Marketing copy writer (creative, persuasive)
+// ✓ Data analyst (analytical, precise)
+// ✓ Teacher (patient, encouraging, uses analogies)
+
+// Try creating your own! Ideas:
+// - Shakespeare writer
+// - Sports commentator
+// - News reporter
+// - Therapist
+// - Tech support agent`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {
