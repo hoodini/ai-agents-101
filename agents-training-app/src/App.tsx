@@ -6,6 +6,7 @@ import { ApiKeyModal } from './components/ApiKeyModal';
 import { ModelSelector } from './components/ModelSelector';
 import { LanguageToggle } from './components/LanguageToggle';
 import { ThemeToggle } from './components/ThemeToggle';
+import { ScrollToTop } from './components/ScrollToTop';
 import { Homepage } from './components/Homepage';
 import { Resources } from './components/Resources';
 import { AdvancedPlayground } from './components/AdvancedPlayground';
@@ -980,6 +981,9 @@ function App() {
 
       {/* API Key Modal */}
       <ApiKeyModal isOpen={isApiModalOpen} onClose={() => setIsApiModalOpen(false)} />
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 }

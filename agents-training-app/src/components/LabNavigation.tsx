@@ -20,6 +20,8 @@ export function LabNavigation({ labs, onLabClick, onResourcesClick, onTechnicalC
 
   const handleLabClick = (labId: number) => {
     setCurrentLab(labId);
+    // Scroll to top when switching labs
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (onLabClick) {
       onLabClick();
     }

@@ -1,4 +1,4 @@
-import { BookOpen, Brain } from 'lucide-react';
+import { BookOpen, Brain, AlertTriangle } from 'lucide-react';
 import { TerminalCodeCell } from '../components/TerminalCodeCell';
 import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
@@ -6,9 +6,11 @@ import { createLLM } from '../utils/llmFactory';
 import { celebrateCompletion } from '../utils/confetti';
 import { HumanMessage, AIMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
+import { useState } from 'react';
 
 export function Lab4() {
   const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const [limitContext, setLimitContext] = useState(false);
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
@@ -226,11 +228,21 @@ console.log('✓ Agent remembered context across all turns!');
       messages.push(new AIMessage(response1.content.toString()));
 
       messages.push(new HumanMessage("What's my name?"));
-      const response2 = await llm.invoke(messages);
+
+      // Apply context window limit if enabled
+      const messagesToSend = limitContext
+        ? messages.slice(-3)  // Only last 3 messages
+        : messages;
+
+      const response2 = await llm.invoke(messagesToSend);
       messages.push(new AIMessage(response2.content.toString()));
 
+      const contextInfo = limitContext
+        ? `\n⚠️ Context limited: Sent only ${messagesToSend.length} of ${messages.length - 1} messages (excluding current response)`
+        : '';
+
       return {
-        output: `Turn 2:\nUser: What's my name?\nAgent: ${response2.content}\n\nMessages in memory: ${messages.length}`,
+        output: `Turn 2:\nUser: What's my name?\nAgent: ${response2.content}\n\nMessages in memory: ${messages.length}${contextInfo}`,
         timestamp: Date.now(),
       };
     } catch (error) {
@@ -252,23 +264,33 @@ console.log('✓ Agent remembered context across all turns!');
 
       const messages: Array<HumanMessage | AIMessage> = [];
 
+      // Turn 1
       messages.push(new HumanMessage("My name is Yuval and I teach AI agents"));
-      const response1 = await llm.invoke(messages);
+      const messagesToSend1 = limitContext ? messages.slice(-3) : messages;
+      const response1 = await llm.invoke(messagesToSend1);
       messages.push(new AIMessage(response1.content.toString()));
 
+      // Turn 2
       messages.push(new HumanMessage("What's my name?"));
-      const response2 = await llm.invoke(messages);
+      const messagesToSend2 = limitContext ? messages.slice(-3) : messages;
+      const response2 = await llm.invoke(messagesToSend2);
       messages.push(new AIMessage(response2.content.toString()));
 
+      // Turn 3
       messages.push(new HumanMessage("What do I teach?"));
-      const response3 = await llm.invoke(messages);
+      const messagesToSend3 = limitContext ? messages.slice(-3) : messages;
+      const response3 = await llm.invoke(messagesToSend3);
 
       // Mark lab complete and show celebration
       markLabComplete(4);
       celebrateCompletion();
 
+      const contextWarning = limitContext
+        ? '\n\n⚠️ NOTICE: With context window limited to 3 messages, the agent may not remember early conversation!\nTry toggling off the limit to see the difference.'
+        : '\n\n✓ Agent remembered context across all turns!';
+
       return {
-        output: `Turn 1:\nUser: My name is Yuval and I teach AI agents\nAgent: ${response1.content}\n\nTurn 2:\nUser: What's my name?\nAgent: ${response2.content}\n\nTurn 3:\nUser: What do I teach?\nAgent: ${response3.content}\n\n✓ Agent remembered context across all turns!`,
+        output: `Turn 1:\nUser: My name is Yuval and I teach AI agents\nAgent: ${response1.content}\n\nTurn 2:\nUser: What's my name?\nAgent: ${response2.content}\n\nTurn 3:\nUser: What do I teach?\nAgent: ${response3.content}${contextWarning}`,
         timestamp: Date.now(),
       };
     } catch (error) {
@@ -322,8 +344,35 @@ console.log('✓ Agent remembered context across all turns!');
               <li>Adding HumanMessage and AIMessage to memory</li>
               <li>Building multi-turn conversations</li>
               <li>How agents use past context to answer new questions</li>
+              <li>Why memory is crucial when context windows are limited</li>
             </ul>
           </div>
+        </div>
+
+        <div className="mt-4 p-3 sm:p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+          <div className="flex items-start gap-2 sm:gap-3 mb-3">
+            <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs sm:text-sm font-semibold text-amber-900 dark:text-amber-100 mb-1">
+                Experiment: Context Window Limits
+              </p>
+              <p className="text-xs text-amber-800 dark:text-amber-200">
+                In production, you can't send unlimited conversation history - it's expensive and hits token limits.
+                Enable this toggle to simulate sending only the last 3 messages to the LLM.
+              </p>
+            </div>
+          </div>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={limitContext}
+              onChange={(e) => setLimitContext(e.target.checked)}
+              className="w-4 h-4 text-amber-600 bg-white border-amber-300 rounded focus:ring-amber-500"
+            />
+            <span className="text-xs sm:text-sm text-amber-900 dark:text-amber-100 font-medium">
+              Limit context window to last 3 messages
+            </span>
+          </label>
         </div>
       </div>
 
@@ -423,6 +472,16 @@ console.log('✓ Agent remembered context across all turns!');
           <li>✓ This allows for natural, coherent conversations</li>
           <li>✓ More messages = more tokens = higher cost (manage carefully!)</li>
         </ul>
+        <div className="mt-4 pt-4 border-t border-purple-200 dark:border-purple-700">
+          <p className="text-xs sm:text-sm font-semibold text-purple-900 dark:text-purple-100 mb-2">
+            💡 Why the Context Limit Toggle Matters:
+          </p>
+          <p className="text-xs text-purple-800 dark:text-purple-200">
+            With the toggle enabled, the agent only sees the last 3 messages - it literally "forgets" earlier conversation.
+            This demonstrates the real-world problem: in production apps, you can't send unlimited history due to cost and token limits.
+            Memory arrays let you explicitly preserve what's important while managing context size efficiently.
+          </p>
+        </div>
       </div>
 
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-green-200 dark:border-green-800">
