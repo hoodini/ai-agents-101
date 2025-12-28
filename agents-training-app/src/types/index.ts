@@ -21,18 +21,25 @@ export interface ExecutionResult {
   timestamp: number;
 }
 
-export interface AppState {
+export type ProviderType = 'cohere' | 'browser';
+
+export interface ProviderConfig {
   apiKey: string | null;
-  provider: 'cohere' | 'browser';
+  models: string[];
+  isActive: boolean;
+}
+
+export interface AppState {
+  providers: Record<ProviderType, ProviderConfig>;
+  activeProvider: ProviderType;
   selectedModel: string;
-  availableModels: string[];
   currentLab: number;
   labProgress: Record<number, boolean>;
   language: 'en' | 'he';
   theme: 'dark' | 'light';
-  setApiKey: (key: string, provider: 'cohere' | 'browser') => void;
+  activateProvider: (provider: ProviderType, apiKey: string, models: string[]) => void;
+  setActiveProvider: (provider: ProviderType) => void;
   setSelectedModel: (model: string) => void;
-  setAvailableModels: (models: string[]) => void;
   setCurrentLab: (labId: number) => void;
   markLabComplete: (labId: number) => void;
   markLabCompleteAndAdvance: (labId: number, totalLabs: number) => void;
