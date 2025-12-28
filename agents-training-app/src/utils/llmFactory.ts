@@ -7,7 +7,7 @@ import { createUnifiedLLM } from './unifiedLLM';
  */
 export function createLLM(
   apiKey: string,
-  provider: 'groq' | 'cohere' | 'browser',
+  provider: 'cohere' | 'browser',
   modelName: string
 ): BaseChatModel | any {
   return createUnifiedLLM(apiKey, provider, modelName);

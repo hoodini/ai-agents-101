@@ -15,7 +15,7 @@ export function Lab6() {
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
-    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
+    return 'ChatCohere';
   };
 
   const getLLMInit = () => {
@@ -30,7 +30,7 @@ const llm = {
 }`;
     }
     return `const llm = new ${getLLMClass()}({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: '${selectedModel}',
 })`;
   };

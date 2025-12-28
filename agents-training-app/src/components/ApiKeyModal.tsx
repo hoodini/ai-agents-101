@@ -10,7 +10,7 @@ interface ApiKeyModalProps {
 
 export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   const { apiKey, provider, setApiKey, setAvailableModels } = useStore();
-  const [selectedProvider, setSelectedProvider] = useState<'groq' | 'cohere' | 'browser'>(provider);
+  const [selectedProvider, setSelectedProvider] = useState<'cohere' | 'browser'>(provider);
   const [inputKey, setInputKey] = useState(apiKey || '');
   const [isValidating, setIsValidating] = useState(false);
   // If we already have an API key stored or browser provider selected, mark as validated
@@ -44,9 +44,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
     setValidationMessage('');
 
     try {
-      const defaultModel = selectedProvider === 'groq'
-        ? 'llama-3.1-8b-instant'
-        : 'command-a-03-2025';
+      const defaultModel = 'command-a-03-2025';
 
       const llm = createLLM(inputKey.trim(), selectedProvider, defaultModel);
 
@@ -54,18 +52,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
       await llm.invoke('Hi');
 
       // Fetch available models based on provider
-      let models: string[] = [];
-      if (selectedProvider === 'groq') {
-        models = [
-          'llama-3.1-8b-instant',
-          'llama-3.1-70b-versatile',
-          'llama-3.3-70b-versatile',
-          'mixtral-8x7b-32768',
-          'gemma2-9b-it',
-        ];
-      } else if (selectedProvider === 'cohere') {
-        models = ['command-a-03-2025', 'command-r-plus', 'command-r', 'command'];
-      }
+      const models = ['command-a-03-2025', 'command-r-plus', 'command-r', 'command'];
 
       setAvailableModels(models);
       setValidationStatus('success');
@@ -100,15 +87,10 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   };
 
   const providerInfo = {
-    groq: {
-      name: 'Groq',
-      url: 'https://console.groq.com/keys',
-      description: 'Fastest inference, great for real-time demos',
-    },
     cohere: {
       name: 'Cohere',
       url: 'https://dashboard.cohere.com/api-keys',
-      description: 'Excellent for RAG and embeddings',
+      description: 'Production-ready LLM with excellent RAG and embeddings support',
     },
     browser: {
       name: 'Browser LLM',
@@ -167,7 +149,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                 Select Provider
               </label>
               <div className="grid grid-cols-1 gap-3">
-                {(Object.keys(providerInfo) as Array<'groq' | 'cohere' | 'browser'>).map((p) => (
+                {(Object.keys(providerInfo) as Array<'cohere' | 'browser'>).map((p) => (
                   <button
                     key={p}
                     onClick={() => {
@@ -191,15 +173,22 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                           {providerInfo[p].description}
                         </div>
                       </div>
-                      <a
-                        href={providerInfo[p].url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyan-400 hover:text-cyan-300 transition-all hover:scale-110"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
+                      {p !== 'browser' && (
+                        <a
+                          href={providerInfo[p].url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-cyan-400 hover:text-cyan-300 transition-all hover:scale-110 z-10"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // Explicitly open in new tab
+                            window.open(providerInfo[p].url, '_blank', 'noopener,noreferrer');
+                            e.preventDefault();
+                          }}
+                        >
+                          <ExternalLink className="w-5 h-5" />
+                        </a>
+                      )}
                     </div>
                   </button>
                 ))}

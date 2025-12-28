@@ -10,7 +10,7 @@ export function Lab5() {
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
-    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
+    return 'ChatCohere';
   };
 
   const getLLMInit = () => {
@@ -25,7 +25,7 @@ const llm = {
 }`;
     }
     return `const llm = new ${getLLMClass()}({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: '${selectedModel}',
 })`;
   };
@@ -85,8 +85,7 @@ SECTION 6: TECHNOLOGIES TAUGHT
 Primary technologies covered in YUV.AI training:
 - LangChain (Python and JavaScript)
 - OpenAI API (GPT-4, GPT-3.5)
-- Cohere (embeddings, reranking, generation)
-- Groq (ultra-fast inference)
+- Cohere (embeddings, reranking, generation, and LLMs)
 - Vector databases (Pinecone, Weaviate, Chroma)
 - Embedding models (OpenAI, Cohere, sentence-transformers)
 - Agent frameworks (AutoGPT, BabyAGI, custom implementations)

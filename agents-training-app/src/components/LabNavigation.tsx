@@ -192,7 +192,7 @@ export function LabNavigation({ labs, onLabClick, onResourcesClick, onTechnicalC
                       {t(language, 'resources.title')}
                     </div>
                     <div className="text-xs text-white/60">
-                      Curated learning materials
+                      {t(language, 'resources.curatedMaterials')}
                     </div>
                   </div>
                 </div>
@@ -212,7 +212,7 @@ export function LabNavigation({ labs, onLabClick, onResourcesClick, onTechnicalC
                       {t(language, 'technical.title')}
                     </div>
                     <div className="text-xs text-white/60">
-                      Browser-based AI execution
+                      {t(language, 'technical.browserAIExecution')}
                     </div>
                   </div>
                 </div>
@@ -229,10 +229,10 @@ export function LabNavigation({ labs, onLabClick, onResourcesClick, onTechnicalC
                   <Zap className="w-5 h-5 flex-shrink-0 text-purple-400" />
                   <div className="flex-1">
                     <div className="text-sm font-bold text-purple-400">
-                      Advanced Playground
+                      {t(language, 'advanced.title')}
                     </div>
                     <div className="text-xs text-white/60">
-                      Run LLMs in your browser
+                      {t(language, 'advanced.runLLMsBrowser')}
                     </div>
                   </div>
                 </div>

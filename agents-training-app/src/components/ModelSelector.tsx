@@ -10,8 +10,8 @@ export function ModelSelector() {
 
   // Provider badge colors
   const providerColors = {
-    groq: 'from-orange-500 to-red-600',
     cohere: 'from-blue-500 to-cyan-600',
+    browser: 'from-purple-500 to-pink-600',
   };
 
   const providerColor = providerColors[provider as keyof typeof providerColors] || 'from-purple-500 to-blue-600';

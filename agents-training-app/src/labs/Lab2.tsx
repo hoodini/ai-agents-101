@@ -12,16 +12,14 @@ export function Lab2() {
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
-    return provider === 'groq' ? 'ChatGroq' : 'ChatCohere';
+    return 'ChatCohere';
   };
 
   const getLLMImport = () => {
     if (provider === 'browser') {
       return `import * as webllm from '@mlc-ai/web-llm';`;
     }
-    return provider === 'groq'
-      ? `import { ChatGroq } from '@langchain/groq';`
-      : `import { ChatCohere } from '@langchain/cohere';`;
+    return `import { ChatCohere } from '@langchain/cohere';`;
   };
 
   const getLLMInit = () => {
@@ -36,7 +34,7 @@ const llm = {
 }`;
     }
     return `const llm = new ${getLLMClass()}({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: '${selectedModel}',
 })`;
   };
@@ -77,9 +75,9 @@ const response = await llm.invoke(prompt);
 console.log('Response:', response.content);
 
 // What just happened?
-// 1. Your prompt was sent to the LLM API (Groq or Cohere)
+// 1. Your prompt was sent to the ${provider === 'browser' ? 'browser LLM running locally' : 'Cohere API'}
 // 2. The model processed billions of parameters to generate a response
-// 3. The response traveled back over the internet to your browser
+// 3. The response ${provider === 'browser' ? 'was generated entirely in your browser' : 'traveled back over the internet to your browser'}
 // 4. All in just a few seconds!`;
 
   const step5Code = `// Complete Example: Your First Working AI Agent!

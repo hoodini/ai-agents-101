@@ -8,6 +8,10 @@ export const translations = {
     contact: 'Contact',
     progress: 'Progress',
     repo: 'Repo',
+    tutorial: 'Tutorial',
+    navResources: 'Resources',
+    navTechnical: 'Technical',
+    navAdvanced: 'Advanced',
 
     // Agents Dropdown
     agentsDropdown: {
@@ -57,6 +61,14 @@ export const translations = {
       customPromptsDesc: 'Custom system prompts for specialized agent behavior',
       knowledgeBase: 'Knowledge Base',
       knowledgeBaseDesc: 'A comprehensive implementation of knowledge AI agents',
+      contextWindow: 'Context Window & Chunking',
+      contextWindowDesc: "Learn why we can't send everything to LLMs and master chunking strategies",
+      embeddingsDeepDive: 'Embeddings Deep Dive',
+      embeddingsDeepDiveDesc: 'See how text transforms into meaning vectors with real examples',
+      vectorSimilarity: 'Vector Similarity & Retrieval',
+      vectorSimilarityDesc: 'Master cosine similarity, top-K retrieval, and semantic search strategies',
+      completeRAG: 'Complete RAG Pipeline',
+      completeRAGDesc: 'Build end-to-end RAG with chunking, embeddings, retrieval, and reranking',
       ragWikipedia: 'RAG with Wikipedia',
       ragWikipediaDesc: 'RAG integration with Wikipedia and vector search',
       multiAgentCollab: 'Multi-Agent Collaboration',
@@ -71,10 +83,8 @@ export const translations = {
       infoStored: '✓ Your API key is securely stored in your browser. You can update it below or click "Save & Continue" to keep using the current key.',
       infoNotStored: 'Your API key is stored locally in your browser and never sent to any server except the LLM provider you choose.',
       selectProvider: 'Select Provider',
-      groqName: 'Groq',
-      groqDesc: 'Fastest inference, great for real-time demos',
       cohereName: 'Cohere',
-      cohereDesc: 'Excellent for RAG and embeddings',
+      cohereDesc: 'Production-ready LLM with excellent RAG and embeddings support',
       apiKeyLabel: 'API Key',
       apiKeyPlaceholder: 'Enter your API key',
       getApiKey: 'Get your API key from',
@@ -136,12 +146,14 @@ export const translations = {
       visitResource: 'Visit Resource',
       footerTitle: 'Start Exploring!',
       footerText: 'Each of these resources offers unique perspectives and techniques. We recommend exploring them all to build a comprehensive understanding of AI agent development.',
+      curatedMaterials: 'Curated learning materials',
     },
 
     // Technical Deep Dive
     technical: {
       title: 'Technical Deep Dive',
       subtitle: 'Understanding how code runs in your browser - demystifying the magic',
+      browserAIExecution: 'Browser-based AI execution',
       intro: {
         title: 'The "Impossible" Made Possible',
         text1: 'A few years ago, running Python code or large language models in a web browser would have seemed impossible. Browsers were designed to display web pages, not execute complex programs or run billion-parameter AI models.',
@@ -221,6 +233,7 @@ export const translations = {
     advanced: {
       title: 'Advanced Playground',
       subtitle: 'Run LLMs and Python 100% in your browser locally - no server required!',
+      runLLMsBrowser: 'Run LLMs in your browser',
       infoTitle: 'Welcome to the Advanced Playground!',
       infoText: 'This experimental feature lets you run large language models and Python code 100% locally in your browser. Everything runs on your device with WebGPU acceleration.',
       infoPoint1: 'First-time model downloads can be large (2-3GB) and may take several minutes',
@@ -337,6 +350,10 @@ export const translations = {
     contact: 'צור קשר',
     progress: 'התקדמות',
     repo: 'מאגר',
+    tutorial: 'מדריך',
+    navResources: 'משאבים',
+    navTechnical: 'טכני',
+    navAdvanced: 'מתקדם',
 
     // Agents Dropdown
     agentsDropdown: {
@@ -386,6 +403,14 @@ export const translations = {
       customPromptsDesc: 'הנחיות מערכת מותאמות להתנהגות סוכן מיוחדת',
       knowledgeBase: 'בסיס ידע',
       knowledgeBaseDesc: 'יישום מקיף של סוכני AI בידע',
+      contextWindow: 'חלון הקשר וחיתוך',
+      contextWindowDesc: 'למד למה אנחנו לא יכולים לשלוח הכל ל-LLMs ושלוט באסטרטגיות חיתוך',
+      embeddingsDeepDive: 'צלילה עמוקה ל-Embeddings',
+      embeddingsDeepDiveDesc: 'ראה איך טקסט הופך לוקטורי משמעות עם דוגמאות אמיתיות',
+      vectorSimilarity: 'דמיון וקטורי ואחזור',
+      vectorSimilarityDesc: 'שלוט בדמיון קוסינוס, אחזור top-K ואסטרטגיות חיפוש סמנטי',
+      completeRAG: 'צינור RAG מלא',
+      completeRAGDesc: 'בנה RAG מקצה לקצה עם חיתוך, embeddings, אחזור ו-reranking',
       ragWikipedia: 'RAG עם ויקיפדיה',
       ragWikipediaDesc: 'אינטגרציית RAG עם ויקיפדיה וחיפוש וקטורי',
       multiAgentCollab: 'שיתוף פעולה רב-סוכני',
@@ -400,10 +425,8 @@ export const translations = {
       infoStored: '✓ מפתח ה-API שלך מאוחסן בצורה מאובטחת בדפדפן שלך. אתה יכול לעדכן אותו למטה או ללחוץ על "שמור והמשך" כדי להמשיך להשתמש במפתח הנוכחי.',
       infoNotStored: 'מפתח ה-API שלך מאוחסן מקומית בדפדפן שלך ולעולם אינו נשלח לשום שרת מלבד ספק ה-LLM שתבחר.',
       selectProvider: 'בחר ספק',
-      groqName: 'Groq',
-      groqDesc: 'היסק המהיר ביותר, מצוין להדגמות בזמן אמת',
       cohereName: 'Cohere',
-      cohereDesc: 'מצוין ל-RAG ו-embeddings',
+      cohereDesc: 'LLM מוכן לייצור עם תמיכה מצוינת ב-RAG ו-embeddings',
       apiKeyLabel: 'מפתח API',
       apiKeyPlaceholder: 'הזן את מפתח ה-API שלך',
       getApiKey: 'קבל את מפתח ה-API שלך מ',
@@ -465,12 +488,14 @@ export const translations = {
       visitResource: 'בקר במשאב',
       footerTitle: '!התחל לחקור',
       footerText: 'כל אחד מהמשאבים הללו מציע נקודות מבט וטכניקות ייחודיות. אנו ממליצים לחקור את כולם כדי לבנות הבנה מקיפה של פיתוח סוכני AI.',
+      curatedMaterials: 'חומרי למידה מקוטלגים',
     },
 
     // Technical Deep Dive
     technical: {
       title: 'צלילה טכנית מעמיקה',
       subtitle: 'הבנת איך קוד רץ בדפדפן - הסרת הקסם',
+      browserAIExecution: 'הרצת AI מבוססת דפדפן',
       intro: {
         title: '"הבלתי אפשרי" הפך לאפשרי',
         text1: 'לפני כמה שנים, הרצת קוד פייתון או מודלי שפה גדולים בדפדפן אינטרנט הייתה נראית בלתי אפשרית. דפדפנים תוכננו להציג דפי אינטרנט, לא להריץ תוכניות מורכבות או מודלי AI עם מיליארדי פרמטרים.',
@@ -550,6 +575,7 @@ export const translations = {
     advanced: {
       title: 'מגרש משחקים מתקדם',
       subtitle: '!הרץ מודלי שפה ופייתון 100% בדפדפן מקומית - ללא צורך בשרת',
+      runLLMsBrowser: 'הרץ מודלי שפה בדפדפן שלך',
       infoTitle: '!ברוכים הבאים למגרש המשחקים המתקדם',
       infoText: 'תכונה ניסיונית זו מאפשרת לך להריץ מודלי שפה גדולים וקוד פייתון 100% מקומית בדפדפן. הכל רץ על המכשיר שלך עם האצת WebGPU.',
       infoPoint1: 'הורדות מודלים בפעם הראשונה יכולות להיות גדולות (2-3GB) ועשויות לקחת מספר דקות',

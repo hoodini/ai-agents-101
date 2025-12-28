@@ -54,32 +54,32 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
     },
     {
       id: 5,
-      title: 'Context Window & Chunking',
-      description: 'Learn why we can\'t send everything to LLMs and master chunking strategies',
+      title: t(language, 'labs.contextWindow'),
+      description: t(language, 'labs.contextWindowDesc'),
       icon: Database,
       color: 'blue',
       bgClass: 'bg-gradient-to-br from-red-500/20 to-orange-600/20 border-orange-400/40'
     },
     {
       id: 5.5,
-      title: 'Embeddings Deep Dive',
-      description: 'See how text transforms into meaning vectors with real examples',
+      title: t(language, 'labs.embeddingsDeepDive'),
+      description: t(language, 'labs.embeddingsDeepDiveDesc'),
       icon: Sparkles,
       color: 'purple',
       bgClass: 'bg-gradient-to-br from-purple-500/20 to-pink-600/20 border-pink-400/40'
     },
     {
       id: 5.75,
-      title: 'Vector Similarity & Retrieval',
-      description: 'Master cosine similarity, top-K retrieval, and semantic search strategies',
+      title: t(language, 'labs.vectorSimilarity'),
+      description: t(language, 'labs.vectorSimilarityDesc'),
       icon: Brain,
       color: 'cyan',
       bgClass: 'bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border-blue-400/40'
     },
     {
       id: 6,
-      title: 'Complete RAG Pipeline',
-      description: 'Build end-to-end RAG with chunking, embeddings, retrieval, and reranking',
+      title: t(language, 'labs.completeRAG'),
+      description: t(language, 'labs.completeRAGDesc'),
       icon: Globe,
       color: 'green',
       bgClass: 'bg-gradient-to-br from-green-500/20 to-emerald-600/20 border-emerald-400/40'
@@ -182,19 +182,19 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               onClick={onResourcesClick}
               className="text-white/70 hover:text-white transition-colors"
             >
-              Resources
+              {t(language, 'navResources')}
             </button>
             <button
               onClick={onTechnicalClick}
               className="text-white/70 hover:text-white transition-colors"
             >
-              Technical
+              {t(language, 'navTechnical')}
             </button>
             <button
               onClick={onAdvancedClick}
               className="text-white/70 hover:text-white transition-colors"
             >
-              Advanced
+              {t(language, 'navAdvanced')}
             </button>
             <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'blog')}</a>
             <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'contact')}</a>
@@ -209,7 +209,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               title="Tutorial Guide"
             >
               <HelpCircle className="w-4 h-4" />
-              <span>Tutorial</span>
+              <span>{t(language, 'tutorial')}</span>
             </button>
 
             {/* Language Toggle - Fixed width to prevent shifting */}
@@ -553,7 +553,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
 
                 {/* Description */}
                 <p className="text-xs text-white/70 text-center px-4 leading-snug">
-                  Curated cookbooks and learning materials
+                  {t(language, 'resources.curatedMaterials')}
                 </p>
               </div>
             </div>
@@ -582,7 +582,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
 
                 {/* Description */}
                 <p className="text-xs text-white/70 text-center px-4 leading-snug">
-                  Understanding browser-based AI execution
+                  {t(language, 'technical.browserAIExecution')}
                 </p>
               </div>
             </div>
@@ -603,12 +603,12 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
 
                 {/* Title */}
                 <h3 className="text-lg font-bold text-white mb-2 text-center px-4 leading-tight">
-                  Browser-Based AI Playground
+                  {t(language, 'advanced.title')}
                 </h3>
 
                 {/* Description */}
                 <p className="text-xs text-white/70 text-center px-4 leading-snug">
-                  Run LLMs and code entirely in your browser
+                  {t(language, 'advanced.runLLMsBrowser')}
                 </p>
               </div>
             </div>
@@ -708,7 +708,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
                   {t(language, 'resources.title')}
                 </h3>
                 <p className="text-xs text-white/70 line-clamp-2 leading-tight">
-                  Curated cookbooks and learning materials
+                  {t(language, 'resources.curatedMaterials')}
                 </p>
               </div>
             </div>
@@ -730,7 +730,7 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
                   {t(language, 'technical.title')}
                 </h3>
                 <p className="text-xs text-white/70 line-clamp-2 leading-tight">
-                  Understanding browser-based AI execution
+                  {t(language, 'technical.browserAIExecution')}
                 </p>
               </div>
             </div>
@@ -749,10 +749,10 @@ export function Homepage({ onGetStarted, onSkip, onLabSelect, onResourcesClick, 
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm sm:text-base font-bold text-white mb-1 leading-tight">
-                  Browser-Based AI Playground
+                  {t(language, 'advanced.title')}
                 </h3>
                 <p className="text-xs text-white/70 line-clamp-2 leading-tight">
-                  Run LLMs and code entirely in your browser
+                  {t(language, 'advanced.runLLMsBrowser')}
                 </p>
               </div>
             </div>

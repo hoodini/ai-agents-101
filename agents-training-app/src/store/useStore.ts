@@ -6,19 +6,17 @@ export const useStore = create<AppState>()(
   persist(
     (set) => ({
       apiKey: null,
-      provider: 'groq',
-      selectedModel: 'llama-3.1-8b-instant',
+      provider: 'cohere',
+      selectedModel: 'command-a-03-2025',
       availableModels: [],
       currentLab: 1,
       labProgress: {},
       language: 'en',
       theme: 'dark',
 
-      setApiKey: (key: string, provider: 'groq' | 'cohere' | 'browser') => {
+      setApiKey: (key: string, provider: 'cohere' | 'browser') => {
         let defaultModel: string;
-        if (provider === 'groq') {
-          defaultModel = 'llama-3.1-8b-instant';
-        } else if (provider === 'cohere') {
+        if (provider === 'cohere') {
           defaultModel = 'command-a-03-2025';
         } else {
           // browser provider - use WebLLM model

@@ -1,4 +1,3 @@
-import { ChatGroq } from '@langchain/groq';
 import { ChatCohere } from '@langchain/cohere';
 import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import type { BaseMessage } from '@langchain/core/messages';
@@ -63,19 +62,14 @@ class WebLLMChat {
 }
 
 /**
- * Create a unified LLM instance that works with Groq, Cohere, or browser-based WebLLM
+ * Create a unified LLM instance that works with Cohere or browser-based WebLLM
  */
 export function createUnifiedLLM(
   apiKey: string,
-  provider: 'groq' | 'cohere' | 'browser',
+  provider: 'cohere' | 'browser',
   modelName: string
 ): BaseChatModel | WebLLMChat {
-  if (provider === 'groq') {
-    return new ChatGroq({
-      apiKey,
-      model: modelName,
-    });
-  } else if (provider === 'cohere') {
+  if (provider === 'cohere') {
     return new ChatCohere({
       apiKey,
       model: modelName,
@@ -125,16 +119,8 @@ export function unloadWebLLM(): void {
 /**
  * Get available models for each provider
  */
-export function getAvailableModels(provider: 'groq' | 'cohere' | 'browser'): string[] {
-  if (provider === 'groq') {
-    return [
-      'llama-3.1-8b-instant',
-      'llama-3.1-70b-versatile',
-      'llama-3.3-70b-versatile',
-      'mixtral-8x7b-32768',
-      'gemma2-9b-it',
-    ];
-  } else if (provider === 'cohere') {
+export function getAvailableModels(provider: 'cohere' | 'browser'): string[] {
+  if (provider === 'cohere') {
     return [
       'command-a-03-2025',
       'command-r-plus',

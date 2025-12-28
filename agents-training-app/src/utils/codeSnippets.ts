@@ -3,21 +3,19 @@
  * This ensures code snippets match the user's selected LLM provider
  */
 
-export type Provider = 'groq' | 'cohere' | 'browser';
+export type Provider = 'cohere' | 'browser';
 
 /**
  * Get the appropriate LLM class name based on provider
  */
 export function getLLMClassName(provider: Provider): string {
     switch (provider) {
-        case 'groq':
-            return 'ChatGroq';
         case 'cohere':
             return 'ChatCohere';
         case 'browser':
             return 'WebLLM';
         default:
-            return 'ChatGroq';
+            return 'ChatCohere';
     }
 }
 
@@ -26,14 +24,12 @@ export function getLLMClassName(provider: Provider): string {
  */
 export function getLLMImportStatement(provider: Provider): string {
     switch (provider) {
-        case 'groq':
-            return `import { ChatGroq } from '@langchain/groq';`;
         case 'cohere':
             return `import { ChatCohere } from '@langchain/cohere';`;
         case 'browser':
             return `import * as webllm from '@mlc-ai/web-llm';`;
         default:
-            return `import { ChatGroq } from '@langchain/groq';`;
+            return `import { ChatCohere } from '@langchain/cohere';`;
     }
 }
 
@@ -50,17 +46,12 @@ export function getLLMInitCode(
     } = {}
 ): string {
     const { variableName = 'llm', includeAwait = false } = options;
-    const maskedApiKey = apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here';
+    const maskedApiKey = apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings';
 
     switch (provider) {
-        case 'groq':
-            return `const ${variableName} = new ChatGroq({
-  apiKey: '${maskedApiKey}',
-  model: '${selectedModel}',
-});`;
         case 'cohere':
             return `const ${variableName} = new ChatCohere({
-  apiKey: '${maskedApiKey}',
+  apiKey: process.env.COHERE_API_KEY, // ${maskedApiKey}
   model: '${selectedModel}',
 });`;
         case 'browser':
@@ -87,8 +78,8 @@ const ${variableName} = {
   }
 };`;
         default:
-            return `const ${variableName} = new ChatGroq({
-  apiKey: '${maskedApiKey}',
+            return `const ${variableName} = new ChatCohere({
+  apiKey: process.env.COHERE_API_KEY, // ${maskedApiKey}
   model: '${selectedModel}',
 });`;
     }
@@ -103,25 +94,20 @@ export function getSimpleLLMInitCode(
     apiKey: string | null,
     selectedModel: string
 ): string {
-    const maskedApiKey = apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here';
+    const maskedApiKey = apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings';
 
     switch (provider) {
-        case 'groq':
-            return `const llm = new ChatGroq({
-  apiKey: '${maskedApiKey}',
-  model: '${selectedModel}',
-});`;
         case 'cohere':
             return `const llm = new ChatCohere({
-  apiKey: '${maskedApiKey}',
+  apiKey: process.env.COHERE_API_KEY, // ${maskedApiKey}
   model: '${selectedModel}',
 });`;
         case 'browser':
             return `// Browser LLM - 100% private, runs in your browser!
 const llm = await createWebLLM('${selectedModel}');`;
         default:
-            return `const llm = new ChatGroq({
-  apiKey: '${maskedApiKey}',
+            return `const llm = new ChatCohere({
+  apiKey: process.env.COHERE_API_KEY, // ${maskedApiKey}
   model: '${selectedModel}',
 });`;
     }
@@ -132,10 +118,8 @@ const llm = await createWebLLM('${selectedModel}');`;
  */
 export function getProviderDescription(provider: Provider): string {
     switch (provider) {
-        case 'groq':
-            return 'Using Groq API (ultra-fast inference)';
         case 'cohere':
-            return 'Using Cohere API (great for RAG)';
+            return 'Using Cohere API (production-ready LLM with RAG support)';
         case 'browser':
             return 'Using Browser LLM (100% private, local inference)';
         default:
@@ -159,7 +143,7 @@ export function getCreateLLMStepCode(
     selectedModel: string
 ): string {
     const className = getLLMClassName(provider);
-    const maskedApiKey = apiKey ? '***YOUR_API_KEY***' : 'your-api-key-here';
+    const maskedApiKey = apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings';
 
     if (provider === 'browser') {
         return `// Step 2: Create a Browser LLM instance (runs locally!)
@@ -171,7 +155,7 @@ console.log('✓ LLM instance created with model: ${selectedModel}');`;
 
     return `// Step 2: Create an LLM instance with your API key
 const llm = new ${className}({
-  apiKey: '${maskedApiKey}',
+  apiKey: process.env.COHERE_API_KEY, // ${maskedApiKey}
   model: '${selectedModel}',
 });
 
