@@ -9,16 +9,20 @@ interface ApiKeyModalProps {
 }
 
 export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
-  const { apiKey, provider, setApiKey, setAvailableModels } = useStore();
-  const [selectedProvider, setSelectedProvider] = useState<'cohere' | 'browser'>(provider);
-  const [inputKey, setInputKey] = useState(apiKey || '');
+  const { providers, activeProvider, activateProvider } = useStore();
+  const [selectedProvider, setSelectedProvider] = useState<'cohere' | 'browser'>(activeProvider);
+  const [inputKey, setInputKey] = useState(providers[selectedProvider].apiKey || '');
   const [isValidating, setIsValidating] = useState(false);
-  // If we already have an API key stored or browser provider selected, mark as validated
+  // If the provider is already active, mark as validated
   const [validationStatus, setValidationStatus] = useState<'idle' | 'success' | 'error'>(
-    apiKey || provider === 'browser' ? 'success' : 'idle'
+    providers[selectedProvider].isActive ? 'success' : 'idle'
   );
   const [validationMessage, setValidationMessage] = useState(
-    apiKey ? '✓ API key loaded from storage' : provider === 'browser' ? '✓ Browser LLM requires no API key' : ''
+    providers[selectedProvider].isActive
+      ? selectedProvider === 'browser'
+        ? '✓ Browser LLM is active'
+        : '✓ API key loaded from storage'
+      : ''
   );
 
   if (!isOpen) return null;
@@ -26,12 +30,6 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   const validateApiKey = async () => {
     // Browser provider doesn't need validation
     if (selectedProvider === 'browser') {
-      const models = [
-        'Phi-3.5-mini-instruct-q4f16_1-MLC',
-        'Llama-3.2-3B-Instruct-q4f16_1-MLC',
-        'Qwen2.5-3B-Instruct-q4f16_1-MLC',
-      ];
-      setAvailableModels(models);
       setValidationStatus('success');
       setValidationMessage('✓ Browser LLM ready! No API key required, models run in your browser');
       return;
@@ -54,7 +52,6 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
       // Fetch available models based on provider
       const models = ['command-a-03-2025', 'command-r-plus', 'command-r', 'command'];
 
-      setAvailableModels(models);
       setValidationStatus('success');
       setValidationMessage(`✓ API key validated! Found ${models.length} available models`);
     } catch (error) {
@@ -72,16 +69,19 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   const handleSave = () => {
     // Browser provider doesn't need API key
     if (selectedProvider === 'browser' && validationStatus === 'success') {
-      setApiKey('browser-llm', selectedProvider);
+      const models = [
+        'Phi-3.5-mini-instruct-q4f16_1-MLC',
+        'Llama-3.2-3B-Instruct-q4f16_1-MLC',
+        'Qwen2.5-3B-Instruct-q4f16_1-MLC',
+      ];
+      activateProvider(selectedProvider, 'browser-llm', models);
       onClose();
       return;
     }
 
     if (inputKey.trim() && validationStatus === 'success') {
-      // Only update if the key or provider has changed
-      if (inputKey.trim() !== apiKey || selectedProvider !== provider) {
-        setApiKey(inputKey.trim(), selectedProvider);
-      }
+      const models = ['command-a-03-2025', 'command-r-plus', 'command-r', 'command'];
+      activateProvider(selectedProvider, inputKey.trim(), models);
       onClose();
     }
   };
@@ -138,9 +138,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
           <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
             <div className="border border-cyan-500/30 rounded-xl p-4 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-sm">
               <p className="text-sm text-cyan-100">
-                {apiKey
-                  ? '✓ Your API key is securely stored in your browser. You can update it below or click "Save & Continue" to keep using the current key.'
-                  : 'Your API key is stored locally in your browser and never sent to any server except the LLM provider you choose.'}
+                You can activate multiple providers. Your API keys are stored locally in your browser and never sent to any server except the LLM provider you choose. Switch between active providers in the labs using the model selector.
               </p>
             </div>
 
@@ -154,7 +152,15 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                     key={p}
                     onClick={() => {
                       setSelectedProvider(p);
-                      if (p !== provider || !apiKey) {
+                      setInputKey(providers[p].apiKey || '');
+                      if (providers[p].isActive) {
+                        setValidationStatus('success');
+                        setValidationMessage(
+                          p === 'browser'
+                            ? '✓ Browser LLM is active'
+                            : '✓ API key loaded from storage'
+                        );
+                      } else {
                         setValidationStatus('idle');
                         setValidationMessage('');
                       }

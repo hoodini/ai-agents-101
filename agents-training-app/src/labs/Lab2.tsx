@@ -8,22 +8,23 @@ import { t } from '../utils/translations';
 import type { ExecutionResult } from '../types';
 
 export function Lab2() {
-  const { apiKey, provider, selectedModel, markLabComplete, language } = useStore();
+  const { providers, activeProvider, selectedModel, markLabComplete, language } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
-    if (provider === 'browser') return 'WebLLM';
+    if (activeProvider === 'browser') return 'WebLLM';
     return 'ChatCohere';
   };
 
   const getLLMImport = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `import * as webllm from '@mlc-ai/web-llm';`;
     }
     return `import { ChatCohere } from '@langchain/cohere';`;
   };
 
   const getLLMInit = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `// Browser LLM - runs locally, no API key needed!
 const engine = await webllm.CreateMLCEngine('${selectedModel}');
 const llm = {
@@ -39,12 +40,12 @@ const llm = {
 })`;
   };
 
-  const step1Code = `// Step 1: Import the ${provider === 'browser' ? 'WebLLM library' : `LangChain ${getLLMClass()} class`}
+  const step1Code = `// Step 1: Import the ${activeProvider === 'browser' ? 'WebLLM library' : `LangChain ${getLLMClass()} class`}
 ${getLLMImport()}
 
-console.log('✓ ${provider === 'browser' ? 'WebLLM' : 'LangChain'} imported successfully!');`;
+console.log('✓ ${activeProvider === 'browser' ? 'WebLLM' : 'LangChain'} imported successfully!');`;
 
-  const step2Code = `// Step 2: ${provider === 'browser' ? 'Create a Browser LLM instance (no API key needed!)' : 'Create an LLM instance with your API key'}
+  const step2Code = `// Step 2: ${activeProvider === 'browser' ? 'Create a Browser LLM instance (no API key needed!)' : 'Create an LLM instance with your API key'}
 ${getLLMInit()};
 
 console.log('✓ LLM instance created with model: ${selectedModel}');`;
@@ -75,9 +76,9 @@ const response = await llm.invoke(prompt);
 console.log('Response:', response.content);
 
 // What just happened?
-// 1. Your prompt was sent to the ${provider === 'browser' ? 'browser LLM running locally' : 'Cohere API'}
+// 1. Your prompt was sent to the ${activeProvider === 'browser' ? 'browser LLM running locally' : 'Cohere API'}
 // 2. The model processed billions of parameters to generate a response
-// 3. The response ${provider === 'browser' ? 'was generated entirely in your browser' : 'traveled back over the internet to your browser'}
+// 3. The response ${activeProvider === 'browser' ? 'was generated entirely in your browser' : 'traveled back over the internet to your browser'}
 // 4. All in just a few seconds!`;
 
   const step5Code = `// Complete Example: Your First Working AI Agent!
@@ -130,7 +131,7 @@ console.log('Agent Response:', response.content);
 
   const executeStep2 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
       return {
@@ -164,11 +165,11 @@ console.log('Agent Response:', response.content);
 
   const executeStep4 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const prompt = "What are the three main components of an AI agent?";
       const response = await llm.invoke(prompt);
@@ -188,11 +189,11 @@ console.log('Agent Response:', response.content);
 
   const executeStep5 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const prompt = "Explain what an AI agent is in one sentence.";
       const response = await llm.invoke(prompt);

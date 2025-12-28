@@ -8,15 +8,16 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
 export function Lab8() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
-    if (provider === 'browser') return 'WebLLM';
+    if (activeProvider === 'browser') return 'WebLLM';
     return 'ChatCohere';
   };
 
   const getLLMInit = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `// Browser LLM - runs locally, no API key needed!
 const engine = await webllm.CreateMLCEngine('${selectedModel}');
 const llm = {
@@ -195,11 +196,11 @@ console.log(response.content);
 
   const executeStep2 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const userQuery = "What are the benefits of AI agents?";
 
@@ -228,11 +229,11 @@ console.log(response.content);
 
   const executeStep3 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const userQuery = "How do I implement an AI agent with memory?";
 

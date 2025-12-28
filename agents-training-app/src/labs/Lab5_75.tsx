@@ -7,7 +7,8 @@ import { CohereEmbeddings } from '@langchain/cohere';
 import type { ExecutionResult } from '../types';
 
 export function Lab5_75() {
-  const { apiKey, markLabComplete } = useStore();
+  const { providers, activeProvider, markLabComplete } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
 
   const step1Code = `// Step 1: Cosine Similarity - The Math Behind Semantic Search
 console.log('📐 COSINE SIMILARITY EXPLAINED\\n');

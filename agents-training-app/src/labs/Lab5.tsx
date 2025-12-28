@@ -6,15 +6,16 @@ import { celebrateCompletion } from '../utils/confetti';
 import type { ExecutionResult } from '../types';
 
 export function Lab5() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
-    if (provider === 'browser') return 'WebLLM';
+    if (activeProvider === 'browser') return 'WebLLM';
     return 'ChatCohere';
   };
 
   const getLLMInit = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `// Browser LLM - runs locally, no API key needed!
 const engine = await webllm.CreateMLCEngine('${selectedModel}');
 const llm = {

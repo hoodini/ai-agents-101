@@ -9,23 +9,24 @@ import type { ExecutionResult } from '../types';
 import { useState } from 'react';
 
 export function Lab4() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
   const [limitContext, setLimitContext] = useState(false);
 
   const getLLMClass = () => {
-    if (provider === 'browser') return 'WebLLM';
+    if (activeProvider === 'browser') return 'WebLLM';
     return 'ChatCohere';
   };
 
   const getLLMImport = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `import * as webllm from '@mlc-ai/web-llm';`;
     }
     return `import { ChatCohere } from '@langchain/cohere';`;
   };
 
   const getLLMInit = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `// Browser LLM - runs locally, no API key needed!
 const engine = await webllm.CreateMLCEngine('${selectedModel}');
 const llm = {
@@ -45,7 +46,7 @@ const llm = {
 ${getLLMImport()}
 import { HumanMessage, AIMessage } from '@langchain/core/messages';
 
-console.log('✓ ${provider === 'browser' ? 'WebLLM and message types' : 'LangChain classes'} imported!');
+console.log('✓ ${activeProvider === 'browser' ? 'WebLLM and message types' : 'LangChain classes'} imported!');
 console.log('We will use arrays to store conversation history');`;
 
   const step2Code = `// Step 2: Create a messages array to store history
@@ -189,11 +190,11 @@ console.log('✓ Agent remembered context across all turns!');
 
   const executeStep3 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const messages: Array<HumanMessage | AIMessage> = [];
       messages.push(new HumanMessage("My name is Yuval and I teach AI agents"));
@@ -216,11 +217,11 @@ console.log('✓ Agent remembered context across all turns!');
 
   const executeStep4 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const messages: Array<HumanMessage | AIMessage> = [];
       messages.push(new HumanMessage("My name is Yuval and I teach AI agents"));
@@ -256,11 +257,11 @@ console.log('✓ Agent remembered context across all turns!');
 
   const executeStep5 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const messages: Array<HumanMessage | AIMessage> = [];
 

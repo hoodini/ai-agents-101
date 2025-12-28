@@ -8,22 +8,23 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
 export function Lab3() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
-    if (provider === 'browser') return 'WebLLM';
+    if (activeProvider === 'browser') return 'WebLLM';
     return 'ChatCohere';
   };
 
   const getLLMImport = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `import * as webllm from '@mlc-ai/web-llm';`;
     }
     return `import { ChatCohere } from '@langchain/cohere';`;
   };
 
   const getLLMInit = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `// Browser LLM - runs locally, no API key needed!
 const engine = await webllm.CreateMLCEngine('${selectedModel}');
 const llm = {
@@ -43,7 +44,7 @@ const llm = {
 ${getLLMImport()}
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 
-console.log('✓ ${provider === 'browser' ? 'WebLLM and message types' : 'LangChain classes'} imported successfully!');`;
+console.log('✓ ${activeProvider === 'browser' ? 'WebLLM and message types' : 'LangChain classes'} imported successfully!');`;
 
   const step2Code = `// Step 2: Create a system prompt to define agent personality
 const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies. Always be encouraging and patient.\`);
@@ -188,11 +189,11 @@ console.log('Pirate Agent Response:', response.content);
 
   const executeStep5 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const systemPrompt = new SystemMessage(`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.`);
       const userPrompt = new HumanMessage("What is machine learning?");
@@ -215,11 +216,11 @@ console.log('Pirate Agent Response:', response.content);
 
   const executeStep6 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const systemPrompt = new SystemMessage(`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"`);
       const userPrompt = new HumanMessage("How do I learn programming?");

@@ -30,11 +30,12 @@ const LABS = [
 ];
 
 function App() {
-  const { currentLab, apiKey, labProgress, language, theme, setCurrentLab } = useStore();
+  const { currentLab, providers, labProgress, language, theme, setCurrentLab } = useStore();
   const [isApiModalOpen, setIsApiModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(!apiKey);
+  const hasActiveProvider = Object.values(providers).some(p => p.isActive);
+  const [showWelcome, setShowWelcome] = useState(!hasActiveProvider);
   const [showResources, setShowResources] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showTechnical, setShowTechnical] = useState(false);

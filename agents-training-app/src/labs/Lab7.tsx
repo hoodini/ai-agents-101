@@ -8,15 +8,16 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
 
 export function Lab7() {
-  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
+  const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
-    if (provider === 'browser') return 'WebLLM';
+    if (activeProvider === 'browser') return 'WebLLM';
     return 'ChatCohere';
   };
 
   const getLLMInit = () => {
-    if (provider === 'browser') {
+    if (activeProvider === 'browser') {
       return `// Browser LLM - runs locally, no API key needed!
 const engine = await webllm.CreateMLCEngine('${selectedModel}');
 const llm = {
@@ -152,11 +153,11 @@ console.log(article.content);
 
   const executeStep2 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const researcherMessages = [
         new SystemMessage("You are a research specialist. Provide 3 key facts about the topic."),
@@ -180,11 +181,11 @@ console.log(article.content);
 
   const executeStep3 = async (): Promise<ExecutionResult> => {
     try {
-      if (!apiKey && provider !== 'browser') {
+      if (!apiKey && activeProvider !== 'browser') {
         throw new Error('Please configure your API key in Settings');
       }
 
-      const llm = createLLM(apiKey || 'browser-llm', provider, selectedModel);
+      const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
       const researcherMessages = [
         new SystemMessage("You are a research specialist. Provide 3 key facts about the topic."),

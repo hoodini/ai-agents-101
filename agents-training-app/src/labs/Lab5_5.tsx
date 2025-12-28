@@ -7,7 +7,8 @@ import { CohereEmbeddings } from '@langchain/cohere';
 import type { ExecutionResult } from '../types';
 
 export function Lab5_5() {
-  const { apiKey, markLabComplete } = useStore();
+  const { providers, activeProvider, markLabComplete } = useStore();
+  const apiKey = providers[activeProvider].apiKey;
 
   const step1Code = `// Step 1: What Are Embeddings? The Concept
 console.log('🎓 UNDERSTANDING EMBEDDINGS\\n');

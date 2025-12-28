@@ -1,35 +1,62 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { AppState } from '../types';
+import type { AppState, ProviderType } from '../types';
 
 export const useStore = create<AppState>()(
   persist(
     (set) => ({
-      apiKey: null,
-      provider: 'cohere',
+      providers: {
+        cohere: {
+          apiKey: null,
+          models: [],
+          isActive: false,
+        },
+        browser: {
+          apiKey: 'browser-llm',
+          models: [],
+          isActive: false,
+        },
+      },
+      activeProvider: 'cohere',
       selectedModel: 'command-a-03-2025',
-      availableModels: [],
       currentLab: 1,
       labProgress: {},
       language: 'en',
       theme: 'dark',
 
-      setApiKey: (key: string, provider: 'cohere' | 'browser') => {
-        let defaultModel: string;
-        if (provider === 'cohere') {
-          defaultModel = 'command-a-03-2025';
-        } else {
-          // browser provider - use WebLLM model
-          defaultModel = 'Phi-3.5-mini-instruct-q4f16_1-MLC';
-        }
-        set({ apiKey: key, provider, selectedModel: defaultModel });
+      activateProvider: (provider: ProviderType, apiKey: string, models: string[]) => {
+        set((state) => {
+          const defaultModel = models[0] || state.selectedModel;
+          return {
+            providers: {
+              ...state.providers,
+              [provider]: {
+                apiKey,
+                models,
+                isActive: true,
+              },
+            },
+            activeProvider: provider,
+            selectedModel: defaultModel,
+          };
+        });
       },
+
+      setActiveProvider: (provider: ProviderType) =>
+        set((state) => {
+          const providerConfig = state.providers[provider];
+          if (!providerConfig.isActive) {
+            return state; // Don't switch to inactive provider
+          }
+          const defaultModel = providerConfig.models[0] || state.selectedModel;
+          return {
+            activeProvider: provider,
+            selectedModel: defaultModel,
+          };
+        }),
 
       setSelectedModel: (model: string) =>
         set({ selectedModel: model }),
-
-      setAvailableModels: (models: string[]) =>
-        set({ availableModels: models }),
 
       setCurrentLab: (labId: number) =>
         set({ currentLab: labId }),
