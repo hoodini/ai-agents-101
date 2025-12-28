@@ -13,7 +13,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 11;
 
 export function Lab6() {
-  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
@@ -516,8 +516,9 @@ ANSWER:`;
       output += answer.content;
       output += '\n\n✓ Complete RAG pipeline: Retrieve → Rerank → Generate!';
 
+      // Mark lab complete and show celebration
+      markLabComplete(6);
       celebrateCompletion();
-      markLabCompleteAndAdvance(6, TOTAL_LABS);
 
       return {
         output,

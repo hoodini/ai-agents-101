@@ -10,7 +10,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 8;
 
 export function Lab2() {
-  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance, language } = useStore();
+  const { apiKey, provider, selectedModel, markLabComplete, language } = useStore();
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
@@ -200,8 +200,10 @@ console.log('Agent Response:', response.content);
 
       const prompt = "Explain what an AI agent is in one sentence.";
       const response = await llm.invoke(prompt);
+
+      // Mark lab complete and show celebration
+      markLabComplete(2);
       celebrateCompletion();
-      markLabCompleteAndAdvance(2, TOTAL_LABS);
 
       return {
         output: `Agent Response: ${response.content}`,

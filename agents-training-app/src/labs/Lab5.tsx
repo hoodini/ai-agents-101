@@ -8,7 +8,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 11;
 
 export function Lab5() {
-  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
@@ -344,8 +344,8 @@ console.log('3. Metadata helps track source locations');
 console.log('4. Smaller chunks = better precision, less context');
 console.log('5. Larger chunks = more context, less precision');
 
-celebrateCompletion();
-markLabCompleteAndAdvance(5, ${TOTAL_LABS});`;
+markLabComplete(5);
+celebrateCompletion();`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {
@@ -585,8 +585,9 @@ Even with large contexts:
       output += '4. Smaller chunks = better precision, less context\n';
       output += '5. Larger chunks = more context, less precision';
 
+      // Mark lab complete and show celebration
+      markLabComplete(5);
       celebrateCompletion();
-      markLabCompleteAndAdvance(5, TOTAL_LABS);
 
       return {
         output,

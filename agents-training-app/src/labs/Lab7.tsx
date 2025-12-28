@@ -10,7 +10,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 11;
 
 export function Lab7() {
-  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
@@ -200,8 +200,9 @@ console.log(article.content);
       ];
       const article = await llm.invoke(writerMessages);
 
+      // Mark lab complete and show celebration
+      markLabComplete(7);
       celebrateCompletion();
-      markLabCompleteAndAdvance(7, TOTAL_LABS);
 
       return {
         output: `Research Phase:\n${research.content}\n\nWriting Phase:\n${article.content}`,

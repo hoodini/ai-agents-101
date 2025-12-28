@@ -44,6 +44,12 @@ export const useStore = create<AppState>()(
       markLabCompleteAndAdvance: (labId: number, totalLabs: number) =>
         set((state) => {
           const nextLab = labId < totalLabs ? labId + 1 : labId;
+          // Scroll to top when advancing to next lab
+          if (typeof window !== 'undefined') {
+            setTimeout(() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+          }
           return {
             labProgress: { ...state.labProgress, [labId]: true },
             currentLab: nextLab,

@@ -10,7 +10,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 8;
 
 export function Lab3() {
-  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
@@ -230,8 +230,10 @@ console.log('Pirate Agent Response:', response.content);
 
       const messages = [systemPrompt, userPrompt];
       const response = await llm.invoke(messages);
+
+      // Mark lab complete and show celebration
+      markLabComplete(3);
       celebrateCompletion();
-      markLabCompleteAndAdvance(3, TOTAL_LABS);
 
       return {
         output: `Pirate Agent Response: ${response.content}`,

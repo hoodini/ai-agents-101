@@ -9,7 +9,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 11;
 
 export function Lab5_75() {
-  const { apiKey, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, markLabComplete } = useStore();
 
   const step1Code = `// Step 1: Cosine Similarity - The Math Behind Semantic Search
 console.log('📐 COSINE SIMILARITY EXPLAINED\\n');
@@ -357,8 +357,8 @@ topK.forEach((doc, i) => {
 console.log('✓ These documents will be sent to the LLM as context!');
 console.log('✓ Next lab: Add reranking for even better results!');
 
-celebrateCompletion();
-markLabCompleteAndAdvance(5.75, ${TOTAL_LABS});`;
+markLabComplete(5.75);
+celebrateCompletion();`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {
@@ -750,8 +750,9 @@ markLabCompleteAndAdvance(5.75, ${TOTAL_LABS});`;
       output += '✓ These documents will be sent to the LLM as context!\n';
       output += '✓ Next lab: Add reranking for even better results!';
 
+      // Mark lab complete and show celebration
+      markLabComplete(5.75);
       celebrateCompletion();
-      markLabCompleteAndAdvance(5.75, TOTAL_LABS);
 
       return {
         output,

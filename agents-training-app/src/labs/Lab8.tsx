@@ -10,7 +10,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 11;
 
 export function Lab8() {
-  const { apiKey, provider, selectedModel, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, provider, selectedModel, markLabComplete } = useStore();
 
   const getLLMClass = () => {
     if (provider === 'browser') return 'WebLLM';
@@ -261,8 +261,9 @@ console.log(response.content);
 
       const response = await llm.invoke(specialistMessages);
 
+      // Mark lab complete and show celebration
+      markLabComplete(8);
       celebrateCompletion();
-      markLabCompleteAndAdvance(8, TOTAL_LABS);
 
       return {
         output: `Query: ${userQuery}\nRouted to: ${routing.content}\n\nSpecialist Response:\n${response.content}`,

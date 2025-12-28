@@ -9,7 +9,7 @@ import type { ExecutionResult } from '../types';
 const TOTAL_LABS = 11;
 
 export function Lab5_5() {
-  const { apiKey, markLabCompleteAndAdvance } = useStore();
+  const { apiKey, markLabComplete } = useStore();
 
   const step1Code = `// Step 1: What Are Embeddings? The Concept
 console.log('🎓 UNDERSTANDING EMBEDDINGS\\n');
@@ -277,8 +277,8 @@ console.log('Flag suspicious transactions\\n');
 console.log('💡 ALL THESE USE THE SAME CONCEPT:');
 console.log('   Text → Embedding Vector → Compare Similarity!');
 
-celebrateCompletion();
-markLabCompleteAndAdvance(5.5, ${TOTAL_LABS});`;
+markLabComplete(5.5);
+celebrateCompletion();`;
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {
@@ -603,8 +603,9 @@ WHY THIS MATTERS:
       output += '💡 ALL THESE USE THE SAME CONCEPT:\n';
       output += '   Text → Embedding Vector → Compare Similarity!';
 
+      // Mark lab complete and show celebration
+      markLabComplete(5.5);
       celebrateCompletion();
-      markLabCompleteAndAdvance(5.5, TOTAL_LABS);
 
       return {
         output,
