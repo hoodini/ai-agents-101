@@ -206,8 +206,9 @@ rerankedDocs.forEach((doc, i) => {
   console.log(\`\${i + 1}. Relevance: \${relevanceScore.toFixed(4)} | \${doc.pageContent.substring(0, 60)}...\`);
 });
 
-console.log('\\n✓ Reranking found the MOST relevant results!');
-console.log('✓ Notice how "Reranking improves search" moved to the top!');`;
+console.log('\\n✓ Reranking RE-ORDERED the results by true relevance!');
+console.log('✓ Notice how "Reranking improves search" moved to the top!');
+console.log('✓ Reranking doesn\\'t add documents - it re-scores and sorts them!');`;
 
   const step6Code = `// Step 6: Complete RAG System - Question Answering with Retrieved Context
 import { CohereEmbeddings, CohereRerank } from '@langchain/cohere';
@@ -276,9 +277,10 @@ console.log('\\n✓ Complete RAG pipeline: Retrieve → Rerank → Generate!');`
 
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {
-      let output = `📚 Total Documents: ${documents.length}\n\n--- Document Chunks ---`;
+      const chunksToShow = documents.slice(0, 4);
+      let output = `📚 Total Documents: ${chunksToShow.length}\n\n--- Document Chunks ---`;
 
-      documents.slice(0, 4).forEach((doc, i) => {
+      chunksToShow.forEach((doc, i) => {
         output += `\n\nChunk ${i + 1}:`;
         output += `\nLength: ${doc.length} characters`;
         output += `\nPreview: ${doc.substring(0, 80)}...`;
@@ -447,8 +449,9 @@ Last 10 dimensions: ${queryEmbedding.slice(-10).map(n => n.toFixed(4)).join(', '
         output += `${i + 1}. Relevance: ${relevanceScore.toFixed(4)} | ${doc.pageContent.substring(0, 60)}...\n`;
       });
 
-      output += '\n✓ Reranking found the MOST relevant results!';
+      output += '\n✓ Reranking RE-ORDERED the results by true relevance!';
       output += '\n✓ Notice how "Reranking improves search" moved to the top!';
+      output += '\n✓ Reranking doesn\'t add documents - it re-scores and sorts them!';
 
       return {
         output,
