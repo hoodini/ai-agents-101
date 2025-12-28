@@ -117,7 +117,7 @@ console.log('Agent Response:', response.content);
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {
       return {
-        output: '✓ LangChain imported successfully!',
+        output: `✓ ${activeProvider === 'browser' ? 'WebLLM' : 'LangChain'} imported successfully!`,
         timestamp: Date.now(),
       };
     } catch (error) {

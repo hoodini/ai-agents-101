@@ -125,7 +125,7 @@ console.log('Pirate Agent Response:', response.content);
   const executeStep1 = async (): Promise<ExecutionResult> => {
     try {
       return {
-        output: '✓ Message types imported successfully!',
+        output: `✓ ${activeProvider === 'browser' ? 'WebLLM and message types' : 'LangChain classes'} imported successfully!`,
         timestamp: Date.now(),
       };
     } catch (error) {

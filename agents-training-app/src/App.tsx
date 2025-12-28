@@ -725,7 +725,7 @@ function App() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-8 text-sm lg:text-base font-medium">
+          <nav className="hidden md:flex items-center gap-3 lg:gap-5 text-sm font-medium">
             <button
               onClick={() => {
                 setShowWelcome(true);
@@ -737,81 +737,52 @@ function App() {
             >
               {t(language, 'home')}
             </button>
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Labs
+            </button>
             <div className="relative group">
               <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                {t(language, 'agents')} <ChevronDown className="w-4 h-4" />
+                Learn <ChevronDown className="w-3 h-3" />
               </button>
-              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.progressiveLabs')}</div>
-                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.progressiveLabsDesc')}</div>
-                </div>
-                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.interactiveLearning')}</div>
-                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.interactiveLearningDesc')}</div>
-                </div>
-                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">{t(language, 'agentsDropdown.multiAgent')}</div>
-                  <div className="text-xs text-white/60">{t(language, 'agentsDropdown.multiAgentDesc')}</div>
-                </div>
+              <div className="absolute left-0 mt-2 w-56 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <button
+                  onClick={() => {
+                    setShowWelcome(false);
+                    setShowResources(true);
+                    setShowAdvanced(false);
+                    setShowTechnical(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-white/70 hover:text-white hover:bg-cyan-500/10 transition-colors"
+                >
+                  Resources
+                </button>
+                <button
+                  onClick={() => {
+                    setShowWelcome(false);
+                    setShowResources(false);
+                    setShowAdvanced(false);
+                    setShowTechnical(true);
+                  }}
+                  className="w-full text-left px-4 py-2 text-white/70 hover:text-white hover:bg-cyan-500/10 transition-colors"
+                >
+                  Technical
+                </button>
+                <button
+                  onClick={() => {
+                    setShowWelcome(false);
+                    setShowResources(false);
+                    setShowAdvanced(true);
+                    setShowTechnical(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-white/70 hover:text-white hover:bg-cyan-500/10 transition-colors"
+                >
+                  Advanced
+                </button>
               </div>
             </div>
-            <div className="relative group">
-              <button className="text-white/70 hover:text-white transition-colors flex items-center gap-1">
-                {t(language, 'features')} <ChevronDown className="w-4 h-4" />
-              </button>
-              <div className="absolute left-0 mt-2 w-64 py-2 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.browserBased')}</div>
-                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.browserBasedDesc')}</div>
-                </div>
-                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.monacoEditor')}</div>
-                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.monacoEditorDesc')}</div>
-                </div>
-                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.progressTracking')}</div>
-                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.progressTrackingDesc')}</div>
-                </div>
-                <div className="px-4 py-2 text-cyan-400/90 hover:bg-cyan-500/10">
-                  <div className="font-semibold text-white mb-1">{t(language, 'featuresDropdown.langchain')}</div>
-                  <div className="text-xs text-white/60">{t(language, 'featuresDropdown.langchainDesc')}</div>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                setShowWelcome(false);
-                setShowResources(true);
-                setShowAdvanced(false);
-                setShowTechnical(false);
-              }}
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Resources
-            </button>
-            <button
-              onClick={() => {
-                setShowWelcome(false);
-                setShowResources(false);
-                setShowAdvanced(false);
-                setShowTechnical(true);
-              }}
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Technical
-            </button>
-            <button
-              onClick={() => {
-                setShowWelcome(false);
-                setShowResources(false);
-                setShowAdvanced(true);
-                setShowTechnical(false);
-              }}
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Advanced
-            </button>
             <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'blog')}</a>
             <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors">{t(language, 'contact')}</a>
           </nav>
@@ -885,6 +856,14 @@ function App() {
                   {t(language, 'home')}
                 </button>
                 <button
+                  onClick={() => { setIsSidebarOpen(!isSidebarOpen); setIsMobileMenuOpen(false); }}
+                  className="text-left px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  Labs
+                </button>
+                <div className="border-t border-white/10 my-2"></div>
+                <div className="px-3 py-1 text-xs text-white/40 uppercase tracking-wider">Learn</div>
+                <button
                   onClick={() => { setShowWelcome(false); setShowResources(true); setShowAdvanced(false); setShowTechnical(false); setIsMobileMenuOpen(false); }}
                   className="text-left px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
                 >
@@ -902,6 +881,7 @@ function App() {
                 >
                   Advanced
                 </button>
+                <div className="border-t border-white/10 my-2"></div>
                 <a href="https://blog.yuv.ai" target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">{t(language, 'blog')}</a>
                 <a href="https://linktr.ee/yuvai" target="_blank" rel="noopener noreferrer" className="px-3 py-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-colors">{t(language, 'contact')}</a>
                 <a
@@ -913,6 +893,7 @@ function App() {
                   <Github className="w-4 h-4" />
                   <span>GitHub Repo</span>
                 </a>
+                <div className="border-t border-white/10 my-2"></div>
                 <div className="px-3 py-2">
                   <ModelSelector />
                 </div>
