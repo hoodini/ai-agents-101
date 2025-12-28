@@ -264,6 +264,7 @@ console.log(article.content);
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="step-1-roles"
           initialCode={step1Code}
           description="Create specialized agents with unique system prompts"
@@ -281,6 +282,7 @@ console.log(article.content);
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="step-2-researcher"
           initialCode={step2Code}
           description="First agent gathers facts and information"
@@ -298,6 +300,7 @@ console.log(article.content);
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="complete-collaboration"
           initialCode={step3Code}
           description="Researcher → Writer pipeline - agents collaborating!"

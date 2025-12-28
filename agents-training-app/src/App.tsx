@@ -11,7 +11,7 @@ import { Homepage } from './components/Homepage';
 import { Resources } from './components/Resources';
 import { AdvancedPlayground } from './components/AdvancedPlayground';
 import { TechnicalDeepDive } from './components/TechnicalDeepDive';
-import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab6, Lab7, Lab8, BonusContextEngineering } from './labs';
+import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab6, Lab7, Lab8, BonusContextEngineering, Lab9, Lab10, Lab11, Lab12 } from './labs';
 import { useStore } from './store/useStore';
 import { t } from './utils/translations';
 
@@ -25,6 +25,10 @@ const LABS = [
   { id: 7, title: 'Multi-Agent Collaboration', component: Lab7 },
   { id: 8, title: 'Orchestrator Agent', component: Lab8 },
   { id: 9, title: 'Bonus: Context Engineering', component: BonusContextEngineering, isBonus: true },
+  { id: 10, title: 'Advanced RAG Techniques', component: Lab9, isAdvanced: true },
+  { id: 11, title: 'Function Calling & Tools', component: Lab10, isAdvanced: true },
+  { id: 12, title: 'Multi-Agent Orchestration', component: Lab11, isAdvanced: true },
+  { id: 13, title: 'Budget Assistant Agent', component: Lab12, isAdvanced: true },
 ];
 
 function App() {

@@ -7,3 +7,7 @@ export { Lab6 } from './Lab6';
 export { Lab7 } from './Lab7';
 export { Lab8 } from './Lab8';
 export { BonusContextEngineering } from './BonusContextEngineering';
+export { Lab9 } from './Lab9';
+export { Lab10 } from './Lab10';
+export { Lab11 } from './Lab11';
+export { Lab12 } from './Lab12';

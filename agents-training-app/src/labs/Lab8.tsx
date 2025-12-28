@@ -325,6 +325,7 @@ console.log(response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="step-1-concept"
           initialCode={step1Code}
           description="Understanding the orchestrator pattern"
@@ -342,6 +343,7 @@ console.log(response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="step-2-router"
           initialCode={step2Code}
           description="Analyze queries and route to the right specialist"
@@ -359,6 +361,7 @@ console.log(response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="complete-orchestrator"
           initialCode={step3Code}
           description="Full orchestrator system with routing and specialists!"

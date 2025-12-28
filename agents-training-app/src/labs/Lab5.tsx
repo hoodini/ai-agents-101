@@ -1,13 +1,40 @@
 import { BookOpen, AlertCircle, Scissors, FileText, Layers } from 'lucide-react';
-import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { CompleteLabButton } from '../components/CompleteLabButton';
+import { RunAllCellsButton } from '../components/RunAllCellsButton';
 import { useStore } from '../store/useStore';
 import { celebrateCompletion } from '../utils/confetti';
 import type { ExecutionResult } from '../types';
+import { useRef, useState } from 'react';
 
 export function Lab5() {
   const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
+
+  const step1Ref = useRef<TerminalCodeCellRef>(null);
+  const step2Ref = useRef<TerminalCodeCellRef>(null);
+  const step3Ref = useRef<TerminalCodeCellRef>(null);
+  const step4Ref = useRef<TerminalCodeCellRef>(null);
+  const step5Ref = useRef<TerminalCodeCellRef>(null);
+
+  const [isRunningAll, setIsRunningAll] = useState(false);
+
+  const handleRunAll = async () => {
+    setIsRunningAll(true);
+    try {
+      await step1Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step2Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step3Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step4Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step5Ref.current?.run();
+    } finally {
+      setIsRunningAll(false);
+    }
+  };
 
   const getLLMClass = () => {
     if (activeProvider === 'browser') return 'WebLLM';
@@ -616,6 +643,8 @@ Even with large contexts:
         />
       </div>
 
+      <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
+
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
           <div className="p-2 sm:p-3 bg-gradient-to-br from-red-500 to-orange-600 rounded-xl shadow-lg flex-shrink-0">
@@ -657,6 +686,7 @@ Even with large contexts:
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step1Ref}
           title="step-1-context-problem"
           initialCode={step1Code}
           description="Discover why we can't just send large documents to LLMs"
@@ -675,6 +705,7 @@ Even with large contexts:
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step2Ref}
           title="step-2-chunking-methods"
           initialCode={step2Code}
           description="Learn 3 core chunking methods with visual examples"
@@ -693,6 +724,7 @@ Even with large contexts:
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step3Ref}
           title="step-3-real-chunking"
           initialCode={step3Code}
           description="Chunk a large knowledge base into semantic sections"
@@ -711,6 +743,7 @@ Even with large contexts:
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step4Ref}
           title="step-4-comparison"
           initialCode={step4Code}
           description="Compare all chunking strategies - when to use each one"
@@ -728,6 +761,7 @@ Even with large contexts:
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step5Ref}
           title="step-5-production"
           initialCode={step5Code}
           description="Build production chunking with overlap and metadata!"

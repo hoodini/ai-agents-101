@@ -544,6 +544,8 @@ ANSWER:`;
         />
       </div>
 
+      <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
+
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
           <div className="p-2 sm:p-3 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl shadow-lg flex-shrink-0">
@@ -585,6 +587,7 @@ ANSWER:`;
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step1Ref}
           title="step-1-chunking"
           initialCode={step1Code}
           description="See how documents are split into chunks for processing"
@@ -603,6 +606,7 @@ ANSWER:`;
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step2Ref}
           title="step-2-embeddings"
           initialCode={step2Code}
           description="See actual embedding vectors - the magic behind semantic search!"
@@ -621,6 +625,7 @@ ANSWER:`;
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step3Ref}
           title="step-3-vectorstore"
           initialCode={step3Code}
           description="Create a searchable vector database from documents"
@@ -639,6 +644,7 @@ ANSWER:`;
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step4Ref}
           title="step-4-similarity"
           initialCode={step4Code}
           description="Find relevant documents using vector similarity with scores!"
@@ -656,6 +662,7 @@ ANSWER:`;
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step5Ref}
           title="step-5-reranking"
           initialCode={step5Code}
           description="Boost accuracy with Cohere's state-of-the-art reranking!"
@@ -673,6 +680,7 @@ ANSWER:`;
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step6Ref}
           title="complete-rag-system"
           initialCode={step6Code}
           description="Full RAG pipeline: Chunk → Embed → Search → Rerank → Generate!"

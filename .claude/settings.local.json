@@ -39,7 +39,16 @@
       "Bash(ls:*)",
       "Bash(git restore:*)",
       "Bash(del srcdatacodeTemplates.ts)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(del nul)",
+      "Bash(dir:*)",
+      "Bash(timeout /t 3)",
+      "Bash(del \"agents-training-app\\\\src\\\\labs\\\\Lab5_5.tsx\" \"agents-training-app\\\\src\\\\labs\\\\Lab5_75.tsx\")",
+      "Bash(netstat:*)",
+      "Bash(for file in Lab*.tsx)",
+      "Bash(done)",
+      "Bash(npx vite build)",
+      "Bash(python:*)"
     ]
   }
 }

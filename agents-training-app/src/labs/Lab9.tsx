@@ -808,6 +808,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="multi-query-generation"
           initialCode={step1Code}
           description="Generate multiple search queries from a single question"
@@ -826,6 +827,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="multi-query-retrieval"
           initialCode={step2Code}
           description="Search with all generated queries to find more relevant results"
@@ -844,6 +846,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="deduplicate-results"
           initialCode={step3Code}
           description="Remove duplicate documents while keeping the best matches"
@@ -862,6 +865,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="reciprocal-rank-fusion"
           initialCode={step4Code}
           description="Smart merge using RRF algorithm - industry standard!"
@@ -879,6 +883,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="multi-query-reranking"
           initialCode={step5Code}
           description="Complete pipeline: Multi-query → RRF → Rerank"
@@ -896,6 +901,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="complete-advanced-rag"
           initialCode={step6Code}
           description="Full production pipeline: Multi-query → RRF → Rerank → Generate!"

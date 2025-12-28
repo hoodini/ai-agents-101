@@ -1,17 +1,43 @@
 import { BookOpen, Brain, AlertTriangle } from 'lucide-react';
-import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { CompleteLabButton } from '../components/CompleteLabButton';
+import { RunAllCellsButton } from '../components/RunAllCellsButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
 import { celebrateCompletion } from '../utils/confetti';
 import { HumanMessage, AIMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export function Lab4() {
   const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
   const [limitContext, setLimitContext] = useState(false);
+
+  const step1Ref = useRef<TerminalCodeCellRef>(null);
+  const step2Ref = useRef<TerminalCodeCellRef>(null);
+  const step3Ref = useRef<TerminalCodeCellRef>(null);
+  const step4Ref = useRef<TerminalCodeCellRef>(null);
+  const step5Ref = useRef<TerminalCodeCellRef>(null);
+
+  const [isRunningAll, setIsRunningAll] = useState(false);
+
+  const handleRunAll = async () => {
+    setIsRunningAll(true);
+    try {
+      await step1Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step2Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step3Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step4Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step5Ref.current?.run();
+    } finally {
+      setIsRunningAll(false);
+    }
+  };
 
   const getLLMClass = () => {
     if (activeProvider === 'browser') return 'WebLLM';
@@ -320,6 +346,8 @@ console.log('✓ Agent remembered context across all turns!');
         />
       </div>
 
+      <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
+
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
           <div className="p-2 sm:p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg flex-shrink-0">
@@ -386,6 +414,7 @@ console.log('✓ Agent remembered context across all turns!');
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step1Ref}
           title="step-1-imports"
           initialCode={step1Code}
           description="Import HumanMessage and AIMessage for conversation memory"
@@ -403,6 +432,7 @@ console.log('✓ Agent remembered context across all turns!');
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step2Ref}
           title="step-2-memory"
           initialCode={step2Code}
           description="Initialize an array to store conversation history"
@@ -420,6 +450,7 @@ console.log('✓ Agent remembered context across all turns!');
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step3Ref}
           title="step-3-turn1"
           initialCode={step3Code}
           description="Send first message and store both user and AI responses"
@@ -437,6 +468,7 @@ console.log('✓ Agent remembered context across all turns!');
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step4Ref}
           title="step-4-turn2"
           initialCode={step4Code}
           description="Ask a question that requires memory - watch the magic!"
@@ -454,6 +486,7 @@ console.log('✓ Agent remembered context across all turns!');
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step5Ref}
           title="complete-memory-agent"
           initialCode={step5Code}
           description="Full conversation with memory - the agent remembers everything!"

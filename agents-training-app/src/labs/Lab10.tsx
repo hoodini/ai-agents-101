@@ -953,6 +953,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="create-first-tool"
           initialCode={step1Code}
           description="Build a calculator tool with type-safe schema"
@@ -971,6 +972,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="llm-function-calling"
           initialCode={step2Code}
           description="Let the LLM automatically call your tools"
@@ -989,6 +991,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="multiple-tools"
           initialCode={step3Code}
           description="Build an agent with multiple specialized tools"
@@ -1006,6 +1009,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="tool-execution-loop"
           initialCode={step4Code}
           description="Complete agent workflow: Think → Act → Respond"
@@ -1023,6 +1027,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="error-handling"
           initialCode={step5Code}
           description="Production-ready tools with validation and error handling"
@@ -1041,6 +1046,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
+          
           title="budget-assistant"
           initialCode={step6Code}
           description="Real-world agent with domain-specific tools!"

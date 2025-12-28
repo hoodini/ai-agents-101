@@ -1,15 +1,45 @@
 import { BookOpen, Sparkles } from 'lucide-react';
-import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { CompleteLabButton } from '../components/CompleteLabButton';
+import { RunAllCellsButton } from '../components/RunAllCellsButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
 import { celebrateCompletion } from '../utils/confetti';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 import type { ExecutionResult } from '../types';
+import { useRef, useState } from 'react';
 
 export function Lab3() {
   const { providers, activeProvider, selectedModel } = useStore();
   const apiKey = providers[activeProvider].apiKey;
+
+  const step1Ref = useRef<TerminalCodeCellRef>(null);
+  const step2Ref = useRef<TerminalCodeCellRef>(null);
+  const step3Ref = useRef<TerminalCodeCellRef>(null);
+  const step4Ref = useRef<TerminalCodeCellRef>(null);
+  const step5Ref = useRef<TerminalCodeCellRef>(null);
+  const step6Ref = useRef<TerminalCodeCellRef>(null);
+
+  const [isRunningAll, setIsRunningAll] = useState(false);
+
+  const handleRunAll = async () => {
+    setIsRunningAll(true);
+    try {
+      await step1Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step2Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step3Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step4Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step5Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step6Ref.current?.run();
+    } finally {
+      setIsRunningAll(false);
+    }
+  };
 
   const getLLMClass = () => {
     if (activeProvider === 'browser') return 'WebLLM';
@@ -262,6 +292,8 @@ console.log('Pirate Agent Response:', response.content);
         />
       </div>
 
+      <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
+
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">
           <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg flex-shrink-0">
@@ -301,6 +333,7 @@ console.log('Pirate Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step1Ref}
           title="step-1-imports"
           initialCode={step1Code}
           description="Import SystemMessage and HumanMessage from LangChain"
@@ -318,6 +351,7 @@ console.log('Pirate Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step2Ref}
           title="step-2-system-prompt"
           initialCode={step2Code}
           description="Define the agent's role, personality, and expertise"
@@ -335,6 +369,7 @@ console.log('Pirate Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step3Ref}
           title="step-3-user-prompt"
           initialCode={step3Code}
           description="Create the user's question or request"
@@ -352,6 +387,7 @@ console.log('Pirate Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step4Ref}
           title="step-4-combine"
           initialCode={step4Code}
           description="Put system and user messages into an array"
@@ -369,6 +405,7 @@ console.log('Pirate Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step5Ref}
           title="step-5-response"
           initialCode={step5Code}
           description="Send messages to the LLM and see how system prompt shapes the response"
@@ -386,6 +423,7 @@ console.log('Pirate Agent Response:', response.content);
           </h2>
         </div>
         <TerminalCodeCell
+          ref={step6Ref}
           title="complete-pirate-agent"
           initialCode={step6Code}
           description="Experiment with a pirate personality - see how system prompts change behavior!"
