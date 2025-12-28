@@ -70,7 +70,7 @@ console.log('\\n✓ Documents chunked and ready for embedding!');`;
 import { CohereEmbeddings } from '@langchain/cohere';
 
 const embeddings = new CohereEmbeddings({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-cohere-api-key'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: 'embed-english-v3.0',
 });
 
@@ -94,7 +94,7 @@ import { MemoryVectorStore } from '@langchain/classic/vectorstores/memory';
 import { Document } from '@langchain/core/documents';
 
 const embeddings = new CohereEmbeddings({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-cohere-api-key'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: 'embed-english-v3.0',
 });
 
@@ -122,7 +122,7 @@ import { MemoryVectorStore } from '@langchain/classic/vectorstores/memory';
 import { Document } from '@langchain/core/documents';
 
 const embeddings = new CohereEmbeddings({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-cohere-api-key'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: 'embed-english-v3.0',
 });
 
@@ -160,7 +160,7 @@ import { MemoryVectorStore } from '@langchain/classic/vectorstores/memory';
 import { Document } from '@langchain/core/documents';
 
 const embeddings = new CohereEmbeddings({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-cohere-api-key'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: 'embed-english-v3.0',
 });
 
@@ -218,7 +218,7 @@ import { PromptTemplate } from '@langchain/core/prompts';
 ${getLLMInit()};
 
 const embeddings = new CohereEmbeddings({
-  apiKey: '${apiKey ? '***YOUR_API_KEY***' : 'your-cohere-api-key'}',
+  apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
   model: 'embed-english-v3.0',
 });
 

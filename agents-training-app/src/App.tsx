@@ -11,7 +11,7 @@ import { Homepage } from './components/Homepage';
 import { Resources } from './components/Resources';
 import { AdvancedPlayground } from './components/AdvancedPlayground';
 import { TechnicalDeepDive } from './components/TechnicalDeepDive';
-import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab5_5, Lab5_75, Lab6, Lab7, Lab8, BonusContextEngineering } from './labs';
+import { Lab1, Lab2, Lab3, Lab4, Lab5, Lab6, Lab7, Lab8, BonusContextEngineering } from './labs';
 import { useStore } from './store/useStore';
 import { t } from './utils/translations';
 
@@ -21,8 +21,6 @@ const LABS = [
   { id: 3, title: 'Custom System Prompts', component: Lab3 },
   { id: 4, title: 'Conversation Memory', component: Lab4 },
   { id: 5, title: 'Context Window & Chunking', component: Lab5 },
-  { id: 5.5, title: 'Embeddings Deep Dive', component: Lab5_5 },
-  { id: 5.75, title: 'Vector Similarity & Retrieval', component: Lab5_75 },
   { id: 6, title: 'Complete RAG Pipeline', component: Lab6 },
   { id: 7, title: 'Multi-Agent Collaboration', component: Lab7 },
   { id: 8, title: 'Orchestrator Agent', component: Lab8 },
