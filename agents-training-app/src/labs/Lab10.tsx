@@ -1,5 +1,6 @@
 import { Wrench, Calculator, Globe, Code, Zap, Cpu } from 'lucide-react';
-import { TerminalCodeCell } from '../components/TerminalCodeCell';
+import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
+import { RunAllCellsButton } from '../components/RunAllCellsButton';
 import { CompleteLabButton } from '../components/CompleteLabButton';
 import { useStore } from '../store/useStore';
 import { createLLM } from '../utils/llmFactory';
@@ -10,6 +11,39 @@ import type { ExecutionResult } from '../types';
 
 export function Lab10() {
   const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
+  const step1Ref = useRef<TerminalCodeCellRef>(null);
+    ref={step1Ref}
+  const step2Ref = useRef<TerminalCodeCellRef>(null);
+    ref={step2Ref}
+  const step3Ref = useRef<TerminalCodeCellRef>(null);
+    ref={step3Ref}
+  const step4Ref = useRef<TerminalCodeCellRef>(null);
+    ref={step4Ref}
+  const step5Ref = useRef<TerminalCodeCellRef>(null);
+    ref={step5Ref}
+  const step6Ref = useRef<TerminalCodeCellRef>(null);
+    ref={step6Ref}
+  const [isRunningAll, setIsRunningAll] = useState(false);
+
+  const handleRunAll = async () => {
+    setIsRunningAll(true);
+    try {
+      await step1Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step2Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step3Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step4Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step5Ref.current?.run();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await step6Ref.current?.run();
+    } finally {
+      setIsRunningAll(false);
+    }
+  };
+
   const apiKey = providers[activeProvider].apiKey;
 
   const getLLMClass = () => {
@@ -911,6 +945,8 @@ Using tool: budget_calculator
           </div>
         </div>
       </div>
+
+      <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
 
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">

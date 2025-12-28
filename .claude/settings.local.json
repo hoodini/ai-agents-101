@@ -48,7 +48,8 @@
       "Bash(for file in Lab*.tsx)",
       "Bash(done)",
       "Bash(npx vite build)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(timeout /t 5)"
     ]
   }
 }
