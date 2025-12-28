@@ -70,7 +70,12 @@ export function MobileCodeModal({
 
   const modalContent = (
     <div
-      className="fixed inset-0 z-[9999] bg-slate-900/95 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex flex-col"
+      style={{
+        backgroundColor: 'rgb(15 23 42 / 0.98)',
+        touchAction: 'none',
+        WebkitOverflowScrolling: 'touch',
+      }}
       onClick={(e) => {
         // Only close if clicking the backdrop, not the modal content
         if (e.target === e.currentTarget) {
@@ -78,8 +83,11 @@ export function MobileCodeModal({
         }
       }}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-cyan-500/30 bg-gradient-to-r from-slate-900 to-blue-900/50">
+      {/* Header - Fixed */}
+      <div
+        className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-cyan-500/30 bg-gradient-to-r from-slate-900 to-blue-900/50"
+        style={{ minHeight: '60px' }}
+      >
         <h2 className="text-lg font-bold text-cyan-400">
           {t(lang, 'codeCell.editCode') || 'Edit Code'}
         </h2>
@@ -92,25 +100,39 @@ export function MobileCodeModal({
         </button>
       </div>
 
-      {/* Code Editor - Native Textarea */}
-      <div className="flex flex-col h-[calc(100vh-140px)] overflow-hidden">
-        <textarea
-          value={code}
-          onChange={(e) => editable && setCode(e.target.value)}
-          readOnly={!editable}
-          className="flex-1 w-full px-4 py-3 bg-slate-950 text-green-300 font-mono text-sm leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
-          style={{
-            fontFamily: "'Fira Code', 'Consolas', 'Monaco', monospace",
-            WebkitTapHighlightColor: 'transparent',
-          }}
-          spellCheck={false}
-          autoCapitalize="off"
-          autoCorrect="off"
-        />
+      {/* Code Editor - Scrollable */}
+      <div
+        className="flex-1 flex flex-col overflow-hidden"
+        style={{
+          minHeight: 0, // Important for flex scrolling
+        }}
+      >
+        <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
+          <textarea
+            value={code}
+            onChange={(e) => editable && setCode(e.target.value)}
+            readOnly={!editable}
+            className="w-full h-full min-h-[300px] px-4 py-3 bg-slate-950 text-green-300 font-mono text-sm leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border-0"
+            style={{
+              fontFamily: "'Fira Code', 'Consolas', 'Monaco', monospace",
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation',
+            }}
+            spellCheck={false}
+            autoCapitalize="off"
+            autoCorrect="off"
+          />
+        </div>
 
-        {/* Result Output */}
+        {/* Result Output - Collapsible */}
         {result && (
-          <div className="border-t border-cyan-500/30 bg-slate-900/90 max-h-[40vh] overflow-y-auto">
+          <div
+            className="flex-shrink-0 border-t border-cyan-500/30 bg-slate-900/90 overflow-y-auto"
+            style={{
+              maxHeight: '40vh',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
             <div className="p-4">
               <div className="flex items-center gap-2 mb-2">
                 {result.error ? (
@@ -141,8 +163,14 @@ export function MobileCodeModal({
         )}
       </div>
 
-      {/* Action Buttons */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-cyan-500/30 bg-gradient-to-r from-slate-900 to-blue-900/50 flex gap-3">
+      {/* Action Buttons - Fixed at Bottom */}
+      <div
+        className="flex-shrink-0 p-4 border-t border-cyan-500/30 bg-gradient-to-r from-slate-900 to-blue-900/50 flex gap-3"
+        style={{
+          minHeight: '80px',
+          paddingBottom: 'max(16px, env(safe-area-inset-bottom))', // Handle iOS safe area
+        }}
+      >
         <button
           onClick={handleRun}
           disabled={isRunning || !onExecute}

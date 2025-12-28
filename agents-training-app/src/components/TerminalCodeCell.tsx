@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import Editor from '@monaco-editor/react';
 import { Play, Loader2, Terminal, Check, AlertCircle, Code } from 'lucide-react';
 import { useStore } from '../store/useStore';
@@ -23,7 +23,12 @@ interface TerminalCodeCellProps {
   autoRun?: boolean;
 }
 
-export function TerminalCodeCell({
+export interface TerminalCodeCellRef {
+  run: () => Promise<void>;
+  isRunning: boolean;
+}
+
+export const TerminalCodeCell = forwardRef<TerminalCodeCellRef, TerminalCodeCellProps>(({
   title,
   initialCode,
   language = 'typescript',
@@ -31,7 +36,7 @@ export function TerminalCodeCell({
   description,
   onExecute,
   autoRun = false,
-}: TerminalCodeCellProps) {
+}, ref) => {
   const { language: lang } = useStore();
   const [code, setCode] = useState(initialCode);
   const [isRunning, setIsRunning] = useState(false);
@@ -41,6 +46,11 @@ export function TerminalCodeCell({
   const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const editorContainerRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    run: handleRun,
+    isRunning,
+  }));
 
   useEffect(() => {
     const checkMobile = () => {
@@ -243,18 +253,29 @@ export function TerminalCodeCell({
               />
             </div>
             {isMobile && editable && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  setIsModalOpen(true);
-                }}
-                className="absolute top-2 right-2 p-2 bg-cyan-600/90 hover:bg-cyan-500 active:bg-cyan-700 text-white rounded-lg shadow-lg transition-all touch-manipulation backdrop-blur-sm z-20"
-                style={{ minHeight: '36px', minWidth: '36px', WebkitTapHighlightColor: 'transparent', pointerEvents: 'auto' }}
-                title="Edit Code"
+              <div
+                className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80 flex items-end justify-center pb-4 z-20"
+                style={{ pointerEvents: 'none' }}
               >
-                <Code className="w-4 h-4" />
-              </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    setIsModalOpen(true);
+                  }}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:from-cyan-700 active:to-blue-700 text-white font-bold rounded-lg shadow-2xl transition-all touch-manipulation backdrop-blur-sm animate-pulse-slow"
+                  style={{
+                    minHeight: '48px',
+                    minWidth: '140px',
+                    WebkitTapHighlightColor: 'transparent',
+                    pointerEvents: 'auto',
+                    boxShadow: '0 4px 20px rgba(6, 182, 212, 0.5)'
+                  }}
+                >
+                  <Code className="w-5 h-5" />
+                  <span>Edit Code</span>
+                </button>
+              </div>
             )}
           </div>
 
@@ -316,4 +337,4 @@ export function TerminalCodeCell({
       </div>
     </>
   );
-}
+});
