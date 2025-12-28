@@ -7,8 +7,6 @@ import { celebrateCompletion } from '../utils/confetti';
 import { t } from '../utils/translations';
 import type { ExecutionResult } from '../types';
 
-const TOTAL_LABS = 8;
-
 export function Lab2() {
   const { apiKey, provider, selectedModel, markLabComplete, language } = useStore();
 

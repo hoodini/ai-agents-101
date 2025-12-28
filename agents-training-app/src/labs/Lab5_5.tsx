@@ -6,8 +6,6 @@ import { celebrateCompletion } from '../utils/confetti';
 import { CohereEmbeddings } from '@langchain/cohere';
 import type { ExecutionResult } from '../types';
 
-const TOTAL_LABS = 11;
-
 export function Lab5_5() {
   const { apiKey, markLabComplete } = useStore();
 

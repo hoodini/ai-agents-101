@@ -10,8 +10,6 @@ import { Document } from '@langchain/core/documents';
 import { PromptTemplate } from '@langchain/core/prompts';
 import type { ExecutionResult } from '../types';
 
-const TOTAL_LABS = 11;
-
 export function Lab6() {
   const { apiKey, provider, selectedModel, markLabComplete } = useStore();
 

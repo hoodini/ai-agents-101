@@ -5,8 +5,6 @@ import { useStore } from '../store/useStore';
 import { celebrateCompletion } from '../utils/confetti';
 import type { ExecutionResult } from '../types';
 
-const TOTAL_LABS = 11;
-
 export function Lab5() {
   const { apiKey, provider, selectedModel, markLabComplete } = useStore();
 
