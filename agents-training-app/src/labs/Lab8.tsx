@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { BookOpen, Network } from 'lucide-react';
 import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { RunAllCellsButton } from '../components/RunAllCellsButton';
@@ -11,11 +12,8 @@ import type { ExecutionResult } from '../types';
 export function Lab8() {
   const { providers, activeProvider, selectedModel } = useStore();
   const step1Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step1Ref}
   const step2Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step2Ref}
   const step3Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step3Ref}
   const [isRunningAll, setIsRunningAll] = useState(false);
 
   const handleRunAll = async () => {
@@ -349,7 +347,7 @@ console.log(response.content);
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step1Ref}
           title="step-1-concept"
           initialCode={step1Code}
           description="Understanding the orchestrator pattern"
@@ -367,7 +365,7 @@ console.log(response.content);
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step2Ref}
           title="step-2-router"
           initialCode={step2Code}
           description="Analyze queries and route to the right specialist"
@@ -385,7 +383,7 @@ console.log(response.content);
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step3Ref}
           title="complete-orchestrator"
           initialCode={step3Code}
           description="Full orchestrator system with routing and specialists!"

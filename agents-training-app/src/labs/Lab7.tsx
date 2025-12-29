@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { BookOpen, Users } from 'lucide-react';
 import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { RunAllCellsButton } from '../components/RunAllCellsButton';
@@ -11,11 +12,8 @@ import type { ExecutionResult } from '../types';
 export function Lab7() {
   const { providers, activeProvider, selectedModel } = useStore();
   const step1Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step1Ref}
   const step2Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step2Ref}
   const step3Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step3Ref}
   const [isRunningAll, setIsRunningAll] = useState(false);
 
   const handleRunAll = async () => {
@@ -288,7 +286,7 @@ console.log(article.content);
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step1Ref}
           title="step-1-roles"
           initialCode={step1Code}
           description="Create specialized agents with unique system prompts"
@@ -306,7 +304,7 @@ console.log(article.content);
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step2Ref}
           title="step-2-researcher"
           initialCode={step2Code}
           description="First agent gathers facts and information"
@@ -324,7 +322,7 @@ console.log(article.content);
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step3Ref}
           title="complete-collaboration"
           initialCode={step3Code}
           description="Researcher → Writer pipeline - agents collaborating!"

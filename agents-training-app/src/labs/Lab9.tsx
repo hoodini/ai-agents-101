@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { Search, Layers, Sparkles, Zap, Network, Brain } from 'lucide-react';
 import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { RunAllCellsButton } from '../components/RunAllCellsButton';
@@ -13,17 +14,11 @@ import type { ExecutionResult } from '../types';
 export function Lab9() {
   const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
   const step1Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step1Ref}
   const step2Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step2Ref}
   const step3Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step3Ref}
   const step4Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step4Ref}
   const step5Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step5Ref}
   const step6Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step6Ref}
   const [isRunningAll, setIsRunningAll] = useState(false);
 
   const handleRunAll = async () => {
@@ -844,7 +839,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step1Ref}
           title="multi-query-generation"
           initialCode={step1Code}
           description="Generate multiple search queries from a single question"
@@ -863,7 +858,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step2Ref}
           title="multi-query-retrieval"
           initialCode={step2Code}
           description="Search with all generated queries to find more relevant results"
@@ -882,7 +877,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step3Ref}
           title="deduplicate-results"
           initialCode={step3Code}
           description="Remove duplicate documents while keeping the best matches"
@@ -901,7 +896,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step4Ref}
           title="reciprocal-rank-fusion"
           initialCode={step4Code}
           description="Smart merge using RRF algorithm - industry standard!"
@@ -919,7 +914,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step5Ref}
           title="multi-query-reranking"
           initialCode={step5Code}
           description="Complete pipeline: Multi-query → RRF → Rerank"
@@ -937,7 +932,7 @@ Output only the queries, one per line.`;
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step6Ref}
           title="complete-advanced-rag"
           initialCode={step6Code}
           description="Full production pipeline: Multi-query → RRF → Rerank → Generate!"

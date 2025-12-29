@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { Wrench, Calculator, Globe, Code, Zap, Cpu } from 'lucide-react';
 import { TerminalCodeCell, type TerminalCodeCellRef } from '../components/TerminalCodeCell';
 import { RunAllCellsButton } from '../components/RunAllCellsButton';
@@ -12,17 +13,11 @@ import type { ExecutionResult } from '../types';
 export function Lab10() {
   const { providers, activeProvider, selectedModel, markLabComplete } = useStore();
   const step1Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step1Ref}
   const step2Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step2Ref}
   const step3Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step3Ref}
   const step4Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step4Ref}
   const step5Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step5Ref}
   const step6Ref = useRef<TerminalCodeCellRef>(null);
-    ref={step6Ref}
   const [isRunningAll, setIsRunningAll] = useState(false);
 
   const handleRunAll = async () => {
@@ -989,7 +984,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step1Ref}
           title="create-first-tool"
           initialCode={step1Code}
           description="Build a calculator tool with type-safe schema"
@@ -1008,7 +1003,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step2Ref}
           title="llm-function-calling"
           initialCode={step2Code}
           description="Let the LLM automatically call your tools"
@@ -1027,7 +1022,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step3Ref}
           title="multiple-tools"
           initialCode={step3Code}
           description="Build an agent with multiple specialized tools"
@@ -1045,7 +1040,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step4Ref}
           title="tool-execution-loop"
           initialCode={step4Code}
           description="Complete agent workflow: Think → Act → Respond"
@@ -1063,7 +1058,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step5Ref}
           title="error-handling"
           initialCode={step5Code}
           description="Production-ready tools with validation and error handling"
@@ -1082,7 +1077,7 @@ Using tool: budget_calculator
           </h2>
         </div>
         <TerminalCodeCell
-          
+          ref={step6Ref}
           title="budget-assistant"
           initialCode={step6Code}
           description="Real-world agent with domain-specific tools!"
