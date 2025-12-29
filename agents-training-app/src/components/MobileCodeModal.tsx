@@ -10,6 +10,7 @@ interface MobileCodeModalProps {
   onClose: () => void;
   initialCode: string;
   onExecute?: (code: string) => Promise<ExecutionResult>;
+  onCodeChange?: (code: string) => void;
   language?: 'typescript' | 'javascript';
   editable?: boolean;
 }
@@ -19,6 +20,7 @@ export function MobileCodeModal({
   onClose,
   initialCode,
   onExecute,
+  onCodeChange,
   editable = true,
 }: MobileCodeModalProps) {
   const { language: lang } = useStore();
@@ -33,6 +35,14 @@ export function MobileCodeModal({
       setResult(null);
     }
   }, [isOpen, initialCode]);
+
+  // Sync code changes back to parent
+  const handleCodeChange = (newCode: string) => {
+    setCode(newCode);
+    if (onCodeChange) {
+      onCodeChange(newCode);
+    }
+  };
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -110,7 +120,7 @@ export function MobileCodeModal({
         <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
           <textarea
             value={code}
-            onChange={(e) => editable && setCode(e.target.value)}
+            onChange={(e) => editable && handleCodeChange(e.target.value)}
             readOnly={!editable}
             className="w-full h-full min-h-[300px] px-4 py-3 bg-slate-950 text-green-300 font-mono text-sm leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border-0"
             style={{

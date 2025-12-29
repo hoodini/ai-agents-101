@@ -136,6 +136,7 @@ export const TerminalCodeCell = forwardRef<TerminalCodeCellRef, TerminalCodeCell
         onClose={() => setIsModalOpen(false)}
         initialCode={code}
         onExecute={onExecute}
+        onCodeChange={setCode}
         language={language}
         editable={editable}
       />
