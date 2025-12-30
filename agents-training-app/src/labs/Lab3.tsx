@@ -10,8 +10,20 @@ import type { ExecutionResult } from '../types';
 import { useRef, useState } from 'react';
 
 export function Lab3() {
-  const { providers, activeProvider, selectedModel } = useStore();
+  const { providers, activeProvider, selectedModel, labCustomizations, setLabCustomization } = useStore();
   const apiKey = providers[activeProvider].apiKey;
+
+  // Default prompts
+  const defaultSystemPrompt = `You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies. Always be encouraging and patient.`;
+  const defaultUserPrompt = "What is machine learning?";
+  const defaultPiratePrompt = `You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"`;
+  const defaultPirateQuestion = "How do I learn programming?";
+
+  // Use custom prompts from store or defaults
+  const systemPrompt = labCustomizations.lab3SystemPrompt || defaultSystemPrompt;
+  const userPrompt = labCustomizations.lab3UserPrompt || defaultUserPrompt;
+  const piratePrompt = labCustomizations.lab3PiratePrompt || defaultPiratePrompt;
+  const pirateQuestion = labCustomizations.lab3PirateQuestion || defaultPirateQuestion;
 
   const step1Ref = useRef<TerminalCodeCellRef>(null);
   const step2Ref = useRef<TerminalCodeCellRef>(null);
@@ -77,20 +89,20 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 console.log('✓ ${activeProvider === 'browser' ? 'WebLLM and message types' : 'LangChain classes'} imported successfully!');`;
 
   const step2Code = `// Step 2: Create a system prompt to define agent personality
-const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies. Always be encouraging and patient.\`);
+const systemPrompt = new SystemMessage(\`${systemPrompt}\`);
 
 console.log('✓ System prompt created!');
 console.log('Role:', 'AI Tutor');`;
 
   const step3Code = `// Step 3: Create the user's question
-const userPrompt = new HumanMessage("What is machine learning?");
+const userPrompt = new HumanMessage("${userPrompt}");
 
 console.log('✓ User prompt ready!');
 console.log('Question:', userPrompt.content);`;
 
   const step4Code = `// Step 4: Combine system and user messages
-const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.\`);
-const userPrompt = new HumanMessage("What is machine learning?");
+const systemPrompt = new SystemMessage(\`${systemPrompt}\`);
+const userPrompt = new HumanMessage("${userPrompt}");
 
 const messages = [systemPrompt, userPrompt];
 
@@ -100,8 +112,8 @@ console.log('Total messages:', messages.length);`;
   const step5Code = `// Step 5: Send to LLM and get response
 ${getLLMInit()};
 
-const systemPrompt = new SystemMessage(\`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.\`);
-const userPrompt = new HumanMessage("What is machine learning?");
+const systemPrompt = new SystemMessage(\`${systemPrompt}\`);
+const userPrompt = new HumanMessage("${userPrompt}");
 const messages = [systemPrompt, userPrompt];
 
 const response = await llm.invoke(messages);
@@ -118,10 +130,10 @@ ${getLLMInit()};
 // - Defines speaking style ("speak like a pirate")
 // - Sets boundaries ("helpful but always stay in character")
 // - Adds signature behavior ("End responses with 'Arrr!'")
-const systemPrompt = new SystemMessage(\`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"\`);
+const systemPrompt = new SystemMessage(\`${piratePrompt}\`);
 
 // The user's question (same as before, but now gets a pirate response!)
-const userPrompt = new HumanMessage("How do I learn programming?");
+const userPrompt = new HumanMessage("${pirateQuestion}");
 
 // Combine system and user messages
 const messages = [systemPrompt, userPrompt];
@@ -184,9 +196,9 @@ console.log('Pirate Agent Response:', response.content);
 
   const executeStep3 = async (): Promise<ExecutionResult> => {
     try {
-      const userPrompt = new HumanMessage("What is machine learning?");
+      const userMessage = new HumanMessage(userPrompt);
       return {
-        output: `✓ User prompt ready!\nQuestion: ${userPrompt.content}`,
+        output: `✓ User prompt ready!\nQuestion: ${userMessage.content}`,
         timestamp: Date.now(),
       };
     } catch (error) {
@@ -200,9 +212,9 @@ console.log('Pirate Agent Response:', response.content);
 
   const executeStep4 = async (): Promise<ExecutionResult> => {
     try {
-      const systemPrompt = new SystemMessage('You are an expert AI tutor.');
-      const userPrompt = new HumanMessage("What is machine learning?");
-      const messages = [systemPrompt, userPrompt];
+      const systemMessage = new SystemMessage(systemPrompt);
+      const userMessage = new HumanMessage(userPrompt);
+      const messages = [systemMessage, userMessage];
 
       return {
         output: `✓ Messages array created!\nTotal messages: ${messages.length}`,
@@ -225,9 +237,9 @@ console.log('Pirate Agent Response:', response.content);
 
       const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
-      const systemPrompt = new SystemMessage(`You are an expert AI tutor specializing in teaching about artificial intelligence and machine learning. You explain complex concepts in simple terms and use analogies.`);
-      const userPrompt = new HumanMessage("What is machine learning?");
-      const messages = [systemPrompt, userPrompt];
+      const systemMessage = new SystemMessage(systemPrompt);
+      const userMessage = new HumanMessage(userPrompt);
+      const messages = [systemMessage, userMessage];
 
       const response = await llm.invoke(messages);
 
@@ -252,10 +264,10 @@ console.log('Pirate Agent Response:', response.content);
 
       const llm = createLLM(apiKey || 'browser-llm', activeProvider, selectedModel);
 
-      const systemPrompt = new SystemMessage(`You are a pirate AI assistant. You speak like a pirate and use nautical terms. You're helpful but always stay in character. End responses with "Arrr!"`);
-      const userPrompt = new HumanMessage("How do I learn programming?");
+      const systemMessage = new SystemMessage(piratePrompt);
+      const userMessage = new HumanMessage(pirateQuestion);
 
-      const messages = [systemPrompt, userPrompt];
+      const messages = [systemMessage, userMessage];
       const response = await llm.invoke(messages);
 
       // Show celebration (lab completion happens when clicking the Complete Lab button)
@@ -293,6 +305,80 @@ console.log('Pirate Agent Response:', response.content);
       </div>
 
       <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
+
+      <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-amber-200 dark:border-amber-700">
+        <h3 className="text-lg sm:text-xl font-semibold text-amber-900 dark:text-amber-100 mb-4 flex items-center gap-2">
+          <Sparkles className="w-5 h-5" />
+          Customize Your Prompts
+        </h3>
+        <p className="text-sm text-amber-800 dark:text-amber-200 mb-4">
+          Edit the prompts below to see how they affect the agent's behavior. Your changes will be reflected in all code cells!
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-amber-900 dark:text-amber-100 mb-2">
+              AI Tutor System Prompt
+            </label>
+            <textarea
+              value={systemPrompt}
+              onChange={(e) => setLabCustomization('lab3SystemPrompt', e.target.value)}
+              className="w-full p-3 rounded-lg border border-amber-300 dark:border-amber-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-mono resize-y min-h-[80px]"
+              placeholder="Enter system prompt..."
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-amber-900 dark:text-amber-100 mb-2">
+              User Question (AI Tutor)
+            </label>
+            <input
+              type="text"
+              value={userPrompt}
+              onChange={(e) => setLabCustomization('lab3UserPrompt', e.target.value)}
+              className="w-full p-3 rounded-lg border border-amber-300 dark:border-amber-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm"
+              placeholder="Enter user question..."
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-amber-900 dark:text-amber-100 mb-2">
+              Pirate System Prompt
+            </label>
+            <textarea
+              value={piratePrompt}
+              onChange={(e) => setLabCustomization('lab3PiratePrompt', e.target.value)}
+              className="w-full p-3 rounded-lg border border-amber-300 dark:border-amber-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-mono resize-y min-h-[80px]"
+              placeholder="Enter pirate system prompt..."
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-amber-900 dark:text-amber-100 mb-2">
+              User Question (Pirate)
+            </label>
+            <input
+              type="text"
+              value={pirateQuestion}
+              onChange={(e) => setLabCustomization('lab3PirateQuestion', e.target.value)}
+              className="w-full p-3 rounded-lg border border-amber-300 dark:border-amber-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm"
+              placeholder="Enter pirate question..."
+            />
+          </div>
+
+          <button
+            onClick={() => {
+              setLabCustomization('lab3SystemPrompt', defaultSystemPrompt);
+              setLabCustomization('lab3UserPrompt', defaultUserPrompt);
+              setLabCustomization('lab3PiratePrompt', defaultPiratePrompt);
+              setLabCustomization('lab3PirateQuestion', defaultPirateQuestion);
+            }}
+            className="mt-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-sm font-medium transition-colors"
+          >
+            Reset to Defaults
+          </button>
+        </div>
+      </div>
 
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">

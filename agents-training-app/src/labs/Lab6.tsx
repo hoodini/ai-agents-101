@@ -13,7 +13,8 @@ import { PromptTemplate } from '@langchain/core/prompts';
 import type { ExecutionResult } from '../types';
 
 export function Lab6() {
-  const { providers, activeProvider, selectedModel } = useStore();
+  const { providers, activeProvider, selectedModel, labCustomizations, setLabCustomization } = useStore();
+  const embeddingModel = labCustomizations.lab6EmbeddingModel || 'embed-english-v3.0';
   const step1Ref = useRef<TerminalCodeCellRef>(null);
   const step2Ref = useRef<TerminalCodeCellRef>(null);
   const step3Ref = useRef<TerminalCodeCellRef>(null);
@@ -99,7 +100,7 @@ import { CohereEmbeddings } from '@langchain/cohere';
 
 const embeddings = new CohereEmbeddings({
   apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
-  model: 'embed-english-v3.0',
+  model: '${embeddingModel}',
 });
 
 // Embed a single query to see what embeddings look like
@@ -123,7 +124,7 @@ import { Document } from '@langchain/core/documents';
 
 const embeddings = new CohereEmbeddings({
   apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
-  model: 'embed-english-v3.0',
+  model: '${embeddingModel}',
 });
 
 const documents = [
@@ -151,7 +152,7 @@ import { Document } from '@langchain/core/documents';
 
 const embeddings = new CohereEmbeddings({
   apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
-  model: 'embed-english-v3.0',
+  model: '${embeddingModel}',
 });
 
 const documents = [
@@ -189,7 +190,7 @@ import { Document } from '@langchain/core/documents';
 
 const embeddings = new CohereEmbeddings({
   apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
-  model: 'embed-english-v3.0',
+  model: '${embeddingModel}',
 });
 
 const documents = [
@@ -248,7 +249,7 @@ ${getLLMInit()};
 
 const embeddings = new CohereEmbeddings({
   apiKey: process.env.COHERE_API_KEY, // ${apiKey ? '✓ API key configured' : '⚠️ Configure your API key in Settings'}
-  model: 'embed-english-v3.0',
+  model: '${embeddingModel}',
 });
 
 const documents = [
@@ -337,7 +338,7 @@ console.log('\\n✓ Complete RAG pipeline: Retrieve → Rerank → Generate!');`
 
       const embeddings = new CohereEmbeddings({
         apiKey,
-        model: 'embed-english-v3.0',
+        model: embeddingModel,
       });
 
       const query = "What are embeddings?";
@@ -377,7 +378,7 @@ Last 10 dimensions: ${queryEmbedding.slice(-10).map(n => n.toFixed(4)).join(', '
 
       const embeddings = new CohereEmbeddings({
         apiKey,
-        model: 'embed-english-v3.0',
+        model: embeddingModel,
       });
 
       const docs = documents.slice(0, 4).map(text => new Document({ pageContent: text }));
@@ -406,7 +407,7 @@ Last 10 dimensions: ${queryEmbedding.slice(-10).map(n => n.toFixed(4)).join(', '
 
       const embeddings = new CohereEmbeddings({
         apiKey,
-        model: 'embed-english-v3.0',
+        model: embeddingModel,
       });
 
       const docs = documents.slice(0, 6).map(text => new Document({ pageContent: text }));
@@ -446,7 +447,7 @@ Last 10 dimensions: ${queryEmbedding.slice(-10).map(n => n.toFixed(4)).join(', '
 
       const embeddings = new CohereEmbeddings({
         apiKey,
-        model: 'embed-english-v3.0',
+        model: embeddingModel,
       });
 
       const docs = documents.map(text => new Document({ pageContent: text }));
@@ -504,7 +505,7 @@ Last 10 dimensions: ${queryEmbedding.slice(-10).map(n => n.toFixed(4)).join(', '
 
       const embeddings = new CohereEmbeddings({
         apiKey: apiKey || '',
-        model: 'embed-english-v3.0',
+        model: embeddingModel,
       });
 
       const docs = documents.map(text => new Document({ pageContent: text }));
@@ -573,6 +574,30 @@ ANSWER:`;
       </div>
 
       <RunAllCellsButton onRunAll={handleRunAll} isRunning={isRunningAll} />
+
+      <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-purple-200 dark:border-purple-700">
+        <h3 className="text-lg sm:text-xl font-semibold text-purple-900 dark:text-purple-100 mb-4 flex items-center gap-2">
+          <Sparkles className="w-5 h-5" />
+          Embedding Model Settings
+        </h3>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-purple-900 dark:text-purple-100">
+            Cohere Embedding Model
+          </label>
+          <select
+            value={embeddingModel}
+            onChange={(e) => setLabCustomization('lab6EmbeddingModel', e.target.value)}
+            className="w-full p-3 rounded-lg border border-purple-300 dark:border-purple-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm"
+          >
+            <option value="embed-english-v3.0">embed-english-v3.0 (Recommended)</option>
+            <option value="embed-english-light-v3.0">embed-english-light-v3.0 (Faster)</option>
+            <option value="embed-multilingual-v3.0">embed-multilingual-v3.0 (Multi-language)</option>
+          </select>
+          <p className="text-xs text-purple-700 dark:text-purple-300 mt-2">
+            This model will be used for all embedding operations in this lab
+          </p>
+        </div>
+      </div>
 
       <div className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 border border-slate-200 dark:border-slate-700">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-4">

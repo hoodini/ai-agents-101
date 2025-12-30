@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { AppState, ProviderType } from '../types';
+import type { AppState, ProviderType, LabCustomizations } from '../types';
 
 export const useStore = create<AppState>()(
   persist(
@@ -23,6 +23,7 @@ export const useStore = create<AppState>()(
       labProgress: {},
       language: 'en',
       theme: 'dark',
+      labCustomizations: {},
 
       activateProvider: (provider: ProviderType, apiKey: string, models: string[]) => {
         set((state) => {
@@ -89,6 +90,14 @@ export const useStore = create<AppState>()(
 
       setTheme: (theme: 'dark' | 'light') =>
         set({ theme }),
+
+      setLabCustomization: <K extends keyof LabCustomizations>(key: K, value: LabCustomizations[K]) =>
+        set((state) => ({
+          labCustomizations: {
+            ...state.labCustomizations,
+            [key]: value,
+          },
+        })),
     }),
     {
       name: 'agents-training-storage',
