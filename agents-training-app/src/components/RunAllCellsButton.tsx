@@ -10,7 +10,7 @@ export function RunAllCellsButton({ onRunAll, isRunning }: RunAllCellsButtonProp
   const { language } = useStore();
 
   return (
-    <div className="sticky top-20 z-30 mb-6 animate-fade-in">
+    <div className="mb-6 animate-fade-in">
       <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-4 border border-purple-200 dark:border-purple-800 shadow-lg backdrop-blur-sm">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-3">
